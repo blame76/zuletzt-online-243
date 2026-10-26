@@ -1,7 +1,7 @@
 name: Build, Story Graph, Review API
 on:
   push:
-    branches: [feature/cloudflare-free-release, main]
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
