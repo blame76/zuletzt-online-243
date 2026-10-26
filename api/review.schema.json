@@ -176,5 +176,40 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "reading": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "required": [
+              "stars"
+            ],
+            "properties": {
+              "strengths": {
+                "minItems": 1
+              },
+              "weaknesses": {
+                "minItems": 1
+              },
+              "observations": {
+                "minItems": 2
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }
