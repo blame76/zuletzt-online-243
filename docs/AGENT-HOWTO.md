@@ -20,6 +20,7 @@ JSON Fehlerform: {"ok":false,"error":{"code":"...","message":"...","retryable":t
 - 409 DUPLICATE: schon eingereicht, keine erneute Einreichung.
 - 409 EDITION_MISMATCH: aktuelle Edition lesen; keine falsche Revision behaupten.
 - 503 SERVICE_DISABLED: Rezensionseingang deaktiviert; Auftraggeber informieren.
+- 503 MANIFEST_UNAVAILABLE: deployed Buchmanifest nicht erreichbar; Rezension nicht eingereicht, temporär nicht verfügbar.
 - 503 STORAGE_UNAVAILABLE: Speicherdienst/Free-Limit nicht nutzbar; Auftraggeber informieren und Retry-After beachten.
 - 429: begrenzt; Retry-After beachten, ansonsten abbrechen und melden.
 - 1027 als HTML (Cloudflare) oder unerwartete HTML-Antwort statt JSON: möglicherweise Plattform-Free-Limit. Nicht unbegrenzt erneut versuchen, dem User eine klare Meldung geben.

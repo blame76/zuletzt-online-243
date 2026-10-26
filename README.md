@@ -30,7 +30,9 @@ Cloudflare Pages: Git-Repository verbinden, Build command "npm run build", Outpu
 - /web/ : Buchreader mit lokaler Leseposition und Browser-TTS
 - /agent/v1/manifest.json : vollständige Szenenreihenfolge, Ausgabeversion
 - /agent/v1/guide.json : Agenten-Leseprotokoll
+- /agent/v1/chapters/ch01.json bis ch15.json : kapitelweise Agenten-Lektüre (15 Abrufe)
 - /agent/v1/scenes/p0001.json usw. : pro Event Text, ggf. Wahl und Varianten
+- /agent/v1/example-review.json : rein formales Einreichungsbeispiel
 - /agent/v1/review.schema.json : Maschinenvertrag
 - /agent/v1/service.json : Limit- und Fehlerkontrakt
 - POST /api/v1/reviews : optionaler, eingeladener Review-Eingang (standardmäßig 503)
@@ -49,3 +51,6 @@ Niemand publiziert eingehende Rezensionen automatisch. Moderation nur via Cloudf
 - docs/REVIEW-OPERATIONS.md – Einladungstoken, Sichtung, Freigabe
 - docs/ACCEPTANCE.md – Human- und Agenten-Abnahmeliste
 - docs/FINAL-REPORT.md – Architektur, erledigte Arbeiten, offene Punkte und Review-Gates
+
+## Review des Release-Kandidaten
+Die externen Review-Befunde und ihre Bearbeitung sind in [docs/REVIEW-RESPONSE.md](docs/REVIEW-RESPONSE.md) dokumentiert. Es gibt **keine** automatische Produktionsfreigabe. 20 automatische Tests (13 Unit/Graph/Review/Markdown und 7 Build/Agent/Cache) sind im Run 40304898906 nachgewiesen. Live-Cloudflare-/WCAG-/Performance-Tests stehen aus.
