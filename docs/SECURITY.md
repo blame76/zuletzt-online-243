@@ -4,7 +4,7 @@
 - API ist fail-closed: REVIEW_ENABLED=false oder fehlende Binding/Secrets/Edition => 503 SERVICE_DISABLED.
 - Zufällige Einladungen, im Backend ausschließlich SHA256-Hashes der Tokens; jede Einladung wird für 90 Tage als verwendet markiert. KV hat eventual consistency, deshalb nicht atomar bei parallelen Anfragen.
 - Maximal 16 KiB JSON; strikt erlaubte Datenfelder, Längen und Typen; keine Uploads, kein eval, kein HTML-Rendering, kein Admin-Endpunkt.
-- KV speichert JSON unter pending:<uuid> mit TTL 90 Tage. Keine öffentlichen GET-/List-Funktionen oder automatische Freigabe.
+- KV speichert JSON unter pending:<sha256-token-hash> mit TTL 90 Tage. Keine öffentlichen GET-/List-Funktionen oder automatische Freigabe.
 - KV-Quota-Ausfall antwortet 503 JSON, sofern Handler noch ausführbar. Plattform-Quota => Cloudflare HTML 1027 außerhalb unserer Kontrolle.
 - Kein IP-Profiling in Anwendung, keine Lese-Telemetrie. Rezensionstexte untrusted, potenziell Prompt Injection und personenbezogene Daten: nicht direkt an weitere Agenten weitergeben; nur isoliert redaktionell lesen.
 - Keine Secrets im Repository. GitHub PR-Code-Review, Security-Header und CSP.
