@@ -90,4 +90,21 @@ const mainManifest=JSON.parse(read("site/site.webmanifest"));
 mainManifest.icons=[{src:"/web/icon-192.png",sizes:"192x192",type:"image/png"},{src:"/web/icon-512.png",sizes:"512x512",type:"image/png"}];
 write("site.webmanifest",JSON.stringify(mainManifest));
 
+
+// Canonical and sitemap are only generated after the real origin is configured.
+if(process.env.SITE_URL){
+ const u=new URL(process.env.SITE_URL);
+ if(u.protocol!=="https:"||u.pathname!=="/")throw Error("SITE_URL must be a bare HTTPS origin");
+ const origin=u.origin;
+ for(const route of ["index.html","web/index.html"]){
+  const file=resolve(out,route);
+  const html=readFileSync(file,"utf8");
+  const canonical=origin+(route==="index.html"?"/":"/web/");
+  writeFileSync(file,html.replace("</head>",'<link rel="canonical" href="'+canonical+'"><meta property="og:url" content="'+canonical+'"></head>'));
+ }
+ const urls=["/","/web/","/impressum/","/datenschutz/"];
+ write("sitemap.xml",'<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls.map(path=>"<url><loc>"+origin+path+"</loc></url>").join("")+"</urlset>");
+ write("robots.txt",read("site/robots.txt")+"Sitemap: "+origin+"/sitemap.xml\n");
+}
+
 console.log("Built "+base.length+" agent events, edition "+editionHash+"; no dependencies, public output only in dist/");
