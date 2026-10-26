@@ -18,3 +18,32 @@ test("build exports complete agent feed and nothing private",()=>{
  assert.ok(!existsSync(new URL("api/",root)));
  assert.ok(read("_routes.json").includes("/api/*"));
 });
+
+test("all 243 machine-readable paths match the human story engine",async()=>{
+ const {buildPages,resourcePaths}=await import("../web/engine.mjs");
+ const {resolve,dirname}=await import("node:path");
+ const {fileURLToPath}=await import("node:url");
+ const baseDir=resolve(dirname(fileURLToPath(import.meta.url)),"..");
+ const manifest=JSON.parse(readFileSync(resolve(baseDir,"interaktiv/entscheidungen.json"),"utf8"));
+ const resources=Object.fromEntries(resourcePaths(manifest).map(p=>[p,readFileSync(resolve(baseDir,"web",p),"utf8")]));
+ const feed=JSON.parse(read("agent/v1/manifest.json"));
+ const machine=feed.scenes.map(s=>JSON.parse(read(s.url.slice(1))));
+ const normalized=pages=>{
+  const out=[];for(const p of pages){const prev=out.at(-1);
+   if(p.type==="scene"&&prev?.type==="scene"&&p.source===prev.source&&p.heading===prev.heading)prev.markdown+="\n\n***\n\n"+p.markdown;
+   else out.push({...p});
+  }return out;
+ };
+ for(const a of ["a","b","c"])for(const b of ["a","b","c"])for(const c of ["a","b","c"])for(const d of ["a","b","c"])for(const e of ["a","b","c"]){
+  const chosen=Object.fromEntries(manifest.nodes.map((node,i)=>[node.id,[a,b,c,d,e][i]]));
+  const expected=normalized(buildPages(manifest,resources,chosen));
+  assert.equal(machine.length,expected.length);
+  for(let i=0;i<machine.length;i++){
+   const m=machine[i],p=expected[i];assert.equal(m.type,p.type);
+   if(m.type!=="scene")continue;
+   let text=m.text;
+   for(const [node,options] of Object.entries(m.variants||{}))if(options[chosen[node]])text=options[chosen[node]];
+   assert.equal(text,p.markdown,"Mismatch at "+m.id+" with "+JSON.stringify(chosen));
+  }
+ }
+});
