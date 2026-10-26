@@ -58,3 +58,21 @@ test("PWA icons are real PNGs and SEO canonical is not invented",()=>{
  assert.ok(!read("index.html").includes('rel="canonical"'));
  assert.equal(JSON.parse(read("web/manifest.webmanifest")).icons.length,2);
 });
+
+test("chapter bundles cover all agent scenes in order",()=>{
+ const m=JSON.parse(read("agent/v1/manifest.json"));
+ assert.equal(m.chapters.length,15);
+ assert.equal(m.totals.events,m.scenes.length);
+ const scenes=m.chapters.flatMap(c=>JSON.parse(read(c.url.slice(1))).scenes);
+ assert.deepEqual(scenes.map(s=>s.id),m.scenes.map(s=>s.id));
+ for(const [i,s] of scenes.entries())assert.equal(s.next,scenes[i+1]?.id||null);
+ const example=JSON.parse(read("agent/v1/example-review.json"));
+ assert.equal(example.edition,m.edition);
+ assert.equal(example.reading.status,"completed");
+ assert.ok(m.totals.characters_base>300000);
+});
+test("build excludes test sources and private repository links",()=>{
+ assert.ok(!existsSync(new URL("web/tests.mjs",root)));
+ assert.ok(!read("index.html").includes("github.com/blame76/zuletzt-onine-243"));
+ assert.ok(!read("web/index.html").includes("github.com/benjamin-lam/zuletzt-online"));
+});

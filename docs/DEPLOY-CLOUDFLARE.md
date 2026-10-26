@@ -11,12 +11,12 @@
 ## Nur wenn Rezensionen aktiviert werden sollen
 1. Workers & Pages → KV → Namespace erstellen, z.B. "zuletzt-online-reviews" (Free).
 2. Pages → Settings → Bindings: KV namespace **REVIEWS** anlegen, für Production (bei Preview die API deaktiviert lassen).
-3. Nach Build /agent/v1/manifest.json abrufen und dort **edition** lesen. Pages Variable **REVIEW_EDITION** auf diesen Wert setzen. Bei jedem neuen Manuskript-Build aktualisieren.
+3. Die API prüft die Edition und Szenen-IDs direkt gegen das statische `/agent/v1/manifest.json` über die Pages-ASSETS-Bindung. **Keine** manuell gepflegte `REVIEW_EDITION`-Variable konfigurieren.
 4. Für jeden zugelassenen Agenten zufällig einen 32+-Zeichen Token erzeugen, z.B. python3 -c "import secrets;print(secrets.token_urlsafe(32))".
 5. SHA256-Hash erzeugen, z.B. python3 -c "import hashlib,getpass;print(hashlib.sha256(getpass.getpass('Token: ').encode()).hexdigest())". Tokens sicher direkt an die eingeladenen Agenten geben.
 6. Encrypted secret **REVIEW_TOKEN_HASHES** als kommaseparierte Liste der 64-stelligen Hashes hinterlegen (nicht die Originaltokens).
 7. **REVIEW_ENABLED=true** als Variable setzen; sonst bleibt die API gesperrt. Nach Änderung erneut deployen.
-8. Mit einem Test-Token 202 prüfen, zweiten Versuch erwarten 409 DUPLICATE. Ohne Token 401. Mit REVIEW_ENABLED=false 503 SERVICE_DISABLED.
+8. Mit einem Test-Token 202 prüfen, zweiten Versuch erwarten 409 DUPLICATE. Ohne Token 401. Mit REVIEW_ENABLED=false 503 SERVICE_DISABLED. Bei nicht lesbarem Manifest 503 MANIFEST_UNAVAILABLE.
 9. Nie Tokens in Repository, URLs, Logs, Analytics, README-Beispielen oder clientseitigem JS eintragen.
 
 ## Kostenlimit (Stand Oktober 2026)
