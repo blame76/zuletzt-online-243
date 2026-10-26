@@ -1,18 +1,19 @@
 // Offline-Cache aller Manuskriptteile und aller geschriebenen Entscheidungswege.
-// Der Service Worker ist bewusst auf web/ beschränkt; die von der Seite
-// angefragten Texte in ../manuskript/ und ../interaktiv/ werden mitgecached.
+// The root reader and legacy /web/ use one root-scoped Service Worker.
+// All scenes and offline assets are public static files; never cache review POSTs.
 const CACHE = "zuletzt-online-experiment-__CACHE_ID__";
 const SHELL = [
-  "./", "./index.html", "./app.js", "./speech.mjs", "./engine.mjs",
-  "./style.css", "./markdown.mjs", "./manifest.webmanifest", "./icon.svg", "./icon-192.png", "./icon-512.png",
-  "../interaktiv/entscheidungen.json"
+  "/", "/web/", "/web/index.html", "/web/app.js", "/web/speech.mjs", "/web/engine.mjs",
+  "/web/style.css", "/web/markdown.mjs", "/site.webmanifest",
+  "/web/manifest.webmanifest", "/web/icon.svg", "/web/icon-192.png", "/web/icon-512.png",
+  "/interaktiv/entscheidungen.json"
 ];
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
     await cache.addAll(SHELL);
     try {
-      const response = await fetch("../interaktiv/entscheidungen.json");
+      const response = await fetch("/interaktiv/entscheidungen.json");
       if (!response.ok) throw new Error("Manifest nicht erreichbar");
       const manifest = await response.json();
       const paths = new Set(manifest.manuskript.map(m => m.path));

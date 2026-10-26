@@ -9,3 +9,5 @@
   Cache-Control: public, max-age=300
 /web/sw.js
   Cache-Control: no-cache
+/sw.js
+  Cache-Control: no-cache

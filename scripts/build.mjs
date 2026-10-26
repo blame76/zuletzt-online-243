@@ -4,6 +4,7 @@ import { resolve, dirname } from "node:path";
 import { createHash } from "node:crypto";
 import { deflateSync } from "node:zlib";
 import { buildPages, resourcePaths } from "../web/engine.mjs";
+import { markdownToHtml } from "../web/markdown.mjs";
 import { ERROR_CODES } from "../functions/api/v1/reviews.js";
 const root=resolve(import.meta.dirname,".."), out=resolve(root,"dist");
 const read=p=>readFileSync(resolve(root,p),"utf8");
@@ -36,7 +37,7 @@ for(const node of manifest.nodes) for(const option of node.options.slice(1)){
  if(pages.length!==base.length)throw Error("Scene count changed: "+node.id+"/"+option.id);
  versions[node.id+":"+option.id]=pages;
 }
-const editionHash=createHash("sha256").update(JSON.stringify(manifest)+resourcePaths(manifest).map(p=>resources[p]).join("")).digest("hex").slice(0,16);
+const editionHash=createHash("sha256").update("reading-layout-v2\n").update(JSON.stringify(manifest)).update(resourcePaths(manifest).map(p=>resources[p].replace(/\r\n/g,"\n")).join("")).digest("hex").slice(0,16);
 const catalog=[];
 const chapterMap=Object.fromEntries(manifest.manuskript.map((m,i)=>[m.path,{id:"ch"+String(i+1).padStart(2,"0"),label:m.label,url:"/agent/v1/chapters/ch"+String(i+1).padStart(2,"0")+".json",source:m.path}]));
 const chapterContents=new Map(Object.values(chapterMap).map(c=>[c.id,[]]));
@@ -74,7 +75,16 @@ write("agent/v1/guide.json",JSON.stringify({protocol:"zuletzt-online-reader-v1",
 write("agent/v1/service.json",JSON.stringify({status:"invitation_only",error_codes:ERROR_CODES,retryable_codes:Object.keys(ERROR_CODES).filter(code=>ERROR_CODES[code].retryable),no_retry_codes:Object.keys(ERROR_CODES).filter(code=>!ERROR_CODES[code].retryable),http_quota_behavior:"Cloudflare may return HTML code 1027 (daily free requests) or 1102 (CPU limit) before this API handler runs. Treat as unavailable; no automatic aggressive retries.",backoff:"Honor Retry-After. If service disabled, do not retry until operator confirms it is enabled. No automated retry loops.",cors:"API deliberately does not enable cross-origin browser submissions; server-to-server POST with invitation required."}));
 write("agent/v1/example-review.json",JSON.stringify({schema_version:1,edition:editionHash,agent:{provider:"example-provider",model:"example-model"},reading:{status:"completed",choices:{kiosk:"a",strassenbahn:"b",tina:"c",stadt:"a",nordsee:"b"}},review:{stars:3,text:"Dies ist eine ausschließlich illustrative Musterrezension zur Erklärung des Einreichungsformats. Sie ist keine echte literarische Bewertung und wurde keinem KI-Modell zugeordnet.",strengths:["Beispiel für eine konkrete Stärke mit Szenenbezug"],weaknesses:["Beispiel für eine konkrete Schwäche mit Szenenbezug"],interactivity:"Hier gehört eine differenzierte Einschätzung zur erzählerischen Wirkung der Auswahl hin.",observations:[{scene_id:"p0001",finding:"Hier steht die Beobachtung zum ersten tatsächlich gelesenen Abschnitt."},{scene_id:"p0002",finding:"Hier steht die zweite konkrete, überprüfbare Textbeobachtung."}]}}));
 write("agent/v1/review.schema.json",read("api/review.schema.json"));
-for(const f of ["_headers","_routes.json","robots.txt","llms.txt","index.html","impressum/index.html","datenschutz/index.html","site.webmanifest"])write(f,read("site/"+f));
+for(const f of ["_headers","_routes.json","robots.txt","llms.txt","impressum/index.html","datenschutz/index.html","about/index.html","site.webmanifest"])write(f,read("site/"+f));
+// The public root IS the reader: no prelude, no standalone title page.
+const first=base[0];
+if(first?.type!=="scene"||!first.markdown.includes("Thomas hatte seit drei Tagen nicht geduscht."))throw Error("The first human page must begin with the novel.");
+const prerender='<article class="prose">'+markdownToHtml(first.markdown)+'</article>';
+const template=read("web/index.html").replace('<main id="reader" tabindex="-1"></main>','<main id="reader" tabindex="-1">'+prerender+'</main>');
+if(template===read("web/index.html"))throw Error("Pre-render anchor not found");
+write("web/index.html",template);
+const rootReader=template.replaceAll('href="./icon.svg"','href="/web/icon.svg"').replaceAll('href="./icon-192.png"','href="/web/icon-192.png"').replaceAll('href="./style.css"','href="/web/style.css"').replaceAll('src="./app.js"','src="/web/app.js"');
+write("index.html",rootReader.replace("</head>",'<meta property="og:type" content="book"><meta property="og:title" content="Zuletzt online"><script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"Book",name:"Zuletzt online",author:{"@type":"Person",name:"Benjamin Lam"},inLanguage:"de",description:"Ein Roman von Benjamin Lam.",isAccessibleForFree:true})+'</script></head>'));
 
 // Generate real 192/512px PNG icons without a graphics package or a font dependency.
 function crc32(buf){let c=0xffffffff;for(const b of buf){c^=b;for(let i=0;i<8;i++)c=(c>>>1)^((c&1)?0xedb88320:0)}return (c^0xffffffff)>>>0}
@@ -94,15 +104,20 @@ function makeIcon(size){
 }
 for(const size of [192,512])writeFileSync(resolve(out,"web/icon-"+size+".png"),makeIcon(size));
 const webManifest=JSON.parse(read("web/manifest.webmanifest"));
-webManifest.id="/web/";
+webManifest.id="/";
+webManifest.start_url="/";
+webManifest.scope="/";
 webManifest.icons=[{src:"./icon-192.png",sizes:"192x192",type:"image/png",purpose:"any"},{src:"./icon-512.png",sizes:"512x512",type:"image/png",purpose:"any maskable"}];
 write("web/manifest.webmanifest",JSON.stringify(webManifest));
 const mainManifest=JSON.parse(read("site/site.webmanifest"));
+mainManifest.id="/";mainManifest.start_url="/";mainManifest.scope="/";
 mainManifest.icons=[{src:"/web/icon-192.png",sizes:"192x192",type:"image/png"},{src:"/web/icon-512.png",sizes:"512x512",type:"image/png"}];
 write("site.webmanifest",JSON.stringify(mainManifest));
 const cacheShell=["index.html","app.js","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
-const cacheId=createHash("sha256").update(editionHash).update(Buffer.concat(cacheShell.map(f=>readFileSync(resolve(out,"web",f))))).digest("hex").slice(0,16);
-write("web/sw.js",read("web/sw.js").replace("__CACHE_ID__",cacheId));
+const cacheId=createHash("sha256").update(editionHash).update(Buffer.concat(cacheShell.map(f=>readFileSync(resolve(out,"web",f))))).update(readFileSync(resolve(out,"index.html"))).digest("hex").slice(0,16);
+const worker=read("web/sw.js").replace("__CACHE_ID__",cacheId);
+write("web/sw.js",worker);
+write("sw.js",worker);
 
 
 // Canonical and sitemap are only generated after the real origin is configured.
@@ -113,10 +128,10 @@ if(process.env.SITE_URL){
  for(const route of ["index.html","web/index.html"]){
   const file=resolve(out,route);
   const html=readFileSync(file,"utf8");
-  const canonical=origin+(route==="index.html"?"/":"/web/");
+  const canonical=origin+"/";
   writeFileSync(file,html.replace("</head>",'<link rel="canonical" href="'+canonical+'"><meta property="og:url" content="'+canonical+'"></head>'));
  }
- const urls=["/","/web/","/impressum/","/datenschutz/"];
+ const urls=["/","/about/","/impressum/","/datenschutz/"];
  write("sitemap.xml",'<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls.map(path=>"<url><loc>"+origin+path+"</loc></url>").join("")+"</urlset>");
  write("robots.txt",read("site/robots.txt")+"Sitemap: "+origin+"/sitemap.xml\n");
 }

@@ -26,8 +26,9 @@ Cloudflare Pages: Git-Repository verbinden, Build command "npm run build", Outpu
 **Kein Token, keine kostenpflichtigen Dienste, kein Deployment werden automatisch angelegt.**
 
 ## Öffentliche Routen
-- / : menschenlesbare Romanbeschreibung
-- /web/ : Buchreader mit lokaler Leseposition und Browser-TTS
+- / : direkter Romanbeginn, Reader mit Browser-TTS und lokalem Lesefortschritt
+- /web/ : Legacy-Leseadresse, ebenfalls direkt im Roman, Canonical verweist auf /
+- /about/ : kurze freiwillige Informationen über Buch, Entstehung und Technik
 - /agent/v1/manifest.json : vollständige Szenenreihenfolge, Ausgabeversion
 - /agent/v1/guide.json : Agenten-Leseprotokoll
 - /agent/v1/chapters/ch01.json bis ch15.json : kapitelweise Agenten-Lektüre (15 Abrufe)

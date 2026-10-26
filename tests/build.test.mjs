@@ -63,7 +63,7 @@ test("PWA icons are real PNGs and SEO canonical is not invented",()=>{
 test("service worker cache key covers edition and every reader shell asset",()=>{
  const manifest=JSON.parse(read("agent/v1/manifest.json"));
  const shell=["index.html","app.js","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
- const hash=createHash("sha256").update(manifest.edition).update(Buffer.concat(shell.map(file=>readFileSync(new URL("web/"+file,root))))).digest("hex").slice(0,16);
+ const hash=createHash("sha256").update(manifest.edition).update(Buffer.concat(shell.map(file=>readFileSync(new URL("web/"+file,root))))).update(readFileSync(new URL("index.html",root))).digest("hex").slice(0,16);
  assert.ok(read("web/sw.js").includes("zuletzt-online-experiment-"+hash));
 });
 
@@ -96,7 +96,26 @@ test("cache version fingerprints the shipped reader shell, not only text edition
  const {createHash}=await import("node:crypto");
  const m=JSON.parse(read("agent/v1/manifest.json"));
  const shell=["index.html","app.js","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
- const expected=createHash("sha256").update(m.edition).update(Buffer.concat(shell.map(name=>readFileSync(new URL("web/"+name,root))))).digest("hex").slice(0,16);
+ const expected=createHash("sha256").update(m.edition).update(Buffer.concat(shell.map(name=>readFileSync(new URL("web/"+name,root))))).update(readFileSync(new URL("index.html",root))).digest("hex").slice(0,16);
  assert.ok(read("web/sw.js").includes("zuletzt-online-experiment-"+expected));
  assert.ok(!read("web/sw.js").includes("__CACHE_ID__"));
+});
+
+test("root serves the first scene, not the landing page or a detached title",()=>{
+ const rootHtml=read("index.html");
+ assert.match(rootHtml,/Thomas hatte seit drei Tagen nicht geduscht\./);
+ assert.match(rootHtml,/<main id="reader"[\s\S]*?<article class="prose">/);
+ assert.doesNotMatch(rootHtml,/Ein literarisches Experiment|Roman öffnen|fünf Abzweigungen|ein Ende/i);
+ assert.ok(rootHtml.includes('src="/web/app.js"'));
+ assert.ok(rootHtml.includes('href="/web/style.css"'));
+ assert.ok(!rootHtml.includes('base href='));
+ assert.match(read("about/index.html"),/Über dieses Buch/);
+ const webHtml=read("web/index.html");
+ assert.match(webHtml,/Thomas hatte seit drei Tagen nicht geduscht\./);
+ assert.doesNotMatch(webHtml,/Originalmanuskript und geschriebene Varianten|Alle Wege führen später/);
+ const manifest=JSON.parse(read("site.webmanifest"));
+ assert.equal(manifest.start_url,"/");
+ assert.equal(manifest.scope,"/");
+ assert.ok(read("sw.js").includes('"/"'));
+ assert.ok(!read("sw.js").includes("__CACHE_ID__"));
 });
