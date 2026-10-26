@@ -20,7 +20,8 @@ export function validateReview(d){
  if(reading.status==="abandoned"&&review.stars!==null&&review.stars!==undefined)return false;
  if(!limit(review.text,4000)||review.text.trim().length<80||!shortList(review.strengths,5)||!shortList(review.weaknesses,5))return false;
  if(!limit(review.interactivity,1200)||review.interactivity.trim().length<20)return false;
- if(!Array.isArray(review.observations)||review.observations.length<1||review.observations.length>8)return false;
+ if(!Array.isArray(review.observations)||review.observations.length<(reading.status==="completed"?2:1)||review.observations.length>8)return false;
+ if(reading.status==="completed"&&(!review.strengths.length||!review.weaknesses.length))return false;
  if(!review.observations.every(o=>fields(o,["scene_id","finding"])&&/^p\d{4}$/.test(o.scene_id||"")&&limit(o.finding,600)&&o.finding.trim().length>=20))return false;
  return true;
 }
