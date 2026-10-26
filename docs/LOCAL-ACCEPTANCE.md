@@ -15,8 +15,9 @@ Diese Anleitung dient der manuellen Prüfung des gebauten statischen Artefakts. 
 
 ## Lokale URLs
 
-- Landingpage: http://127.0.0.1:8001/
-- Reader: http://127.0.0.1:8001/web/
+- Roman und Reader (Hauptadresse): http://127.0.0.1:8001/
+- Zweitadresse des Readers: http://127.0.0.1:8001/web/
+- Optionale Projektinfo: http://127.0.0.1:8001/about/
 - Agentenmanifest: http://127.0.0.1:8001/agent/v1/manifest.json
 - Erstes Kapitel-Bundle: http://127.0.0.1:8001/agent/v1/chapters/ch01.json
 - Review-Schema: http://127.0.0.1:8001/agent/v1/review.schema.json
@@ -27,7 +28,7 @@ Erwartung: alle oben genannten statischen Ressourcen liefern HTTP 200. Der lokal
 
 ## Menschliches Lesen
 
-1. Reader öffnen und warten, bis Abschnitt, Fortschritt und Kapitelwahl sichtbar sind.
+1. `/` öffnen. Erwartung: „Montag“ und „Thomas hatte seit drei Tagen nicht geduscht.“ sind bereits direkt sichtbar, ohne vorgeschaltete Landing-/Titelseite. Der Haupttext muss auch im ausgelieferten HTML vorhanden sein.
 2. Mit **Weiter** einige Abschnitte lesen. Überschriften, Absätze und Blockzitate auf korrekte Darstellung prüfen.
 3. Bei „Ein Paket auf dem Rückweg“ eine Option auswählen. Erwartung: eine Entscheidung ist markiert, die Fortsetzung zeigt den gewählten Weg; mit **Zurück** ist die Entscheidung wieder erreichbar.
 4. Kapitelwahl verwenden und in einen anderen Manuskriptteil springen. Mit **Zurück**/**Weiter** die normale Navigation wieder aufnehmen.
@@ -82,7 +83,7 @@ Die automatisierte Cache-Prüfung kontrolliert, dass die generierte Cachekennung
 
 ## Agenten-Leseschnittstelle
 
-- Manifest öffnen und Edition, fünf Entscheidungspunkte, 15 Kapitel-Bundles und 220 geordnete Leseereignisse kontrollieren.
+- Manifest öffnen und Edition, fünf Entscheidungspunkte, 15 Kapitel-Bundles und 219 geordnete Leseereignisse kontrollieren.
 - `ch01.json` öffnen; `edition`, Szenenreihenfolge und `next` prüfen. Der dokumentierte Agentenvertrag steht in `/agent/v1/guide.json` und im lokalen Repository unter `docs/AGENT-HOWTO.md`.
 - Tests prüfen die 243 Wege, Variantenersetzung, Szenenreihenfolge, Kapitelabdeckung, Editionskennung und Textgleichheit gegenüber dem menschlichen Erzähl-Engine-Pfad.
 
@@ -95,8 +96,10 @@ Die automatisierte Cache-Prüfung kontrolliert, dass die generierte Cachekennung
 
 ## Erwartete Ergebnisse und bekannte Einschränkungen
 
-**Automatisiert lokal geprüft:** 243 vollständige Erzählwege mit gemeinsamem Ende; Übereinstimmung der maschinenlesbaren Varianten mit dem Reader; 15 Kapitel-Bundles/220 Events; Markdown-Escaping und mehrteilige Blockzitate; Review-API-Vertragsfehler mit Mock-Bindings; PWA-Artefakte und Cache-Hash; Windows-CRLF-Anker; Ausschluss privater Testdateien aus `dist/`.
+**Automatisiert lokal geprüft:** 243 vollständige Erzählwege mit gemeinsamem Ende; Übereinstimmung der maschinenlesbaren Varianten mit dem Reader; 15 Kapitel-Bundles/219 Events; Markdown-Escaping und mehrteilige Blockzitate; Review-API-Vertragsfehler mit Mock-Bindings; PWA-Artefakte und Cache-Hash; Windows-CRLF-Anker; Ausschluss privater Testdateien aus `dist/`.
 
 **Manuell noch offen:** echter Browserlauf und gespeicherte Leseposition, tatsächliche PWA-Installation/Offline-Wiedergabe, Cache-Aktualisierung, reale Sprachausgabe und Gerätegrenzen, Tastatur- und Screenreader-Abnahme, Responsive/Zoom-Prüfung sowie menschliche Lektüre aller Entscheidungen.
 
 **Außerhalb dieser lokalen Abnahme:** Live-Cloudflare/KV-Integration, reale Review-Einreichung, juristische Prüfung von Impressum/Datenschutz, Deployment, SEO-/PageSpeed-Messung und Freigabe zur Veröffentlichung. Ein erfolgreicher lokaler Test ist keine Release-Freigabe.
+
+**Wichtig bei bereits laufendem lokalem Server:** Den Code aktualisieren, `npm run check` erneut ausführen und den Browser-Cache/Service-Worker kontrollieren. Die alte `/web/`-Registrierung kann im Browser noch vorhanden sein; der neue Reader registriert `/sw.js` für `/`. Erst nach dem neuen Build ist der Root-Einstieg sichtbar.

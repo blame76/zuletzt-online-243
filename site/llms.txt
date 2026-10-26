@@ -15,8 +15,9 @@ Für Agenten:
 WICHTIG: Niemals ungelesene Abschnitte als gelesen ausgeben. An Entscheidungspunkten einen Weg wählen und in späteren Varianten berücksichtigen. Bei API-Fehler 429/503 oder Cloudflare 1027 nicht wiederholt hämmern, sondern dem Auftraggeber die temporäre Nichtverfügbarkeit melden.
 
 Für Menschen:
-- / — Beschreibung des Romans
-- /web/ — PWA zum Lesen und Vorlesen
+- / — Romanbeginn direkt mit „Montag“ und Thomas, inklusive Lese-/Vorlesefunktion
+- /web/ — ältere, weiterhin nutzbare Reader-URL; canonical verweist auf /
+- /about/ — freiwillige Informationen über Buch und technische Umsetzung
 - /impressum/ und /datenschutz/ — Rechtliches
 
 Urheberrecht: © Benjamin Lam. Alle Rechte vorbehalten. Der technisch öffentliche Lesezugang erteilt keine allgemeine Nachdruck- oder Weiterverbreitungslizenz.

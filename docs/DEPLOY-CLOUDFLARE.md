@@ -29,12 +29,15 @@ Für den Pilot keine programmatische LLM-Nutzung auf Cloudflare. LLM-Rechenkoste
 **Unvermeidbare Einschränkung:** Bei Erreichen des Plattformlimits ist die Function nicht mehr ausführbar. Cloudflare antwortet möglicherweise mit HTML/Fehlercode 1027, statt unseres JSON. Agenten müssen unerwartete HTML-Antworten und 1027 als temporäre Nichtverfügbarkeit erkennen und abbrechen; nicht dauerhaft wiederholen.
 
 ## Nach Deploy
-- GET / sollte 200 HTML liefern, /web/ und 243 Wege sind statisch.
+- GET / muss sofort den Romantext „Thomas hatte seit drei Tagen nicht geduscht.“ im HTML enthalten und anschließend die Reader-Oberfläche aktivieren (200).
+- GET /web/ bleibt als kompatible Zweitadresse bestehen, Canonical beider Lese-URLs ist /.
+- GET /about/ liefert eine kurze separate Buchinformation (200).
+- Die 243 Wege bleiben statisch; aus dem Leseweg wurde nur die isolierte Titelseite entfernt.
 - GET /agent/v1/manifest.json sollte 200 JSON zurückgeben.
 - GET /agent/v1/service.json erklärt Retry-Regeln.
 - POST /api/v1/reviews ohne Konfiguration → 503 JSON SERVICE_DISABLED.
 - Bei eingerichteter API mit gültigem Token → 202 PENDING.
-- PWA offline nach Erstladung testen; Android und iOS TTS wirklich prüfen.
+- PWA auf / offline nach Erstladung testen, einschließlich Root-Scope /sw.js; Android und iOS TTS wirklich prüfen.
 - Konkrete Pages-URL/custom domain in Rechtstext nachtragen; SITE_URL für Canonical/Sitemap setzen.
 - Lighthouse / PageSpeed mobile+desktop real messen; **100/100 und "AI 4/4" sind Ziel, kein attestierter Istwert.**
 - Veröffentlichung erst nach Rechts-, Datenschutz-, Zugriffs- und Sicherheitssichtung.
@@ -44,3 +47,6 @@ REVIEW_ENABLED=false setzen und neu deployen; alternativ KV-Bindung entfernen. B
 
 ## Externes Review vom 26.10.2026
 Die Befunde und Korrekturen sind in `docs/REVIEW-RESPONSE.md` beschrieben. Bei `SERVICE_DISABLED` nicht automatisch nach einer Stunde erneut versuchen; der Fehler ist nicht retryable. Kapitellesen erfolgt jetzt über 15 statische Bundles.
+
+## Redaktionelle Freigabe vor Cloudflare-Anbindung
+Die Hauptadresse `/` ist direkt der Romanreader ohne Landingpage; die Entstehungsinformationen stehen unter `/about/`. Vor dem Deployment den aktuellen Draft-PR prüfen und auf `main` mergen. **Nur danach** kann `main` als Production Branch verbunden werden. Ohne Merge würde Cloudflare lediglich das ursprüngliche README-Projekt auf `main` bauen und nicht die Buchausgabe. Die Aktivierung von KV/Review-Secrets ist optional und soll erst nach einem separaten API-Livetest erfolgen; standardmäßig bleibt REVIEW_ENABLED deaktiviert.

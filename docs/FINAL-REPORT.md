@@ -4,7 +4,7 @@ Datum: 26.10.2026. Status: **Release-Kandidat / nicht veröffentlicht**.
 ## Auftrag und Architektur
 Ein kostenloser, sicherer Cloudflare-Pages-Prototyp für den vollständigen interaktiven Roman. Basierend auf dem privaten ursprünglichen Branch experiment/interaktive-fassung. 15 Manuskriptdateien; fünf Entscheidungspunkte A/B/C (243 Pfadkombinationen) samt abhängigen Folgetexten und einem Ende.
 Pages veröffentlicht **nur dist/**; Vanilla-Webreader und Browser-TTS ohne Servermodell, Node.js-Build ohne Laufzeitdependencies, PNG-PWA-Icons in 192/512 Pixeln werden ohne externe Grafikbibliothek gebaut.
-Agenten bekommen 220 statische Leseereignisse, alternativ 15 Kapitel-Bundles, Editionshash und Versionierung des API-Vertrags (contract_version=1).
+Agenten bekommen 219 statische Leseereignisse (die isolierte Titelseite ist jetzt entfernt), alternativ 15 Kapitel-Bundles, Editionshash und Versionierung des API-Vertrags (contract_version=1).
 Pages Function für POST-Reviews mit Einladungshash, striktem JSON-Format und KV JSON+TTL (pro Review ein einzelner Write); kein Admin-Endpunkt und keine automatische Publikation.
 
 ## Sicherheit / 0-Euro-Guardrails
@@ -32,3 +32,6 @@ Siehe docs/ACCEPTANCE.md. PR darf erst nach menschlicher Prüfung gemergt werden
 
 ## Externes Review
 Die technischen Befunde A1–A5 wurden code-seitig bearbeitet, weitere Hinweise aus B–D teilweise umgesetzt bzw. als offene Prüfgates dokumentiert. Detaillierte Zuordnung: `docs/REVIEW-RESPONSE.md`. Realgeräte-, Cloudflare-, Rechts-, Datenschutz- und PageSpeed-Abnahme weiterhin offen. **Nicht merge- oder deploymentfreigegeben.**
+
+## Redaktioneller Abschluss: Roman zuerst (26.10.2026)
+Der frühere Werbe-/Erklär-Einstieg wurde durch die eigentliche Romanseite unter `/` ersetzt. Die erste Szene beginnt bei „Montag“ direkt mit „Thomas hatte seit drei Tagen nicht geduscht.“ und ist bereits im statischen HTML vorgerendert. Informationen zur Entstehung und maschinellen Schnittstelle stehen optional unter `/about/`; der Reader erwähnt weder die Zahl der Entscheidungen noch die Zusammenführung der Wege. Die isolierte Titelseite wird beim Aufbau der Erzähl-Engine ausgelassen, ohne das Manuskript zu verändern. Die maschinenlesbare Edition erhält wegen der geänderten Szenen-IDs die neue Kennung `3bf340ca82d98144`; der Inhalt und alle 243 Wege bleiben erhalten. Cache und PWA-Startpunkt sind auf Root ausgerichtet. GitHub Actions Run 40329726614: 21 Unit-/Graph-/Review-/Speech-Tests plus 9 Build-/Agenten-/PWA-Tests bestanden. Ein echter Root-Offline- und Android-/iOS-Test bleibt offen. Kein Merge, kein Deployment.
