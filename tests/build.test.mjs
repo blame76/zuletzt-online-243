@@ -76,3 +76,19 @@ test("build excludes test sources and private repository links",()=>{
  assert.ok(!read("index.html").includes("github.com/blame76/zuletzt-onine-243"));
  assert.ok(!read("web/index.html").includes("github.com/benjamin-lam/zuletzt-online"));
 });
+
+test("service error declarations match the server exports",async()=>{
+ const {ERROR_CODES}=await import("../functions/api/v1/reviews.js");
+ const doc=JSON.parse(read("agent/v1/service.json"));
+ assert.deepEqual(doc.error_codes,ERROR_CODES);
+ assert.equal(doc.error_codes.SERVICE_DISABLED.retryable,false);
+ assert.equal(doc.error_codes.STORAGE_UNAVAILABLE.retryable,true);
+});
+test("cache version fingerprints the shipped reader shell, not only text edition",async()=>{
+ const {createHash}=await import("node:crypto");
+ const m=JSON.parse(read("agent/v1/manifest.json"));
+ const shell=["index.html","app.js","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+ const expected=createHash("sha256").update(m.edition).update(Buffer.concat(shell.map(name=>readFileSync(new URL("web/"+name,root))))).digest("hex").slice(0,16);
+ assert.ok(read("web/sw.js").includes("zuletzt-online-experiment-"+expected));
+ assert.ok(!read("web/sw.js").includes("__CACHE_ID__"));
+});

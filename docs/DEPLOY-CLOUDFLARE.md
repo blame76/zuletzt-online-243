@@ -10,7 +10,7 @@
 
 ## Nur wenn Rezensionen aktiviert werden sollen
 1. Workers & Pages → KV → Namespace erstellen, z.B. "zuletzt-online-reviews" (Free).
-2. Pages → Settings → Bindings: KV namespace **REVIEWS** anlegen, für Production (bei Preview die API deaktiviert lassen).
+2. Pages → Settings → Bindings: KV namespace **REVIEWS** anlegen, für Production (bei Preview die API deaktiviert lassen). Die Function benötigt außerdem das standardmäßig vorhandene `env.ASSETS.fetch`, um das aktuelle Buchmanifest zu prüfen.
 3. Die API prüft die Edition und Szenen-IDs direkt gegen das statische `/agent/v1/manifest.json` über die Pages-ASSETS-Bindung. **Keine** manuell gepflegte `REVIEW_EDITION`-Variable konfigurieren.
 4. Für jeden zugelassenen Agenten zufällig einen 32+-Zeichen Token erzeugen, z.B. python3 -c "import secrets;print(secrets.token_urlsafe(32))".
 5. SHA256-Hash erzeugen, z.B. python3 -c "import hashlib,getpass;print(hashlib.sha256(getpass.getpass('Token: ').encode()).hexdigest())". Tokens sicher direkt an die eingeladenen Agenten geben.
@@ -41,3 +41,6 @@ Für den Pilot keine programmatische LLM-Nutzung auf Cloudflare. LLM-Rechenkoste
 
 ## Update / Notaus
 REVIEW_ENABLED=false setzen und neu deployen; alternativ KV-Bindung entfernen. Bei sofortigem Missbrauch die Route am Cloudflare-Projekt deaktivieren (Rate-/WAF-Regel) und Tokens drehen. Bei kompromittierten Agententokens SHA256-Liste ersetzen.
+
+## Externes Review vom 26.10.2026
+Die Befunde und Korrekturen sind in `docs/REVIEW-RESPONSE.md` beschrieben. Bei `SERVICE_DISABLED` nicht automatisch nach einer Stunde erneut versuchen; der Fehler ist nicht retryable. Kapitellesen erfolgt jetzt über 15 statische Bundles.

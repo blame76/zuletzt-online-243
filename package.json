@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --test web/tests.mjs tests/reviews.test.mjs",
+    "test": "node --test web/tests.mjs tests/reviews.test.mjs tests/markdown.test.mjs",
     "check": "npm run test && npm run build && node --test tests/build.test.mjs"
   },
   "engines": {
