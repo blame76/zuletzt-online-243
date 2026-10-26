@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f6f0">
+  <meta name="description" content="Zuletzt online – der Roman mit fünf stillen Entscheidungen und einem gemeinsamen Ende.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <title>Zuletzt online · Interaktive Fassung</title>
+</head>
+<body>
+  <a class="skip-link" href="#reader">Zum Text springen</a>
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">z.</span>
+      <div>
+        <div class="brand-title">Zuletzt online</div>
+        <div class="brand-subtitle">Ein Roman · fünf Abzweigungen · ein Ende</div>
+      </div>
+    </div>
+    <nav class="tools" aria-label="Leseeinstellungen">
+      <button type="button" id="font-minus" aria-label="Schrift verkleinern" title="Schrift verkleinern">A−</button>
+      <span id="font-value" class="font-value" aria-live="off">19 px</span>
+      <button type="button" id="font-plus" aria-label="Schrift vergrößern" title="Schrift vergrößern">A+</button>
+      <button type="button" id="theme" title="Darstellung wechseln">Dunkel</button>
+    </nav>
+  </header>
+
+  <div class="reading-bar">
+    <label for="chapter">Abschnitt wählen</label>
+    <select id="chapter" aria-label="Zum Manuskriptteil springen"></select>
+    <span id="connectivity" class="connectivity" role="status"></span>
+  </div>
+
+  <div class="speech-tools" role="group" aria-label="Vorlesen"><button type="button" id="speech-toggle">▶ Vorlesen</button><label for="speech-speed">Tempo</label><select id="speech-speed"><option value="0.8">0,8×</option><option value="1" selected>1×</option><option value="1.25">1,25×</option></select><span id="speech-status" role="status" aria-live="polite"></span></div>
+  <div id="initial" class="initial" role="status">Manuskript wird geladen …</div>
+
+  <div id="reading" hidden>
+    <div class="location">
+      <p id="status" aria-live="polite"></p>
+      <progress id="progress" aria-label="Lesefortschritt" value="0" max="1"></progress>
+    </div>
+
+    <main id="reader" tabindex="-1"></main>
+
+    <div class="navigation" aria-label="Durch den Text blättern">
+      <button type="button" id="back" class="nav-button">Zurück</button>
+      <button type="button" id="next" class="nav-button next">Weiter</button>
+    </div>
+
+    <footer class="foot">
+      <p id="info"></p>
+      <p>Keine Accounts, keine Punkte, keine versteckten richtigen Wege.
+         Deine Auswahl und Leseposition bleiben nur in diesem Browser.</p>
+      <button type="button" id="restart" class="reset">Von vorn beginnen und Entscheidungen löschen</button>
+      <p><a href="https://github.com/benjamin-lam/zuletzt-online/tree/experiment/interaktive-fassung">Quelltext und Manuskript auf GitHub</a></p>
+    </footer>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

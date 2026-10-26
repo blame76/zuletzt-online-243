@@ -1,0 +1,32 @@
+name: Build, Story Graph, Review API
+on:
+  push:
+    branches: [feature/cloudflare-free-release, main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Tests and static agent build
+        run: npm run check
+      - name: Inspect public artifact
+        run: |
+          test -f dist/_routes.json
+          test -f dist/agent/v1/manifest.json
+          test -f dist/impressum/index.html
+          test -f dist/datenschutz/index.html
+          test ! -e dist/docs
+          test ! -e dist/functions
+          test ! -e dist/api
+          test ! -e dist/.dev.vars
