@@ -111,7 +111,7 @@ function setConnectivity() {
   $("#connectivity").textContent = navigator.onLine ? "" : "Offline – gespeicherte Fassung";
 }
 function setIndex(value) {
-  speech?.stop(); speechPosition = 0; savedBlock = 0;
+  speech?.stop(); if(speech)speech.parts=[]; speechPosition = 0; savedBlock = 0;
   index = Math.max(0, Math.min(value, pages.length - 1));
   save();
   render();
@@ -264,7 +264,7 @@ speech = new SpeechReader(state=>{
 });
 function speakCurrent(){
  const current=pages[index];if(current?.type!=="scene")return;
- if(speech.parts.length&&speech.position>0&&!speech.active){speech.resume();return}
+ if(speech.parts.length&&!speech.active){speech.resume();return}
  speech.begin(reader.querySelector(".prose"),()=>{
   if(index>=pages.length-1){speechStatus.textContent="Ende des Romans.";return;}
   setIndex(index+1);
