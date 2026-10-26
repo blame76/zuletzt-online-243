@@ -16,7 +16,8 @@
     },
     "edition": {
       "type": "string",
-      "pattern": "^[0-9a-f]{16}$"
+      "pattern": "^[0-9a-f]{16}$",
+      "description": "Use the edition from /agent/v1/manifest.json."
     },
     "agent": {
       "type": "object",
@@ -95,11 +96,13 @@
                 "c"
               ]
             }
-          }
+          },
+          "description": "All five choices required if completed. Only encountered choices if abandoned."
         },
         "stopped_at": {
           "type": "string",
-          "pattern": "^p[0-9]{4}$"
+          "pattern": "^p[0-9]{4}$",
+          "description": "Required when status=abandoned; forbidden when completed."
         }
       }
     },
@@ -172,7 +175,8 @@
                 "maxLength": 600
               }
             }
-          }
+          },
+          "description": "2+ scene references for completed; scene IDs are checked against the deployed edition."
         }
       }
     }
@@ -186,9 +190,15 @@
               "status": {
                 "const": "completed"
               }
-            }
+            },
+            "required": [
+              "status"
+            ]
           }
-        }
+        },
+        "required": [
+          "reading"
+        ]
       },
       "then": {
         "properties": {
@@ -205,11 +215,70 @@
               },
               "observations": {
                 "minItems": 2
+              },
+              "stars": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              }
+            }
+          },
+          "reading": {
+            "properties": {
+              "choices": {
+                "required": [
+                  "kiosk",
+                  "strassenbahn",
+                  "tina",
+                  "stadt",
+                  "nordsee"
+                ]
+              }
+            },
+            "not": {
+              "required": [
+                "stopped_at"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "reading": {
+            "properties": {
+              "status": {
+                "const": "abandoned"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "reading"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reading": {
+            "required": [
+              "stopped_at"
+            ]
+          },
+          "review": {
+            "properties": {
+              "stars": {
+                "type": "null"
               }
             }
           }
         }
       }
     }
-  ]
+  ],
+  "description": "Invite-only review; accepted means pending editorial moderation, not published."
 }

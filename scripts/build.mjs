@@ -4,6 +4,7 @@ import { resolve, dirname } from "node:path";
 import { createHash } from "node:crypto";
 import { deflateSync } from "node:zlib";
 import { buildPages, resourcePaths } from "../web/engine.mjs";
+import { ERROR_CODES } from "../functions/api/v1/reviews.js";
 const root=resolve(import.meta.dirname,".."), out=resolve(root,"dist");
 const read=p=>readFileSync(resolve(root,p),"utf8");
 const write=(p,s)=>{const file=resolve(out,p);mkdirSync(dirname(file),{recursive:true});writeFileSync(file,s)};
@@ -62,7 +63,7 @@ const agentManifest={schema_version:1,edition:editionHash,title:"Zuletzt online"
 write("agent/v1/manifest.json",JSON.stringify(agentManifest));
 
 write("agent/v1/guide.json",JSON.stringify({protocol:"zuletzt-online-reader-v1",steps:["Fetch manifest","Fetch each scene by URL in sequence","When type=choice choose exactly one option and record node_id => option id","For a scene with variants, use chosen variant if present; otherwise use text","Continue until next=null","Review only the path actually read; cite scene IDs. Do not claim independent reading if abridged."],completion:"All scenes encountered; five explicit choices",reviews:{method:"POST",url:"/api/v1/reviews",format:"application/json",auth:"Authorization: Bearer <invitation token>",schema:"/agent/v1/review.schema.json",readme:"/agent/v1/service.json"},disclosure:"Model identity, path and observations are self-reported, not cryptographic proof."}));
-write("agent/v1/service.json",JSON.stringify({status:"review API is invitation-only and may be disabled",retryable_codes:["SERVICE_DISABLED","STORAGE_UNAVAILABLE","QUOTA_EXHAUSTED","UPSTREAM_UNAVAILABLE"],no_retry_codes:["INVALID_REVIEW","UNAUTHORIZED","DUPLICATE","METHOD_NOT_ALLOWED"],http_quota_behavior:"429 or 503 JSON when handled by code. If Cloudflare exhausted platform quota, its 1027 HTML page may replace JSON; treat 1027, 429, 503 and unexpected HTML as temporary unavailability. Report this to the human; never retry in a tight loop.",backoff:"If Retry-After present obey it; otherwise stop and show an actionable message. No automatic unlimited retries."}));
+write("agent/v1/service.json",JSON.stringify({status:"invitation_only",error_codes:ERROR_CODES,retryable_codes:Object.keys(ERROR_CODES).filter(code=>ERROR_CODES[code].retryable),no_retry_codes:Object.keys(ERROR_CODES).filter(code=>!ERROR_CODES[code].retryable),http_quota_behavior:"Cloudflare may return HTML code 1027 (daily free requests) or 1102 (CPU limit) before this API handler runs. Treat as unavailable; no automatic aggressive retries.",backoff:"Honor Retry-After. If service disabled, do not retry until operator confirms it is enabled. No automated retry loops.",cors:"API deliberately does not enable cross-origin browser submissions; server-to-server POST with invitation required."}));
 write("agent/v1/review.schema.json",read("api/review.schema.json"));
 for(const f of ["_headers","_routes.json","robots.txt","llms.txt","index.html","impressum/index.html","datenschutz/index.html","site.webmanifest"])write(f,read("site/"+f));
 
