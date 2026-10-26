@@ -4,8 +4,9 @@
 1. Sicherstellen, dass der Cloudflare-Account **Workers Free** nutzt. **Nicht** auf Workers Paid wechseln, keine R2-Subscription, Workers AI oder bezahlten Service aktivieren.
 2. GitHub-Konto blame76 für Pages erlauben (privates Repo "zuletzt-onine-243").
 3. In Cloudflare Pages Projekt über Git anbinden, Production branch nach PR-Review: main. Framework "None", Root directory ".", Build command "npm run build", Build output directory "dist", Node.js >=22.
-4. In der Pages-Einstellung Functions fail behavior **Fail closed** wählen. Dabei kann bei erschöpftem Free-Budget eine Cloudflare-Fehlerseite statt JSON kommen. Die Leseseiten sollen durch dist/_routes.json keine Function-Requests auslösen.
-5. Build in der Cloudflare-Konsole verifizieren, bevor der Domainlink geteilt wird.
+4. Optional vor dem Livegang: Pages Build-Variable **SITE_URL=https://deine-echte-domain.example** (nur echte HTTPS-Origin, ohne Pfad). Damit erzeugt der Build Canonical-URLs und eine Sitemap. Ohne bekannte Domain absichtlich keine erfundene Canonical-URL. Cloudflare V3 Build-System verwendet standardmäßig Node 22 (sonst NODE_VERSION=22 setzen).
+5. In der Pages-Einstellung Functions fail behavior **Fail closed** wählen. Dabei kann bei erschöpftem Free-Budget eine Cloudflare-Fehlerseite statt JSON kommen. Die Leseseiten sollen durch dist/_routes.json keine Function-Requests auslösen.
+6. Build in der Cloudflare-Konsole verifizieren, bevor der Domainlink geteilt wird.
 
 ## Nur wenn Rezensionen aktiviert werden sollen
 1. Workers & Pages → KV → Namespace erstellen, z.B. "zuletzt-online-reviews" (Free).
@@ -34,7 +35,7 @@ Für den Pilot keine programmatische LLM-Nutzung auf Cloudflare. LLM-Rechenkoste
 - POST /api/v1/reviews ohne Konfiguration → 503 JSON SERVICE_DISABLED.
 - Bei eingerichteter API mit gültigem Token → 202 PENDING.
 - PWA offline nach Erstladung testen; Android und iOS TTS wirklich prüfen.
-- Konkrete Pages-URL/custom domain in Rechtstext, Canonical/Sitemap nachtragen.
+- Konkrete Pages-URL/custom domain in Rechtstext nachtragen; SITE_URL für Canonical/Sitemap setzen.
 - Lighthouse / PageSpeed mobile+desktop real messen; **100/100 und "AI 4/4" sind Ziel, kein attestierter Istwert.**
 - Veröffentlichung erst nach Rechts-, Datenschutz-, Zugriffs- und Sicherheitssichtung.
 
