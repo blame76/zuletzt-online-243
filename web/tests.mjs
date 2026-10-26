@@ -25,6 +25,14 @@ test("Änderung verlangt exakt die richtige Markdown-Zeitmarke", () => {
     "### Dienstag, 11:00 Uhr\n\nText."), /falsche/);
 });
 
+test("Szenenanker funktionieren auch mit Windows-CRLF-Zeilenenden", () => {
+  const markdown = "### Dienstag, 12:00 Uhr\n\nAlt.\n\n### Danach\n\nText.".replace(/\n/g, "\r\n");
+  const replacement = "### Dienstag, 12:00 Uhr\n\nNeu.".replace(/\n/g, "\r\n");
+  const rewritten = replaceSection(markdown, "Dienstag, 12:00 Uhr", replacement);
+  assert.match(rewritten, /### Dienstag, 12:00 Uhr\n\nNeu\./);
+  assert.match(rewritten, /### Danach\n\nText\./);
+});
+
 test("243 Kombinationen bleiben zusammenhängend und haben exakt dasselbe Ende", () => {
   let ending = null;
   let count = 0;

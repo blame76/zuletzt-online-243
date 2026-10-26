@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import {createHash} from "node:crypto";
 import {existsSync,readFileSync,readdirSync} from "node:fs";
 const root=new URL("../dist/",import.meta.url);
 const read=p=>readFileSync(new URL(p,root),"utf8");
@@ -57,6 +58,13 @@ test("PWA icons are real PNGs and SEO canonical is not invented",()=>{
  }
  assert.ok(!read("index.html").includes('rel="canonical"'));
  assert.equal(JSON.parse(read("web/manifest.webmanifest")).icons.length,2);
+});
+
+test("service worker cache key covers edition and every reader shell asset",()=>{
+ const manifest=JSON.parse(read("agent/v1/manifest.json"));
+ const shell=["index.html","app.js","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+ const hash=createHash("sha256").update(manifest.edition).update(Buffer.concat(shell.map(file=>readFileSync(new URL("web/"+file,root))))).digest("hex").slice(0,16);
+ assert.ok(read("web/sw.js").includes("zuletzt-online-experiment-"+hash));
 });
 
 test("chapter bundles cover all agent scenes in order",()=>{

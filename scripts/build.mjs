@@ -9,7 +9,7 @@ const root=resolve(import.meta.dirname,".."), out=resolve(root,"dist");
 const read=p=>readFileSync(resolve(root,p),"utf8");
 const write=(p,s)=>{const file=resolve(out,p);mkdirSync(dirname(file),{recursive:true});writeFileSync(file,s)};
 rmSync(out,{recursive:true,force:true});mkdirSync(out,{recursive:true});
-for(const d of ["web","manuskript"]) cpSync(resolve(root,d),resolve(out,d),{recursive:true,filter:src=>!src.endsWith("/web/tests.mjs")});
+for(const d of ["web","manuskript"]) cpSync(resolve(root,d),resolve(out,d),{recursive:true,filter:src=>!/(^|[\\/])tests\.mjs$/.test(src)});
 write("interaktiv/entscheidungen.json",read("interaktiv/entscheidungen.json"));
 const manifest=JSON.parse(read("interaktiv/entscheidungen.json"));
 for(const p of resourcePaths(manifest).filter(p=>p.startsWith("../interaktiv/"))){

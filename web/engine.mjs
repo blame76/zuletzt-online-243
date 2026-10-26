@@ -17,6 +17,8 @@ function headingMarker(heading) {
 // Ersetzt exakt eine zeitlich markierte Sequenz; das Original bleibt in manuskript/.
 // Abgrenzung durch die nächste ###-Überschrift statt durch Absatzpositionen.
 export function replaceSection(markdown, heading, replacement) {
+  markdown = markdown.replace(/\r\n/g, "\n");
+  replacement = replacement.replace(/\r\n/g, "\n");
   const marker = headingMarker(heading);
   const index = markdown.indexOf(marker + "\n");
   if (index < 0) throw new Error("Szenenanker fehlt: " + heading);
