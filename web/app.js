@@ -10,7 +10,6 @@ const progress = $("#progress");
 const backBtn = $("#back");
 const nextBtn = $("#next");
 const chapterSelect = $("#chapter");
-const info = $("#info");
 
 let manifest;
 let resources;
@@ -74,10 +73,6 @@ function renderChoice(page) {
   const node = manifest.nodes.find(n => n.id === page.nodeId);
   const section = document.createElement("section");
   section.className = "decision";
-  const kicker = document.createElement("p");
-  kicker.className = "eyebrow";
-  kicker.textContent = node.kind + " · Entscheidung " + (manifest.nodes.indexOf(node) + 1) + " von " + manifest.nodes.length;
-  section.append(kicker);
   const title = document.createElement("h2");
   title.textContent = node.title;
   section.append(title);
@@ -108,10 +103,6 @@ function renderChoice(page) {
     list.append(button);
   });
   section.append(list);
-  const note = document.createElement("p");
-  note.className = "fineprint";
-  note.textContent = "Alle Wege führen später in denselben Roman zurück. Du kannst mit „Zurück“ zu dieser Entscheidung zurückkehren.";
-  section.append(note);
   return section;
 }
 function render() {
@@ -140,8 +131,6 @@ function render() {
   nextBtn.disabled = index === pages.length - 1 ||
     (page.type === "choice" && !choices[page.nodeId]);
   nextBtn.textContent = index === pages.length - 1 ? "Ende" : "Weiter";
-  info.textContent = page.type === "choice" ? "Wähle einen von drei erzählten Wegen." :
-    "Originalmanuskript und geschriebene Varianten · ohne generierte Laufzeittexte";
   save();
 }
 function goToChapter(path) {
@@ -178,6 +167,8 @@ async function load() {
       if (blocks[savedBlock]) blocks[savedBlock].scrollIntoView({block:"start",behavior:"instant"});
     });
   } catch (err) {
+    $("#reading").hidden = true;
+    $("#initial").hidden = false;
     $("#initial").textContent = "Der Roman konnte nicht geladen werden: " + err.message +
       ". Bitte Webseite über einen HTTP-Server öffnen. Für Offline-Lektüre muss sie zuvor einmal vollständig geladen worden sein.";
   }

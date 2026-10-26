@@ -42,7 +42,9 @@ export function splitIntoPages(markdown, source) {
 
   const flush = () => {
     const text = buffer.join("\n").trim();
-    if (text) {
+    // The standalone manuscript title is metadata, not a separate blank reading page.
+    // Keep the original Markdown untouched for archival and agent provenance.
+    if (text && !(pages.length === 0 && !runningHeading && /^# [^\n]+$/.test(text))) {
       pages.push({
         type: "scene",
         source,

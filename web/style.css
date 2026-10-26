@@ -123,3 +123,12 @@ progress::-moz-progress-bar { background: var(--accent); }
 @media(max-width:480px){.speech-tools{padding:0 20px}}
 
 .prose blockquote p+p{margin-top:1em}
+
+/* Quiet navigation: the story, not an explanation, is the first content. */
+.about-link { font-size: 13px; color: var(--muted); text-decoration: none; padding: 9px 6px; }
+.about-link:hover,.about-link:focus-visible { text-decoration: underline; }
+.about-page { max-width: 700px; margin: clamp(32px,6vw,80px) auto; padding: 0 24px; font: 19px/1.72 Georgia,serif; }
+.about-page h1 { font: normal clamp(34px,6vw,54px)/1.2 Georgia,serif; margin: 0 0 2rem; }
+.about-page h2 { font: 600 18px/1.5 system-ui,sans-serif; margin-top: 2rem; }
+.about-page p { margin: 0 0 1.35em; }
+.about-page footer { margin-top: 4rem; font: 13px/1.7 system-ui,sans-serif; }

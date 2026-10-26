@@ -70,3 +70,11 @@ test("Keine Alternativfassung verändert die 15 linearen Quelltexte", () => {
   assert.equal(paths.length, 15);
   assert.equal(new Set(paths).size, 15);
 });
+
+test("Roman beginnt sofort mit Montag und Thomas, nicht mit einer Titelseite", () => {
+  const first=buildPages(manifest,resources,{} )[0];
+  assert.equal(first.type,"scene");
+  assert.equal(first.heading,"Montag");
+  assert.match(first.markdown,/Thomas hatte seit drei Tagen nicht geduscht\./);
+  assert.doesNotMatch(first.markdown,/^# Zuletzt online$/m);
+});
