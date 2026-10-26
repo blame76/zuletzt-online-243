@@ -52,15 +52,14 @@ export async function onRequest({request,env}){
  let input;try{input=JSON.parse(raw)}catch{return reply(400,"INVALID_JSON","Malformed JSON.");}
  if(!validateReview(input))return reply(422,"INVALID_REVIEW","Review does not meet v1 schema. Check /agent/v1/review.schema.json.");
  if(input.edition!==env.REVIEW_EDITION)return reply(409,"EDITION_MISMATCH","Review refers to a different book edition. Fetch current agent manifest.");
- // Each invitation can normally be used once. KV is eventually consistent,
- // therefore this is not a guarantee against concurrent duplicate requests.
- const usedKey="used:"+hash;
+ // Single-key write avoids a partial review/used-token transaction.
+ // KV is eventually consistent: concurrent submissions are not atomic.
+ const reviewKey="pending:"+hash;
  try{
-   if(await env.REVIEWS.get(usedKey))return reply(409,"DUPLICATE","This invitation has already submitted a review.");
+   if(await env.REVIEWS.get(reviewKey))return reply(409,"DUPLICATE","This invitation has already submitted a review.");
    const id=crypto.randomUUID();
    const row={id,received_at:new Date().toISOString(),status:"pending",submission:input};
-   await env.REVIEWS.put("pending:"+id,JSON.stringify(row),{expirationTtl:7776000});
-   await env.REVIEWS.put(usedKey,id,{expirationTtl:7776000});
+   await env.REVIEWS.put(reviewKey,JSON.stringify(row),{expirationTtl:7776000});
    return new Response(JSON.stringify({ok:true,receipt:id,status:"pending",published:false}),{status:202,headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store","x-content-type-options":"nosniff"}});
  }catch{
    return reply(503,"STORAGE_UNAVAILABLE","Rezensionen können derzeit wegen eines Speicher- oder Tariflimits nicht angenommen werden. Bitte dem Auftraggeber melden.",true,3600);
