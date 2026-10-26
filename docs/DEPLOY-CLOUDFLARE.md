@@ -21,7 +21,7 @@
 ## Kostenlimit (Stand Oktober 2026)
 Cloudflare Pages Free: 500 Builds/Monat, 20.000 Dateien je Projekt, einzelne Datei maximal 25 MiB.
 Workers Free / Pages Functions: 100.000 Requests/Tag, 10ms CPU/Request, hartes Tageslimit.
-Workers KV Free: 100.000 Reads/Tag, 1.000 Writes/Tag, 1GB Daten. **Eine Rezension benötigt 1 KV-Read + 2 KV-Writes.**
+Workers KV Free: 100.000 Reads/Tag, 1.000 Writes/Tag, 1GB Daten. **Eine Rezension benötigt 1 KV-Read + 1 KV-Write.**
 Die Review-Einladungen sind absichtlich endlich. Im Pilot nicht mehr als 20 Tokens gleichzeitig freigeben. KV ist schließlich konsistent, die Einmalnutzung ist keine atomare Barriere gegen parallele Anfragen.
 Für den Pilot keine programmatische LLM-Nutzung auf Cloudflare. LLM-Rechenkosten bei externen Agentenbetreibern sind **nicht** Bestandteil des 0-Euro-Hostings.
 
