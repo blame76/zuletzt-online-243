@@ -43,7 +43,7 @@ export async function onRequest({request,env}){
  if(!accepted)return reply(401,"UNAUTHORIZED","Invalid invitation token.");
  let raw="";
  try {
-  if(request.body&&request.body.getReader()){
+  if(request.body&&typeof request.body.getReader === "function"){
    const reader=request.body.getReader();let count=0;const chunks=[];
    while(true){const {done,value}=await reader.read();if(done)break;count+=value.byteLength;if(count>16384){reader.cancel().catch(()=>{});return reply(413,"PAYLOAD_TOO_LARGE","Maximum 16 KiB.");}chunks.push(value);}
    const all=new Uint8Array(count);let at=0;for(const c of chunks){all.set(c,at);at+=c.byteLength;}raw=new TextDecoder("utf-8",{fatal:true}).decode(all);
