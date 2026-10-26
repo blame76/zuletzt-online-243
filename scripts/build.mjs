@@ -15,10 +15,22 @@ for(const p of resourcePaths(manifest).filter(p=>p.startsWith("../interaktiv/"))
  write(clean,read(clean));
 }
 const resources=Object.fromEntries(resourcePaths(manifest).map(p=>[p,read("web/"+p)]));
-const base=buildPages(manifest,resources,{});
+// A manuscript timestamp is a stable reading unit; internal *** separators
+// are presentation detail and may differ between written alternatives.
+function normalize(pages){
+ const result=[];
+ for(const p of pages){
+  const previous=result.at(-1);
+  if(p.type==="scene"&&previous?.type==="scene"&&p.source===previous.source&&p.heading===previous.heading){
+   previous.markdown+="\n\n***\n\n"+p.markdown;
+  }else result.push({...p});
+ }
+ return result;
+}
+const base=normalize(buildPages(manifest,resources,{}));
 const versions={};
 for(const node of manifest.nodes) for(const option of node.options.slice(1)){
- const pages=buildPages(manifest,resources,{[node.id]:option.id});
+ const pages=normalize(buildPages(manifest,resources,{[node.id]:option.id}));
  if(pages.length!==base.length)throw Error("Scene count changed: "+node.id+"/"+option.id);
  versions[node.id+":"+option.id]=pages;
 }
