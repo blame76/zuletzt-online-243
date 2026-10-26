@@ -1,5 +1,6 @@
 import { buildPages, resourcePaths } from "./engine.mjs";
 import { SpeechReader } from "./speech.mjs";
+import { markdownToHtml } from "./markdown.mjs";
 
 const STORAGE = "zuletzt-online-interaktiv-v1";
 const $ = selector => document.querySelector(selector);
@@ -41,56 +42,6 @@ function restore() {
 }
 function save() {
   try { localStorage.setItem(STORAGE, JSON.stringify({ index, choices, fontSize, theme, savedBlock, speechPosition, speechSpeed })); } catch {}
-}
-function escapeHtml(input) {
-  return String(input).replace(/&/g, "&amp;").replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-}
-function inline(s) {
-  return escapeHtml(s)
-    .replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>")
-    .replace(/\*([^*\n]+)\*/g, "<em>$1</em>")
-    .replace(/`([^`\n]+)`/g, "<code>$1</code>");
-}
-function markdownToHtml(text) {
-  const rows = text.split("\n");
-  let output = [];
-  let paragraph = [];
-  let quote = [];
-  const flushParagraph = () => {
-    if (!paragraph.length) return;
-    output.push("<p>" + inline(paragraph.join(" ")) + "</p>");
-    paragraph = [];
-  };
-  const flushQuote = () => {
-    if (!quote.length) return;
-    output.push("<blockquote><p>" + inline(quote.join(" ")) + "</p></blockquote>");
-    quote = [];
-  };
-  for (const raw of rows) {
-    const line = raw.trim();
-    if (!line) { flushParagraph(); flushQuote(); continue; }
-    if (line.startsWith(">")) {
-      flushParagraph();
-      quote.push(line.replace(/^>\s?/, ""));
-      continue;
-    }
-    flushQuote();
-    if (/^#{1,3}\s/.test(line)) {
-      flushParagraph();
-      const level = line.match(/^#+/)[0].length;
-      const h = level === 1 ? "h1" : "h2";
-      output.push("<" + h + ">" + inline(line.replace(/^#+\s*/, "")) + "</" + h + ">");
-    } else if (/^---+$/.test(line)) {
-      flushParagraph();
-      output.push("<hr>");
-    } else {
-      paragraph.push(line);
-    }
-  }
-  flushParagraph();
-  flushQuote();
-  return output.join("\n");
 }
 function updateTheme() {
   document.documentElement.dataset.theme = theme;

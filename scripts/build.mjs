@@ -8,7 +8,7 @@ const root=resolve(import.meta.dirname,".."), out=resolve(root,"dist");
 const read=p=>readFileSync(resolve(root,p),"utf8");
 const write=(p,s)=>{const file=resolve(out,p);mkdirSync(dirname(file),{recursive:true});writeFileSync(file,s)};
 rmSync(out,{recursive:true,force:true});mkdirSync(out,{recursive:true});
-for(const d of ["web","manuskript"]) cpSync(resolve(root,d),resolve(out,d),{recursive:true});
+for(const d of ["web","manuskript"]) cpSync(resolve(root,d),resolve(out,d),{recursive:true,filter:src=>!src.endsWith("/web/tests.mjs")});
 write("interaktiv/entscheidungen.json",read("interaktiv/entscheidungen.json"));
 const manifest=JSON.parse(read("interaktiv/entscheidungen.json"));
 for(const p of resourcePaths(manifest).filter(p=>p.startsWith("../interaktiv/"))){
@@ -60,7 +60,7 @@ for(let i=0;i<base.length;i++){
 }
 const agentManifest={schema_version:1,edition:editionHash,title:"Zuletzt online",language:"de",author:"Benjamin Lam",start:catalog[0].id,scenes:catalog,decision_nodes:manifest.nodes.map(n=>({id:n.id,options:n.options.map(o=>o.id)})),review_schema:"/agent/v1/review.schema.json",review_endpoint:"/api/v1/reviews",guide:"/agent/v1/guide.json",note:"Read every scene in order. Choices select one variant; do not read unchosen variants."};
 write("agent/v1/manifest.json",JSON.stringify(agentManifest));
-write("web/sw.js",read("web/sw.js").replace("EDITION",editionHash));
+
 write("agent/v1/guide.json",JSON.stringify({protocol:"zuletzt-online-reader-v1",steps:["Fetch manifest","Fetch each scene by URL in sequence","When type=choice choose exactly one option and record node_id => option id","For a scene with variants, use chosen variant if present; otherwise use text","Continue until next=null","Review only the path actually read; cite scene IDs. Do not claim independent reading if abridged."],completion:"All scenes encountered; five explicit choices",reviews:{method:"POST",url:"/api/v1/reviews",format:"application/json",auth:"Authorization: Bearer <invitation token>",schema:"/agent/v1/review.schema.json",readme:"/agent/v1/service.json"},disclosure:"Model identity, path and observations are self-reported, not cryptographic proof."}));
 write("agent/v1/service.json",JSON.stringify({status:"review API is invitation-only and may be disabled",retryable_codes:["SERVICE_DISABLED","STORAGE_UNAVAILABLE","QUOTA_EXHAUSTED","UPSTREAM_UNAVAILABLE"],no_retry_codes:["INVALID_REVIEW","UNAUTHORIZED","DUPLICATE","METHOD_NOT_ALLOWED"],http_quota_behavior:"429 or 503 JSON when handled by code. If Cloudflare exhausted platform quota, its 1027 HTML page may replace JSON; treat 1027, 429, 503 and unexpected HTML as temporary unavailability. Report this to the human; never retry in a tight loop.",backoff:"If Retry-After present obey it; otherwise stop and show an actionable message. No automatic unlimited retries."}));
 write("agent/v1/review.schema.json",read("api/review.schema.json"));
@@ -89,6 +89,9 @@ write("web/manifest.webmanifest",JSON.stringify(webManifest));
 const mainManifest=JSON.parse(read("site/site.webmanifest"));
 mainManifest.icons=[{src:"/web/icon-192.png",sizes:"192x192",type:"image/png"},{src:"/web/icon-512.png",sizes:"512x512",type:"image/png"}];
 write("site.webmanifest",JSON.stringify(mainManifest));
+const cacheShell=["index.html","app.js","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+const cacheId=createHash("sha256").update(editionHash).update(Buffer.concat(cacheShell.map(f=>readFileSync(resolve(out,"web",f))))).digest("hex").slice(0,16);
+write("web/sw.js",read("web/sw.js").replace("__CACHE_ID__",cacheId));
 
 
 // Canonical and sitemap are only generated after the real origin is configured.

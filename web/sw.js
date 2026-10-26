@@ -1,10 +1,10 @@
 // Offline-Cache aller Manuskriptteile und aller geschriebenen Entscheidungswege.
 // Der Service Worker ist bewusst auf web/ beschränkt; die von der Seite
 // angefragten Texte in ../manuskript/ und ../interaktiv/ werden mitgecached.
-const CACHE = "zuletzt-online-experiment-EDITION";
+const CACHE = "zuletzt-online-experiment-__CACHE_ID__";
 const SHELL = [
   "./", "./index.html", "./app.js", "./speech.mjs", "./engine.mjs",
-  "./style.css", "./manifest.webmanifest", "./icon.svg",
+  "./style.css", "./markdown.mjs", "./manifest.webmanifest", "./icon.svg", "./icon-192.png", "./icon-512.png",
   "../interaktiv/entscheidungen.json"
 ];
 self.addEventListener("install", event => {
