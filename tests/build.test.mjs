@@ -47,3 +47,14 @@ test("all 243 machine-readable paths match the human story engine",async()=>{
   }
  }
 });
+
+test("PWA icons are real PNGs and SEO canonical is not invented",()=>{
+ for(const size of [192,512]){
+  const icon=readFileSync(new URL("web/icon-"+size+".png",root));
+  assert.deepEqual([...icon.subarray(0,8)],[137,80,78,71,13,10,26,10]);
+  assert.equal(icon.readUInt32BE(16),size);
+  assert.equal(icon.readUInt32BE(20),size);
+ }
+ assert.ok(!read("index.html").includes('rel="canonical"'));
+ assert.equal(JSON.parse(read("web/manifest.webmanifest")).icons.length,2);
+});
