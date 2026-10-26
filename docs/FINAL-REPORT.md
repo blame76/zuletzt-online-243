@@ -5,7 +5,7 @@ Datum: 26.10.2026. Status: **Release-Kandidat / nicht veröffentlicht**.
 Ein kostenloser, sicherer Cloudflare-Pages-Prototyp für den vollständigen interaktiven Roman. Basierend auf dem privaten ursprünglichen Branch experiment/interaktive-fassung. 15 Manuskriptdateien; fünf Entscheidungspunkte A/B/C (243 Pfadkombinationen) samt abhängigen Folgetexten und einem Ende.
 Pages veröffentlicht **nur dist/**; Vanilla-Webreader und Browser-TTS ohne Servermodell, Node.js-Build ohne Laufzeitdependencies.
 Agenten bekommen einen statischen Sequenz-Feed mit sämtlichen Ereignissen, Alternativtexten, Editionshash und Dokumentation.
-Pages Function für POST-Reviews mit Einladungshash, striktem JSON-Format und KV JSON+TTL; kein Admin-Endpunkt und keine automatische Publikation.
+Pages Function für POST-Reviews mit Einladungshash, striktem JSON-Format und KV JSON+TTL (pro Review ein einzelner Write); kein Admin-Endpunkt und keine automatische Publikation.
 
 ## Sicherheit / 0-Euro-Guardrails
 Review-API default off; Token-Hashes sind nur Secrets, keine API-Lesefunktion.
@@ -13,7 +13,7 @@ Nur /api/* triggert Functions, Free-Budget ist Cloudflare-seitig hart. Eigene Fe
 Keine KI-Compute-/R2-/Paid-Services. KV ist ein JSON-Key-Value-Speicher ohne SQL, **kein Dateisystem**; dies ist eine bewusst dokumentierte Abweichung von einer strikten '.json-Datei im Repo'-Idee zugunsten geringerer Angriffsfläche. Speicherung über TTL 90 Tage.
 
 ## Technischer Stand und Prüfgrenzen
-Unit-Tests und Build-Checks sind im Repository vorbereitet; ein bestätigter CI-Lauf ist separat nach Push zu kontrollieren.
+GitHub Actions CI wurde nach dem ersten Buildfehler korrigiert und ist für Commit d155235a (7 Unit-/Graph-Tests, 1 Build-Test) erfolgreich gelaufen. Der neueste Review-API-Patch braucht einen weiteren grünen Abschlusslauf.
 Keine Live-Cloudflare-Instanz, kein PageSpeed-Messwert, kein bestätigter WCAG-Audit, keine echte Android-/iOS-Hörprobe. "100/100" und "AI 4/4" sind Zielwerte, keine Zusicherung; für "AI 4/4" besteht keine eindeutig benannte offizielle Google-Metrik. Manuelle Review-Gates bleiben verbindlich.
 
 ## Bekannte Restrisiken
