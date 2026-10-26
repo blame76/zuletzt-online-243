@@ -20,9 +20,9 @@ let choices = {};
 let fontSize = 19;
 let theme = "light";
 let savedBlock = 0;
+let restoredAnchor = null;
 let speechPosition = 0;
 let speechSpeed = 1;
-let restoring = false;
 let speech;
 const speechButton = $("#speech-toggle");
 const speechStatus = $("#speech-status");
@@ -34,14 +34,15 @@ function restore() {
     index = Number.isInteger(data.index) ? data.index : 0;
     choices = typeof data.choices === "object" && data.choices !== null ? data.choices : {};
     fontSize = Number.isFinite(data.fontSize) ? Math.min(26, Math.max(16, data.fontSize)) : 19;
-    theme = data.theme === "dark" ? "dark" : "light";
+    theme = ["dark","light"].includes(data.theme) ? data.theme : (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    restoredAnchor = data.anchor || null;
     savedBlock = Number.isInteger(data.savedBlock) ? data.savedBlock : 0;
     speechPosition = Number.isInteger(data.speechPosition) ? data.speechPosition : 0;
     speechSpeed = [0.8,1,1.25].includes(data.speechSpeed) ? data.speechSpeed : 1;
   } catch { /* Funktioniert auch ohne Browser-Speicher. */ }
 }
 function save() {
-  try { localStorage.setItem(STORAGE, JSON.stringify({ index, choices, fontSize, theme, savedBlock, speechPosition, speechSpeed })); } catch {}
+  try { const page=pages[index]; const anchor=page?{source:page.source,heading:page.heading,ordinal:pages.slice(0,index).filter(p=>p.source===page.source&&p.heading===page.heading).length,block:savedBlock}:restoredAnchor; localStorage.setItem(STORAGE, JSON.stringify({ index, choices, fontSize, theme, savedBlock, speechPosition, speechSpeed, anchor })); } catch {}
 }
 function updateTheme() {
   document.documentElement.dataset.theme = theme;
@@ -66,6 +67,7 @@ function setIndex(value) {
   index = Math.max(0, Math.min(value, pages.length - 1));
   save();
   render();
+  reader.focus({preventScroll:true});
   window.scrollTo({ top: 0, behavior: "instant" });
 }
 function renderChoice(page) {
@@ -115,6 +117,7 @@ function renderChoice(page) {
 function render() {
   if (!pages.length) return;
   const page = pages[index];
+  reader.setAttribute("aria-label", "Lesetext: Abschnitt "+(index+1)+" von "+pages.length);
   if (speechButton) { speechButton.disabled = page.type !== "scene" || !speech.supported(); speechButton.textContent = "▶ Vorlesen"; }
   reader.replaceChildren();
   if (page.type === "choice") {
@@ -160,6 +163,10 @@ async function load() {
     }));
     resources = Object.fromEntries(loaded);
     pages = buildPages(manifest, resources, choices);
+    if(restoredAnchor?.source){
+      const matches=pages.map((p,i)=>({p,i})).filter(({p})=>p.source===restoredAnchor.source&&p.heading===restoredAnchor.heading);
+      if(matches.length){const at=Math.max(0,Math.min(Number(restoredAnchor.ordinal)||0,matches.length-1));index=matches[at].i;savedBlock=Number(restoredAnchor.block)||0;}
+    }
     index = Math.max(0, Math.min(index, pages.length - 1));
     makeChapterSelect();
     $("#initial").hidden = true;
@@ -224,10 +231,10 @@ function speakCurrent(){
  },speechPosition,speechSpeed);
 }
 speechButton.addEventListener("click",()=>{if(speech.active)speech.pause();else speakCurrent();});
-speedSelect.addEventListener("change",()=>{speechSpeed=Number(speedSelect.value);speech?.stop();speechPosition=0;speech.parts=[];speechButton.textContent="▶ Vorlesen";save()});
+speedSelect.addEventListener("change",()=>{const wasPlaying=speech?.active; speechPosition=speech?.parts.length?speech.position:speechPosition; speech?.stop();if(speech)speech.parts=[];speechSpeed=Number(speedSelect.value);speechButton.textContent="▶ Vorlesen";save();if(wasPlaying)speakCurrent();});
 let scrollTimer=0;
 window.addEventListener("scroll",()=>{
- if(!pages.length||pages[index]?.type!=="scene"||restoring)return;
+ if(!pages.length||pages[index]?.type!=="scene" )return;
  clearTimeout(scrollTimer);
  scrollTimer=setTimeout(()=>{
   const blocks=[...reader.querySelectorAll(".prose p,.prose h1,.prose h2")];let nearest=0;

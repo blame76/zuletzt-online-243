@@ -8,6 +8,7 @@
   <meta name="color-scheme" content="light dark">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon-192.png">
   <link rel="stylesheet" href="./style.css">
   <title>Zuletzt online · Interaktive Fassung</title>
 </head>
@@ -17,16 +18,16 @@
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">z.</span>
       <div>
-        <div class="brand-title">Zuletzt online</div>
+        <h1 class="brand-title">Zuletzt online</h1>
         <div class="brand-subtitle">Ein Roman · fünf Abzweigungen · ein Ende</div>
       </div>
     </div>
-    <nav class="tools" aria-label="Leseeinstellungen">
+    <div class="tools" role="group" aria-label="Leseeinstellungen">
       <button type="button" id="font-minus" aria-label="Schrift verkleinern" title="Schrift verkleinern">A−</button>
       <span id="font-value" class="font-value" aria-live="off">19 px</span>
       <button type="button" id="font-plus" aria-label="Schrift vergrößern" title="Schrift vergrößern">A+</button>
       <button type="button" id="theme" title="Darstellung wechseln">Dunkel</button>
-    </nav>
+    </div>
   </header>
 
   <div class="reading-bar">
@@ -53,6 +54,7 @@
 
     <footer class="foot">
       <p id="info"></p>
+      <p>© Benjamin Lam – alle Rechte am Roman vorbehalten.</p>
       <p>Keine Accounts, keine Punkte, keine versteckten richtigen Wege.
          Deine Auswahl und Leseposition bleiben nur in diesem Browser.</p>
       <button type="button" id="restart" class="reset">Von vorn beginnen und Entscheidungen löschen</button>

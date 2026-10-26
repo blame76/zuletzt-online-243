@@ -18,3 +18,5 @@ Für Menschen:
 - / — Beschreibung des Romans
 - /web/ — PWA zum Lesen und Vorlesen
 - /impressum/ und /datenschutz/ — Rechtliches
+
+Urheberrecht: © Benjamin Lam. Alle Rechte vorbehalten. Der technisch öffentliche Lesezugang erteilt keine allgemeine Nachdruck- oder Weiterverbreitungslizenz.

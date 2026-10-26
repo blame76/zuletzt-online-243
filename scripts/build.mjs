@@ -94,7 +94,8 @@ function makeIcon(size){
 }
 for(const size of [192,512])writeFileSync(resolve(out,"web/icon-"+size+".png"),makeIcon(size));
 const webManifest=JSON.parse(read("web/manifest.webmanifest"));
-webManifest.icons=[{src:"./icon-192.png",sizes:"192x192",type:"image/png",purpose:"any maskable"},{src:"./icon-512.png",sizes:"512x512",type:"image/png",purpose:"any maskable"}];
+webManifest.id="/web/";
+webManifest.icons=[{src:"./icon-192.png",sizes:"192x192",type:"image/png",purpose:"any"},{src:"./icon-512.png",sizes:"512x512",type:"image/png",purpose:"any maskable"}];
 write("web/manifest.webmanifest",JSON.stringify(webManifest));
 const mainManifest=JSON.parse(read("site/site.webmanifest"));
 mainManifest.icons=[{src:"/web/icon-192.png",sizes:"192x192",type:"image/png"},{src:"/web/icon-512.png",sizes:"512x512",type:"image/png"}];
