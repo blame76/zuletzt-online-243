@@ -190,3 +190,13 @@ test("focussed reader auto-hides menu only on downward scroll and reveals upward
  assert.match(html, /id="back"/);
  assert.match(html, /id="next"/);
 });
+
+
+test("share preview metadata and 1200px JPEG are deployed as static assets",()=>{
+ const html=read("index.html");
+ assert.match(html,/<meta property="og:title" content="Zuletzt online – 243">/);
+ assert.match(html,/<meta property="og:image" content="https:\/\/zuletzt-online-243\.pages\.dev\/og-cover\.jpg">/);
+ assert.match(html,/<meta name="twitter:card" content="summary_large_image">/);
+ const image=readFileSync(new URL("og-cover.jpg",root));
+ assert.deepEqual([...image.subarray(0,3)],[0xff,0xd8,0xff]);
+});
