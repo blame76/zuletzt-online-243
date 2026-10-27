@@ -17,3 +17,19 @@ export function sceneTurn({direction,index,count,canNext}) {
   if (direction === "next" && canNext) return Math.min(count-1,index+1);
   return index;
 }
+
+/** Hide controls on intentional downward reading, reveal when scrolling up.
+ * Small scroll jitter should not flash the menu on and off.
+ */
+export function scrollMenuState({position,previousPosition,travel=0,visible=true,threshold=28}) {
+  if (![position,previousPosition,travel].every(Number.isFinite)) return {visible,travel:0};
+  if (position <= 20) return {visible:true,travel:0};
+  const delta=position-previousPosition;
+  if (Math.abs(delta) < 2) return {visible,travel};
+  // A single large jump normally means programmatic section navigation.
+  if (Math.abs(delta) > 800) return {visible,travel:0};
+  const sameDirection=travel===0||Math.sign(delta)===Math.sign(travel);
+  const nextTravel=(sameDirection?travel:0)+delta;
+  if (Math.abs(nextTravel) < threshold) return {visible,travel:nextTravel};
+  return {visible:nextTravel<0,travel:0};
+}

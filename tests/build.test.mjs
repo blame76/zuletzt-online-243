@@ -141,22 +141,23 @@ test("focus mode keeps visible end buttons and resets focus on section changes",
  assert.match(html, /id="next"/);
  assert.match(css, /:root\[data-reading-mode="on"\] \.navigation\s*\{[\s\S]*?display:\s*flex/);
  assert.doesNotMatch(css, /:root\[data-reading-mode="on"\] \.navigation,\s*\n:root\[data-reading-mode="on"\] \.foot \{ display: none/);
- assert.match(app, /requestAnimationFrame\(goToStart\)/);
+ assert.match(app, /requestAnimationFrame\(\(\) => \{/);
+ assert.match(app, /goToStart\(\);/);
  assert.doesNotMatch(app, /A back-turn shows the end of the preceding section/);
 });
 
-test("touch reading mode has swipe guidance and no edge-tap listener",()=>{
+test("touch reading mode keeps swipe gestures without showing instructions",()=>{
  const html=read("index.html");
  const app=read("web/app.js");
  const css=read("web/style.css");
- assert.match(html,/Wischen: nächster\/vorheriger Abschnitt/);
+ assert.doesNotMatch(html,/swipe-hint|Wischen:/);
  assert.match(app,/touchstart/);
  assert.match(app,/touchend/);
  assert.match(app,/touchcancel/);
  assert.match(app,/swipeDirection/);
  assert.doesNotMatch(app,/tapDirection|reader\.addEventListener\("click"/);
  assert.match(css,/touch-action: pan-y pinch-zoom/);
- assert.match(css,/\.swipe-hint/);
+ assert.doesNotMatch(css,/\.swipe-hint/);
  assert.match(html,/id="back"/);
  assert.match(html,/id="next"/);
 });
@@ -169,5 +170,23 @@ test("horizontal swipes navigate scenes and keep full text scrollable",()=>{
  assert.doesNotMatch(app,/readingStep|startScroll|maxScroll/);
  assert.match(gestures,/export function sceneTurn/);
  assert.doesNotMatch(gestures,/viewportHeight|Math\.round\(viewportHeight/);
- assert.match(html,/Wischen: nächster\/vorheriger Abschnitt/);
+ assert.doesNotMatch(html,/swipe-hint|Wischen:/);
+});
+
+test("focussed reader auto-hides menu only on downward scroll and reveals upward",()=>{
+ const html=read("index.html");
+ const css=read("web/style.css");
+ const app=read("web/app.js");
+ const gestures=read("web/reading-mode.mjs");
+ assert.doesNotMatch(html, /swipe-hint|Wischen:/);
+ assert.match(css, /data-reading-menu="hidden"/);
+ assert.match(css, /visibility:\s*hidden/);
+ assert.match(css, /pointer-events:\s*none/);
+ assert.match(app, /scrollMenuState\(/);
+ assert.match(app, /updateScrollMenu\(\)/);
+ assert.match(app, /resetReadingMenu\(\)/);
+ assert.match(gestures, /export function scrollMenuState/);
+ assert.match(html, /id="reading-mode-toggle"/);
+ assert.match(html, /id="back"/);
+ assert.match(html, /id="next"/);
 });
