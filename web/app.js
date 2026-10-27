@@ -64,7 +64,7 @@ function resetReadingMenu() {
 }
 function updateScrollMenu() {
   const position = Math.max(0, window.scrollY);
-  if (!readingMode || document.activeElement === readingModeToggle) {
+  if (!readingMode || (document.activeElement === readingModeToggle && readingModeToggle.matches(":focus-visible"))) {
     lastScrollY = position;
     menuScrollTravel = 0;
     return;
