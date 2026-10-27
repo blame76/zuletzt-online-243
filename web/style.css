@@ -148,6 +148,14 @@ progress::-moz-progress-bar { background: var(--accent); }
   top: max(10px, env(safe-area-inset-top));
   bottom: auto;
   opacity: .94;
+  transform: translateY(0);
+  transition: opacity .16s ease, transform .16s ease, visibility .16s;
+}
+:root[data-reading-mode="on"][data-reading-menu="hidden"] .reading-mode-toggle {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(calc(-100% - 18px));
 }
 :root[data-reading-mode="on"] .site-header,
 :root[data-reading-mode="on"] .reading-bar,
@@ -174,16 +182,3 @@ progress::-moz-progress-bar { background: var(--accent); }
 /* Keep native up/down scrolling and pinch zoom; horizontal reader swipes are
    handled by passive touch listeners. No edge-only invisible tap hotspots. */
 :root[data-reading-mode="on"] #reader { touch-action: pan-y pinch-zoom; }
-.swipe-hint { display: none; }
-@media (pointer: coarse) {
-  :root[data-reading-mode="on"] .swipe-hint {
-    display: block;
-    margin: clamp(62px, 10vh, 84px) auto 0;
-    max-width: 710px;
-    padding: 0 20px;
-    color: var(--muted);
-    text-align: center;
-    font: 12px/1.5 system-ui, sans-serif;
-  }
-  :root[data-reading-mode="on"] #reader { padding-top: 22px; }
-}
