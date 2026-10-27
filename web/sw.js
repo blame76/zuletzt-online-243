@@ -3,7 +3,7 @@
 // All scenes and offline assets are public static files; never cache review POSTs.
 const CACHE = "zuletzt-online-experiment-__CACHE_ID__";
 const SHELL = [
-  "/", "/web/", "/web/index.html", "/web/app.js", "/web/speech.mjs", "/web/engine.mjs",
+  "/", "/web/", "/web/index.html", "/web/app.js", "/web/reading-mode.mjs", "/web/speech.mjs", "/web/engine.mjs",
   "/web/style.css", "/web/markdown.mjs", "/site.webmanifest",
   "/web/manifest.webmanifest", "/web/icon.svg", "/web/icon-192.png", "/web/icon-512.png",
   "/interaktiv/entscheidungen.json"
