@@ -1,7 +1,7 @@
 import { buildPages, resourcePaths } from "./engine.mjs";
 import { SpeechReader } from "./speech.mjs";
 import { markdownToHtml } from "./markdown.mjs";
-import { swipeDirection, sceneTurn } from "./reading-mode.mjs";
+import { swipeDirection, sceneTurn, scrollMenuState } from "./reading-mode.mjs";
 
 const STORAGE = "zuletzt-online-interaktiv-v1";
 const $ = selector => document.querySelector(selector);
@@ -21,6 +21,9 @@ let choices = {};
 let fontSize = 19;
 let theme = "light";
 let readingMode = true;
+let menuVisible = true;
+let lastScrollY = 0;
+let menuScrollTravel = 0;
 let savedBlock = 0;
 let restoredAnchor = null;
 let speechPosition = 0;
@@ -53,7 +56,32 @@ function updateTheme() {
   $("#theme").textContent = theme === "dark" ? "Hell" : "Dunkel";
   $("#font-value").textContent = fontSize + " px";
 }
+function resetReadingMenu() {
+  menuVisible = true;
+  menuScrollTravel = 0;
+  lastScrollY = Math.max(0, window.scrollY);
+  document.documentElement.dataset.readingMenu = "visible";
+}
+function updateScrollMenu() {
+  const position = Math.max(0, window.scrollY);
+  if (!readingMode || document.activeElement === readingModeToggle) {
+    lastScrollY = position;
+    menuScrollTravel = 0;
+    return;
+  }
+  const state = scrollMenuState({
+    position, previousPosition:lastScrollY,
+    travel:menuScrollTravel, visible:menuVisible
+  });
+  lastScrollY = position;
+  menuScrollTravel = state.travel;
+  if (state.visible !== menuVisible) {
+    menuVisible = state.visible;
+    document.documentElement.dataset.readingMenu = menuVisible ? "visible" : "hidden";
+  }
+}
 function updateReadingMode() {
+  resetReadingMenu();
   document.documentElement.dataset.readingMode = readingMode ? "on" : "off";
   readingModeToggle.textContent = readingMode ? "Menü" : "Lesemodus";
   readingModeToggle.setAttribute("aria-pressed", String(readingMode));
@@ -103,7 +131,11 @@ function setIndex(value) {
     window.scrollTo({top, behavior:"instant"});
   };
   goToStart();
-  requestAnimationFrame(goToStart);
+  resetReadingMenu();
+  requestAnimationFrame(() => {
+    goToStart();
+    resetReadingMenu();
+  });
 }
 function renderChoice(page) {
   const node = manifest.nodes.find(n => n.id === page.nodeId);
@@ -306,6 +338,7 @@ speechButton.addEventListener("click",()=>{if(speech.active)speech.pause();else 
 speedSelect.addEventListener("change",()=>{const wasPlaying=speech?.active; speechPosition=speech?.parts.length?speech.position:speechPosition; speech?.stop();if(speech)speech.parts=[];speechSpeed=Number(speedSelect.value);speechButton.textContent="▶ Vorlesen";save();if(wasPlaying)speakCurrent();});
 let scrollTimer=0;
 window.addEventListener("scroll",()=>{
+ updateScrollMenu();
  if(!pages.length||pages[index]?.type!=="scene" )return;
  clearTimeout(scrollTimer);
  scrollTimer=setTimeout(()=>{
