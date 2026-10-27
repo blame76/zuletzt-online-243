@@ -132,3 +132,15 @@ test("public legal pages contain no internal pre-release notes",()=>{
  assert.match(privacy,/Cloudflare Pages/);
  assert.match(privacy,/Rezensionseingang ist zum Start deaktiviert/);
 });
+
+test("focus mode keeps visible end buttons and resets focus on section changes",()=>{
+ const html=read("index.html");
+ const css=read("web/style.css");
+ const app=read("web/app.js");
+ assert.match(html, /id="back"/);
+ assert.match(html, /id="next"/);
+ assert.match(css, /:root\[data-reading-mode="on"\] \.navigation\s*\{[\s\S]*?display:\s*flex/);
+ assert.doesNotMatch(css, /:root\[data-reading-mode="on"\] \.navigation,\s*\n:root\[data-reading-mode="on"\] \.foot \{ display: none/);
+ assert.match(app, /requestAnimationFrame\(goToStart\)/);
+ assert.doesNotMatch(app, /A back-turn shows the end of the preceding section/);
+});

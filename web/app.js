@@ -69,21 +69,21 @@ function visibleReadingBlock() {
 function turnReadingPage(direction) {
   if (!pages.length || !readingMode) return;
   const scrollY = window.scrollY;
-  const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const startScroll = Math.max(0, scrollY + reader.getBoundingClientRect().top);
+  const content = reader.querySelector(".prose, .decision");
+  // Ignore the visible navigation buttons below the story when computing
+  // the last reading page. Otherwise a tap can land in empty page padding.
+  const documentEnd = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const contentEnd = content ? scrollY + content.getBoundingClientRect().bottom : scrollY;
+  const maxScroll = Math.max(startScroll,
+    Math.min(documentEnd, contentEnd - window.innerHeight + 64));
   const action = readingStep({
-    direction, scrollY, maxScroll, viewportHeight:window.innerHeight,
+    direction, scrollY, startScroll, maxScroll, viewportHeight:window.innerHeight,
     canPrevious:index > 0, canNext:!nextBtn.disabled
   });
-  if (action.type === "scroll") window.scrollBy({top:action.offset, behavior:"instant"});
+  if (action.type === "scroll") window.scrollTo({top:action.target, behavior:"instant"});
   if (action.type === "next") setIndex(index + 1);
-  if (action.type === "previous") {
-    setIndex(index - 1);
-    // A back-turn shows the end of the preceding section, not its beginning.
-    requestAnimationFrame(() => window.scrollTo({
-      top:Math.max(0,document.documentElement.scrollHeight - window.innerHeight),
-      behavior:"instant"
-    }));
-  }
+  if (action.type === "previous") setIndex(index - 1);
 }
 function makeChapterSelect() {
   chapterSelect.replaceChildren();
@@ -103,7 +103,14 @@ function setIndex(value) {
   save();
   render();
   reader.focus({preventScroll:true});
-  window.scrollTo({ top: 0, behavior: "instant" });
+  // Rendered text can be shorter than the old section. Anchor the viewport
+  // after layout as well: browsers otherwise retain the old scroll position.
+  const goToStart = () => {
+    const top = Math.max(0, window.scrollY + reader.getBoundingClientRect().top);
+    window.scrollTo({top, behavior:"instant"});
+  };
+  goToStart();
+  requestAnimationFrame(goToStart);
 }
 function renderChoice(page) {
   const node = manifest.nodes.find(n => n.id === page.nodeId);

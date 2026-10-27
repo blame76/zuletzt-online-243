@@ -90,13 +90,20 @@ test("Fokusmodus reagiert nur auf sichere Rand-Taps", () => {
   assert.equal(tapDirection(-1, 0), null);
 });
 
-test("Lange Szenen werden zuerst innerhalb des Textes geblättert", () => {
-  const base={scrollY:0,maxScroll:1200,viewportHeight:600,canPrevious:true,canNext:true};
-  assert.deepEqual(readingStep({...base,direction:"next"}),{type:"scroll",offset:504});
-  assert.deepEqual(readingStep({...base,direction:"next",scrollY:1150}),{type:"scroll",offset:50});
+test("Fokusmodus blättert zu Seitenanfängen statt relativ zum alten Scrollstand", () => {
+  const base={scrollY:0,startScroll:0,maxScroll:1200,viewportHeight:600,canPrevious:true,canNext:true};
+  assert.deepEqual(readingStep({...base,direction:"next"}),{type:"scroll",target:504});
+  assert.deepEqual(readingStep({...base,direction:"next",scrollY:450}),{type:"scroll",target:504});
+  assert.deepEqual(readingStep({...base,direction:"next",scrollY:504}),{type:"scroll",target:1008});
+  assert.deepEqual(readingStep({...base,direction:"next",scrollY:1150}),{type:"scroll",target:1200});
   assert.deepEqual(readingStep({...base,direction:"next",scrollY:1190}),{type:"next"});
-  assert.deepEqual(readingStep({...base,direction:"previous",scrollY:450}),{type:"scroll",offset:-450});
+  assert.deepEqual(readingStep({...base,direction:"previous",scrollY:700}),{type:"scroll",target:0});
+  assert.deepEqual(readingStep({...base,direction:"previous",scrollY:1100}),{type:"scroll",target:504});
+  assert.deepEqual(readingStep({...base,direction:"previous",scrollY:450}),{type:"scroll",target:0});
   assert.deepEqual(readingStep({...base,direction:"previous"}),{type:"previous"});
+  const displaced={...base,startScroll:240,maxScroll:1440};
+  assert.deepEqual(readingStep({...displaced,direction:"next",scrollY:240}),{type:"scroll",target:744});
+  assert.deepEqual(readingStep({...displaced,direction:"previous",scrollY:744}),{type:"scroll",target:240});
 });
 
 test("Entscheidungen können nicht durch weiter-Tap übersprungen werden", () => {
