@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve, dirname } from "node:path";
 import { buildPages, resourcePaths, storyEnding, replaceSection } from "./engine.mjs";
-import { swipeDirection, sceneTurn } from "./reading-mode.mjs";
+import { swipeDirection, sceneTurn, scrollMenuState } from "./reading-mode.mjs";
 
 const basedir = dirname(fileURLToPath(import.meta.url));
 const read = location => readFileSync(resolve(basedir, location), "utf8");
@@ -120,4 +120,25 @@ test("Swipe überspringt weder offene Entscheidungen noch Buchgrenzen", () => {
   assert.equal(sceneTurn({direction:"next",index:218,count:219,canNext:true}),218);
   assert.equal(sceneTurn({direction:"invalid",index:28,count:219,canNext:true}),28);
   assert.equal(sceneTurn({direction:"next",index:-1,count:219,canNext:true}),-1);
+});
+
+test("Menü verschwindet erst nach deutlichem Abwärtsscrollen",()=>{
+ const step=(position,previousPosition,travel,visible)=>scrollMenuState({position,previousPosition,travel,visible});
+ assert.deepEqual(step(35,20,0,true),{visible:true,travel:15});
+ assert.deepEqual(step(48,35,15,true),{visible:true,travel:0});
+ // First direction switch resets progress and prevents flickering.
+ assert.deepEqual(step(58,35,15,true),{visible:false,travel:0});
+ assert.deepEqual(step(60,58,0,false),{visible:false,travel:2});
+});
+
+test("Menü erscheint erst nach deutlichem Hochscrollen und am Textanfang",()=>{
+ assert.deepEqual(scrollMenuState({position:220,previousPosition:234,travel:0,visible:false}),{visible:false,travel:-14});
+ assert.deepEqual(scrollMenuState({position:203,previousPosition:220,travel:-14,visible:false}),{visible:true,travel:0});
+ assert.deepEqual(scrollMenuState({position:12,previousPosition:203,travel:0,visible:false}),{visible:true,travel:0});
+});
+
+test("Jitter und programmatische Scrollsprünge verändern Menü nicht",()=>{
+ assert.deepEqual(scrollMenuState({position:140,previousPosition:139,travel:0,visible:true}),{visible:true,travel:0});
+ assert.deepEqual(scrollMenuState({position:980,previousPosition:100,travel:0,visible:true}),{visible:true,travel:0});
+ assert.deepEqual(scrollMenuState({position:100,previousPosition:980,travel:0,visible:false}),{visible:false,travel:0});
 });
