@@ -232,3 +232,19 @@ test("reader version is embedded, served uncached and can activate only with con
  assert.match(worker,/url\.pathname==="\/version\.json"/);
  assert.match(read("_headers"),/\/version\.json\s+Cache-Control: no-store/);
 });
+
+test("Android Reading Mode has one uninterrupted no-JS complete novel",()=>{
+ const full=read("lesen/gesamt/index.html");
+ const chapterOne=read("lesen/index.html");
+ const toc=read("lesen/inhaltsverzeichnis/index.html");
+ assert.match(full,/<!doctype html>/i);
+ assert.match(full,/<main id="text">[\s\S]*?<article/);
+ assert.match(full,/Thomas hatte seit drei Tagen nicht geduscht/);
+ assert.match(full,/Er beschloss, morgen nachzusehen/);
+ assert.equal((full.match(/<section aria-labelledby="full-ch[0-9]+">/g)||[]).length,15);
+ assert.ok(full.length>300000);
+ assert.doesNotMatch(full,/<script\b|onclick=|onload=/i);
+ assert.match(chapterOne,/href="\/lesen\/gesamt\/"/);
+ assert.match(toc,/href="\/lesen\/gesamt\/"/);
+ assert.match(read("sw.js"),/"\/lesen\/gesamt\/"/);
+});
