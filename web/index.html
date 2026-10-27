@@ -24,6 +24,7 @@
       </div>
     </div>
     <div class="tools" role="group" aria-label="Leseeinstellungen">
+      <a class="about-link" href="/lesen/">Statisch lesen</a>
       <a class="about-link" href="/about/">Über</a>
       <button type="button" id="font-minus" aria-label="Schrift verkleinern" title="Schrift verkleinern">A−</button>
       <span id="font-value" class="font-value" aria-live="off">19 px</span>
@@ -39,6 +40,11 @@
   </div>
 
   <div class="speech-tools" role="group" aria-label="Vorlesen"><button type="button" id="speech-toggle">▶ Vorlesen</button><label for="speech-speed">Tempo</label><select id="speech-speed"><option value="0.8">0,8×</option><option value="1" selected>1×</option><option value="1.25">1,25×</option></select><span id="speech-status" role="status" aria-live="polite"></span></div>
+  <aside id="update-banner" class="update-banner" role="status" aria-live="polite" hidden>
+    <span>Neue Version verfügbar.</span>
+    <button type="button" id="update-load">Jetzt laden</button>
+    <button type="button" id="update-later">Später</button>
+  </aside>
   <div id="initial" class="initial" role="status" hidden>Manuskript wird geladen …</div>
 
   <div id="reading">
@@ -57,7 +63,7 @@
     <footer class="foot">
       <p>© Benjamin Lam – alle Rechte am Roman vorbehalten.</p>
       <button type="button" id="restart" class="reset">Neu beginnen</button>
-      <p><a href="/about/">Über dieses Buch</a> · <a href="/impressum/">Impressum</a> · <a href="/datenschutz/">Datenschutz</a></p>
+      <p><a href="/lesen/">Lineare Lesefassung (ohne JavaScript)</a> · <a href="/about/">Über dieses Buch</a> · <a href="/impressum/">Impressum</a> · <a href="/datenschutz/">Datenschutz</a></p>
     </footer>
   </div>
   <script type="module" src="./app.js"></script>

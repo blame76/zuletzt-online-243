@@ -182,3 +182,23 @@ progress::-moz-progress-bar { background: var(--accent); }
 /* Keep native up/down scrolling and pinch zoom; horizontal reader swipes are
    handled by passive touch listeners. No edge-only invisible tap hotspots. */
 :root[data-reading-mode="on"] #reader { touch-action: pan-y pinch-zoom; }
+
+
+/* Reader update notification: opt-in reload, unobtrusive until a release is ready. */
+.update-banner {
+  position: fixed; z-index: 40;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  left: 50%; transform: translateX(-50%);
+  width: min(94vw,560px);
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; flex-wrap: wrap; padding: 14px 18px;
+  background: var(--panel); color: var(--ink);
+  border: 1px solid var(--interactive-border); border-radius: 12px;
+  box-shadow: 0 8px 30px #0003;
+  font: 14px/1.5 system-ui,sans-serif;
+}
+.update-banner button {
+  min-height: 44px; padding: 8px 14px; border: 1px solid var(--interactive-border);
+  border-radius: 8px; color: var(--ink); background: var(--paper);
+}
+.update-banner button:disabled { opacity: .7; }

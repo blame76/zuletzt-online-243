@@ -3,10 +3,10 @@
 // All scenes and offline assets are public static files; never cache review POSTs.
 const CACHE = "zuletzt-online-experiment-__CACHE_ID__";
 const SHELL = [
-  "/", "/web/", "/web/index.html", "/web/app.js", "/web/reading-mode.mjs", "/web/speech.mjs", "/web/engine.mjs",
-  "/web/style.css", "/web/markdown.mjs", "/site.webmanifest",
+  "/", "/web/", "/web/index.html", "/web/app.js", "/web/reading-mode.mjs", "/web/updates.mjs", "/web/speech.mjs", "/web/engine.mjs",
+  "/web/style.css", "/web/static-reader.css", "/web/markdown.mjs", "/site.webmanifest",
   "/web/manifest.webmanifest", "/web/icon.svg", "/web/icon-192.png", "/web/icon-512.png",
-  "/interaktiv/entscheidungen.json"
+  "/interaktiv/entscheidungen.json", "/lesen/", "/lesen/inhaltsverzeichnis/", "/lesen/gesamt/"
 ];
 self.addEventListener("install", event => {
   event.waitUntil((async () => {
@@ -25,8 +25,19 @@ self.addEventListener("install", event => {
       }
       await cache.addAll([...paths]);
     } catch (error) { throw new Error("Offline-Buchpaket unvollständig"); }
-    await self.skipWaiting();
+    // Migrate automatically only from the old cache-first reader, which had
+    // no update button and otherwise could strand the new worker indefinitely.
+    // Later releases contain updates.mjs and remain staged until consent.
+    const previous=(await caches.keys()).filter(name=>
+      name.startsWith("zuletzt-online-experiment-") && name!==CACHE);
+    if(previous.length){
+      const old=await caches.open(previous.at(-1));
+      if(!(await old.match("/web/updates.mjs")))await self.skipWaiting();
+    }
   })());
+});
+self.addEventListener("message",event=>{
+  if(event.data?.type==="SKIP_WAITING")event.waitUntil(self.skipWaiting());
 });
 self.addEventListener("activate", event => {
   event.waitUntil((async () => {
@@ -40,6 +51,28 @@ self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
+  // Release metadata MUST always reach the server, never a cached response.
+  if (url.pathname==="/version.json") {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+  // Statically rendered chapters should show fresh published text whenever online.
+  if (url.pathname.startsWith("/lesen/") && event.request.mode==="navigate") {
+    event.respondWith((async()=>{
+      try {
+        const response=await fetch(event.request);
+        if(response.ok) {
+          const cache=await caches.open(CACHE);
+          cache.put(event.request,response.clone()).catch(()=>{});
+        }
+        return response;
+      }catch{
+        return (await caches.match(event.request)) ||
+          new Response("Diese Leseseite ist offline noch nicht gespeichert.",{status:503,headers:{"Content-Type":"text/plain; charset=utf-8"}});
+      }
+    })());
+    return;
+  }
   event.respondWith((async () => {
     const cached = await caches.match(event.request);
     if (cached) return cached;

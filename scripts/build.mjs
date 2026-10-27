@@ -5,6 +5,7 @@ import { createHash } from "node:crypto";
 import { deflateSync } from "node:zlib";
 import { buildPages, resourcePaths } from "../web/engine.mjs";
 import { markdownToHtml } from "../web/markdown.mjs";
+import { generateStaticEdition } from "./static-edition.mjs";
 import { ERROR_CODES } from "../functions/api/v1/reviews.js";
 const root=resolve(import.meta.dirname,".."), out=resolve(root,"dist");
 const read=p=>readFileSync(resolve(root,p),"utf8");
@@ -38,6 +39,14 @@ for(const node of manifest.nodes) for(const option of node.options.slice(1)){
  versions[node.id+":"+option.id]=pages;
 }
 const editionHash=createHash("sha256").update("reading-layout-v2\n").update(JSON.stringify(manifest)).update(resourcePaths(manifest).map(p=>resources[p].replace(/\r\n/g,"\n")).join("")).digest("hex").slice(0,16);
+const releaseId=createHash("sha256").update(editionHash).update([
+  "scripts/build.mjs","scripts/static-edition.mjs",
+  "web/index.html","web/app.js","web/updates.mjs","web/reading-mode.mjs",
+  "web/speech.mjs","web/sw.js","web/style.css","web/static-reader.css",
+  "site/_headers"
+].map(read).join("\n")).digest("hex").slice(0,16);
+write("version.json",JSON.stringify({version:releaseId}));
+const staticChapters=generateStaticEdition({manifest,pages:base,write,markdownToHtml});
 const catalog=[];
 const chapterMap=Object.fromEntries(manifest.manuskript.map((m,i)=>[m.path,{id:"ch"+String(i+1).padStart(2,"0"),label:m.label,url:"/agent/v1/chapters/ch"+String(i+1).padStart(2,"0")+".json",source:m.path}]));
 const chapterContents=new Map(Object.values(chapterMap).map(c=>[c.id,[]]));
@@ -80,8 +89,9 @@ for(const f of ["_headers","_routes.json","robots.txt","llms.txt","impressum/ind
 const first=base[0];
 if(first?.type!=="scene"||!first.markdown.includes("Thomas hatte seit drei Tagen nicht geduscht."))throw Error("The first human page must begin with the novel.");
 const prerender='<article class="prose">'+markdownToHtml(first.markdown)+'</article>';
-const template=read("web/index.html").replace('<main id="reader" tabindex="-1"></main>','<main id="reader" tabindex="-1">'+prerender+'</main>');
-if(template===read("web/index.html"))throw Error("Pre-render anchor not found");
+const sourceTemplate=read("web/index.html").replace("</head>",'<meta name="reader-version" content="'+releaseId+'"></head>');
+const template=sourceTemplate.replace('<main id="reader" tabindex="-1"></main>','<main id="reader" tabindex="-1">'+prerender+'</main>');
+if(template===sourceTemplate)throw Error("Pre-render anchor not found");
 write("web/index.html",template);
 const rootReader=template.replaceAll('href="./icon.svg"','href="/web/icon.svg"').replaceAll('href="./icon-192.png"','href="/web/icon-192.png"').replaceAll('href="./style.css"','href="/web/style.css"').replaceAll('src="./app.js"','src="/web/app.js"');
 write("index.html",rootReader.replace("</head>",'<meta property="og:type" content="book"><meta property="og:title" content="Zuletzt online"><script type="application/ld+json">'+JSON.stringify({"@context":"https://schema.org","@type":"Book",name:"Zuletzt online",author:{"@type":"Person",name:"Benjamin Lam"},inLanguage:"de",description:"Ein Roman von Benjamin Lam.",isAccessibleForFree:true})+'</script></head>'));
@@ -113,7 +123,7 @@ const mainManifest=JSON.parse(read("site/site.webmanifest"));
 mainManifest.id="/";mainManifest.start_url="/";mainManifest.scope="/";
 mainManifest.icons=[{src:"/web/icon-192.png",sizes:"192x192",type:"image/png"},{src:"/web/icon-512.png",sizes:"512x512",type:"image/png"}];
 write("site.webmanifest",JSON.stringify(mainManifest));
-const cacheShell=["index.html","app.js","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+const cacheShell=["index.html","app.js","updates.mjs","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","style.css","static-reader.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
 const cacheId=createHash("sha256").update(editionHash).update(Buffer.concat(cacheShell.map(f=>readFileSync(resolve(out,"web",f))))).update(readFileSync(resolve(out,"index.html"))).digest("hex").slice(0,16);
 const worker=read("web/sw.js").replace("__CACHE_ID__",cacheId);
 write("web/sw.js",worker);
@@ -131,9 +141,9 @@ if(process.env.SITE_URL){
   const canonical=origin+"/";
   writeFileSync(file,html.replace("</head>",'<link rel="canonical" href="'+canonical+'"><meta property="og:url" content="'+canonical+'"></head>'));
  }
- const urls=["/","/about/","/impressum/","/datenschutz/"];
+ const urls=["/","/lesen/","/lesen/inhaltsverzeichnis/","/lesen/gesamt/",...Array.from({length:14},(_,i)=>"/lesen/kapitel-"+String(i+2).padStart(2,"0")+"/"),"/about/","/impressum/","/datenschutz/"];
  write("sitemap.xml",'<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls.map(path=>"<url><loc>"+origin+path+"</loc></url>").join("")+"</urlset>");
  write("robots.txt",read("site/robots.txt")+"Sitemap: "+origin+"/sitemap.xml\n");
 }
 
-console.log("Built "+base.length+" agent events, edition "+editionHash+"; no dependencies, public output only in dist/");
+console.log("Built "+base.length+" agent events, "+staticChapters+" static chapters, release "+releaseId+"; no dependencies, public output only in dist/");
