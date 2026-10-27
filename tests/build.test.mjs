@@ -160,3 +160,14 @@ test("touch reading mode has swipe guidance and no edge-tap listener",()=>{
  assert.match(html,/id="back"/);
  assert.match(html,/id="next"/);
 });
+
+test("horizontal swipes navigate scenes and keep full text scrollable",()=>{
+ const app=read("web/app.js");
+ const gestures=read("web/reading-mode.mjs");
+ const html=read("index.html");
+ assert.match(app,/sceneTurn\(/);
+ assert.doesNotMatch(app,/readingStep|startScroll|maxScroll/);
+ assert.match(gestures,/export function sceneTurn/);
+ assert.doesNotMatch(gestures,/viewportHeight|Math\.round\(viewportHeight/);
+ assert.match(html,/Wischen: nächster\/vorheriger Abschnitt/);
+});
