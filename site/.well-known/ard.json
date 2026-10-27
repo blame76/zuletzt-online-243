@@ -1,0 +1,21 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Zuletzt online",
+    "documentationUrl": "https://zuletzt-online-243.pages.dev/agent/v1/guide.json"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:zuletzt-online-243.pages.dev:dataset:novel-feed",
+      "displayName": "Zuletzt online – machine-readable story feed",
+      "type": "application/json",
+      "url": "https://zuletzt-online-243.pages.dev/agent/v1/manifest.json",
+      "description": "Read-only JSON manifest and ordered scene references for 243 interactive story routes; no agent execution or booking tools.",
+      "tags": [
+        "interactive-fiction",
+        "reading",
+        "de"
+      ]
+    }
+  ]
+}

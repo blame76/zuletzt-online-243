@@ -258,3 +258,50 @@ test("share preview includes static metadata and a real JPEG",()=>{
  const image=readFileSync(new URL("og-cover.jpg",root));
  assert.deepEqual([...image.subarray(0,3)],[0xff,0xd8,0xff]);
 });
+
+test("initial HTML matches the actual first interactive scene without layout collapse",async()=>{
+ const {buildPages,resourcePaths}=await import("../web/engine.mjs");
+ const {markdownToHtml}=await import("../web/markdown.mjs");
+ const {resolve,dirname}=await import("node:path");
+ const {fileURLToPath}=await import("node:url");
+ const baseDir=resolve(dirname(fileURLToPath(import.meta.url)),"..");
+ const manifest=JSON.parse(readFileSync(resolve(baseDir,"interaktiv/entscheidungen.json"),"utf8"));
+ const resources=Object.fromEntries(resourcePaths(manifest).map(p=>[p,readFileSync(resolve(baseDir,"web",p),"utf8")]));
+ const first=buildPages(manifest,resources,{})[0];
+ const second=buildPages(manifest,resources,{})[1];
+ const expected='<article class="prose">'+markdownToHtml(first.markdown)+'</article>';
+ const html=read("index.html");
+ const legacy=read("web/index.html");
+ assert.ok(html.includes(expected),"SSR scene must match runtime render exactly");
+ assert.ok(legacy.includes(expected),"legacy /web/ SSR must also match");
+ assert.ok(!first.markdown.includes(second.markdown),"first scene cannot contain next scene");
+ assert.match(html,/<html[^>]*data-reading-mode="on"/);
+ assert.match(legacy,/<html[^>]*data-reading-mode="on"/);
+ assert.match(html,/<noscript>[\s\S]*?href="\/lesen\/"/);
+ assert.match(html,/id="reading-mode-toggle"[^>]*aria-pressed="true"/);
+});
+
+test("llms.txt provides real Markdown resource links including accessible reading",()=>{
+ const llms=read("llms.txt");
+ assert.match(llms,/^#\s+\S/m);
+ assert.ok(llms.length>50);
+ assert.match(llms,/\[[^\]]+\]\(\/agent\/v1\/manifest\.json\)/);
+ assert.match(llms,/\[[^\]]+\]\(\/lesen\/gesamt\/\)/);
+ assert.match(llms,/243/);
+});
+
+test("well-known discovery advertises only the real JSON story feed",()=>{
+ const old=JSON.parse(read(".well-known/ai-catalog.json"));
+ const current=JSON.parse(read(".well-known/ard.json"));
+ assert.deepEqual(old,current);
+ assert.equal(old.specVersion,"1.0");
+ assert.ok(typeof old.host.displayName==="string" && !!old.host.displayName);
+ assert.ok(Array.isArray(old.entries));
+ assert.equal(old.entries.length,1);
+ const entry=old.entries[0];
+ assert.match(entry.identifier,/^urn:air:[a-zA-Z0-9.-]+(:[a-zA-Z0-9._-]+)+$/);
+ assert.equal(entry.type,"application/json");
+ assert.equal(new URL(entry.url).pathname,"/agent/v1/manifest.json");
+ assert.ok(!("data" in entry));
+ assert.deepEqual(Object.keys(old).sort(),["entries","host","specVersion"]);
+});
