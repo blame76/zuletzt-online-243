@@ -2,6 +2,7 @@ import { buildPages, resourcePaths } from "./engine.mjs";
 import { SpeechReader } from "./speech.mjs";
 import { markdownToHtml } from "./markdown.mjs";
 import { swipeDirection, sceneTurn, scrollMenuState } from "./reading-mode.mjs";
+import { initUpdates } from "./updates.mjs";
 
 const STORAGE = "zuletzt-online-interaktiv-v1";
 const $ = selector => document.querySelector(selector);
@@ -314,9 +315,11 @@ document.addEventListener("keydown", e => {
 });
 setConnectivity();
 load();
-if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
-  window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js",{scope:"/"}).catch(() => {}));
-}
+// Preserve the locally saved story path and position before opt-in activation.
+window.addEventListener("load", () => initUpdates({
+  currentVersion:document.querySelector('meta[name="reader-version"]')?.content,
+  onBeforeReload:save
+}));
 
 speech = new SpeechReader(state=>{
  if(state.state==="playing"){speechButton.textContent="Ⅱ Pause";speechStatus.textContent="Satz "+(state.position+1)+" von "+state.total;speechPosition=state.position;save();}
