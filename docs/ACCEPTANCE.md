@@ -1,5 +1,11 @@
 # Abnahme (NICHT als erledigt markieren ohne echten Lauf)
 
+## Deployment-Plattform
+- [ ] Cloudflare-Projekttyp ist **Pages** mit Git-Integration, nicht Workers Builds mit `npx wrangler deploy`
+- [ ] Cloudflare-Build führt `npm run build` aus und veröffentlicht `dist/` (Node >= 22)
+- [ ] Produktions-URL liefert Roman unter `/`, Agentenmanifest unter `/agent/v1/manifest.json` und deaktivierte Review-API mit 503 SERVICE_DISABLED
+- [ ] Rechtstexte auf Cloudflare-Konfiguration, tatsächliche Domain und Angaben zum Verantwortlichen geprüft
+
 ## Security & Kosten
 - [ ] Cloudflare Workers Free verifiziert, keine Paid-/R2-/AI-Produkte eingeschaltet
 - [ ] GitHub-Secrets nur in Cloudflare, keine token im Repo
