@@ -62,7 +62,7 @@ test("PWA icons are real PNGs and SEO canonical is not invented",()=>{
 
 test("service worker cache key covers edition and every reader shell asset",()=>{
  const manifest=JSON.parse(read("agent/v1/manifest.json"));
- const shell=["index.html","app.js","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+ const shell=["index.html","app.js","updates.mjs","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","style.css","static-reader.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
  const hash=createHash("sha256").update(manifest.edition).update(Buffer.concat(shell.map(file=>readFileSync(new URL("web/"+file,root))))).update(readFileSync(new URL("index.html",root))).digest("hex").slice(0,16);
  assert.ok(read("web/sw.js").includes("zuletzt-online-experiment-"+hash));
 });
@@ -95,7 +95,7 @@ test("service error declarations match the server exports",async()=>{
 test("cache version fingerprints the shipped reader shell, not only text edition",async()=>{
  const {createHash}=await import("node:crypto");
  const m=JSON.parse(read("agent/v1/manifest.json"));
- const shell=["index.html","app.js","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","style.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+ const shell=["index.html","app.js","updates.mjs","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","style.css","static-reader.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
  const expected=createHash("sha256").update(m.edition).update(Buffer.concat(shell.map(name=>readFileSync(new URL("web/"+name,root))))).update(readFileSync(new URL("index.html",root))).digest("hex").slice(0,16);
  assert.ok(read("web/sw.js").includes("zuletzt-online-experiment-"+expected));
  assert.ok(!read("web/sw.js").includes("__CACHE_ID__"));
@@ -189,4 +189,46 @@ test("focussed reader auto-hides menu only on downward scroll and reveals upward
  assert.match(html, /id="reading-mode-toggle"/);
  assert.match(html, /id="back"/);
  assert.match(html, /id="next"/);
+});
+
+test("static reading edition is complete, semantic and navigable without JS",()=>{
+ const html=[];
+ for(let i=1;i<=15;i++){
+  const path=i===1?"lesen/index.html":"lesen/kapitel-"+String(i).padStart(2,"0")+"/index.html";
+  const content=read(path);
+  html.push(content);
+  assert.match(content,/<!doctype html>/i);
+  assert.match(content,/<main id="text">[\s\S]*?<article/);
+  assert.match(content,/<h2 class="chapter-title">/);
+  assert.match(content,/<div class="prose">/);
+  assert.match(content,/<nav class="chapter-nav"/);
+  assert.match(content,/<a href="\/lesen\/inhaltsverzeichnis\/">Inhaltsverzeichnis<\/a>/);
+  assert.doesNotMatch(content,/<script\b|onload=|onclick=|<button\b/i);
+  if(i!==1)assert.match(content,/rel="prev"/);
+  if(i!==15)assert.match(content,/rel="next"/);
+ }
+ assert.ok(html.reduce((n,s)=>n+s.length,0)>300000);
+ assert.match(html[0],/Thomas hatte seit drei Tagen nicht geduscht/);
+ assert.match(html.at(-1),/Er beschloss, morgen nachzusehen/);
+ assert.match(read("lesen/inhaltsverzeichnis/index.html"),/kapitel-15/);
+ assert.match(read("index.html"),/href="\/lesen\/"/);
+});
+
+test("reader version is embedded, served uncached and can activate only with consent",()=>{
+ const version=JSON.parse(read("version.json")).version;
+ const html=read("index.html");
+ const worker=read("sw.js");
+ const app=read("web/app.js");
+ assert.match(version,/^[a-f0-9]{16}$/);
+ assert.ok(html.includes('name="reader-version" content="'+version+'"'));
+ assert.match(html,/id="update-banner"/);
+ assert.match(html,/id="update-load"/);
+ assert.match(html,/id="update-later"/);
+ assert.match(app,/initUpdates\(/);
+ assert.match(read("web/updates.mjs"),/registration\.update\(\)/);
+ assert.match(read("web/updates.mjs"),/controllerchange/);
+ assert.match(worker,/SKIP_WAITING/);
+ assert.doesNotMatch(worker,/await self\.skipWaiting\(\)/);
+ assert.match(worker,/url\.pathname==="\/version\.json"/);
+ assert.match(read("_headers"),/\/version\.json\s+Cache-Control: no-store/);
 });
