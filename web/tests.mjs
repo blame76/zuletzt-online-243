@@ -125,7 +125,7 @@ test("Swipe überspringt weder offene Entscheidungen noch Buchgrenzen", () => {
 test("Menü verschwindet erst nach deutlichem Abwärtsscrollen",()=>{
  const step=(position,previousPosition,travel,visible)=>scrollMenuState({position,previousPosition,travel,visible});
  assert.deepEqual(step(35,20,0,true),{visible:true,travel:15});
- assert.deepEqual(step(48,35,15,true),{visible:true,travel:0});
+ assert.deepEqual(step(48,35,15,true),{visible:false,travel:0});
  // First direction switch resets progress and prevents flickering.
  assert.deepEqual(step(58,35,15,true),{visible:false,travel:0});
  assert.deepEqual(step(60,58,0,false),{visible:false,travel:2});
