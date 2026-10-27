@@ -149,7 +149,7 @@ test("touch reading mode has swipe guidance and no edge-tap listener",()=>{
  const html=read("index.html");
  const app=read("web/app.js");
  const css=read("web/style.css");
- assert.match(html,/Nach links wischen: weiter/);
+ assert.match(html,/Wischen: nächster\/vorheriger Abschnitt/);
  assert.match(app,/touchstart/);
  assert.match(app,/touchend/);
  assert.match(app,/touchcancel/);
