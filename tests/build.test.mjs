@@ -249,3 +249,12 @@ test("Android Reading Mode has one uninterrupted no-JS complete novel",()=>{
  assert.match(toc,/href="\/lesen\/gesamt\/"/);
  assert.match(read("sw.js"),/"\/lesen\/gesamt\/"/);
 });
+
+test("share preview includes static metadata and a real JPEG",()=>{
+ const html=read("index.html");
+ assert.match(html,/<meta property="og:title" content="Zuletzt online – 243">/);
+ assert.match(html,/<meta property="og:image" content="https:\/\/zuletzt-online-243\.pages\.dev\/og-cover\.jpg">/);
+ assert.match(html,/<meta name="twitter:card" content="summary_large_image">/);
+ const image=readFileSync(new URL("og-cover.jpg",root));
+ assert.deepEqual([...image.subarray(0,3)],[0xff,0xd8,0xff]);
+});
