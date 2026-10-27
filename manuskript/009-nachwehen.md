@@ -2056,13 +2056,11 @@ Herr Behrens nickte.
 
 „Mach ich.“
 
-Thomas ging zum Supermarkt.
+Thomas ging zur Tankstelle.
 
-Er kaufte Milch.
+Er nahm zwei Packungen Milch aus dem Regal.
 
-Und Brötchen.
-
-Und eine Zeitung.
+Am Zeitungsständer entdeckte er eine Zeitung.
 
 Die Zeitung hatte auf der Titelseite ein großes Foto von dem Waschbären.
 
@@ -2071,6 +2069,8 @@ Thomas betrachtete es.
 Dann musste er lachen.
 
 Er nahm sie mit.
+
+Anschließend holte er Brötchen beim Bäcker.
 
 Das Wetter war für November erstaunlich mild.
 
