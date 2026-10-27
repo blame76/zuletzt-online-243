@@ -86,7 +86,9 @@ write("agent/v1/example-review.json",JSON.stringify({schema_version:1,edition:ed
 write("agent/v1/review.schema.json",read("api/review.schema.json"));
 for(const f of ["_headers","_routes.json","robots.txt","llms.txt",".well-known/ai-catalog.json",".well-known/ard.json","impressum/index.html","datenschutz/index.html","about/index.html","site.webmanifest"])write(f,read("site/"+f));
 // The public root IS the reader: no prelude, no standalone title page.
-const first=base[0];
+// The initial DOM must match the first page rendered by app.js exactly.
+// Agent/static bundles normalize *** separators, while the interactive reader does not.
+const first=buildPages(manifest,resources,{})[0];
 if(first?.type!=="scene"||!first.markdown.includes("Thomas hatte seit drei Tagen nicht geduscht."))throw Error("The first human page must begin with the novel.");
 const prerender='<article class="prose">'+markdownToHtml(first.markdown)+'</article>';
 const sourceTemplate=read("web/index.html").replace("</head>",'<meta name="reader-version" content="'+releaseId+'"></head>');
