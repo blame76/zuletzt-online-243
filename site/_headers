@@ -11,3 +11,7 @@
   Cache-Control: no-cache
 /sw.js
   Cache-Control: no-cache
+/version.json
+  Cache-Control: no-store, max-age=0
+/lesen/*
+  Cache-Control: public, max-age=0, must-revalidate
