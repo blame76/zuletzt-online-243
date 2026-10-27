@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve, dirname } from "node:path";
 import { buildPages, resourcePaths, storyEnding, replaceSection } from "./engine.mjs";
+import { tapDirection, readingStep } from "./reading-mode.mjs";
 
 const basedir = dirname(fileURLToPath(import.meta.url));
 const read = location => readFileSync(resolve(basedir, location), "utf8");
@@ -77,4 +78,30 @@ test("Roman beginnt sofort mit Montag und Thomas, nicht mit einer Titelseite", (
   assert.equal(first.heading,"Montag");
   assert.match(first.markdown,/Thomas hatte seit drei Tagen nicht geduscht\./);
   assert.doesNotMatch(first.markdown,/^# Zuletzt online$/m);
+});
+
+
+test("Fokusmodus reagiert nur auf sichere Rand-Taps", () => {
+  assert.equal(tapDirection(42, 360), "previous");
+  assert.equal(tapDirection(320, 360), "next");
+  assert.equal(tapDirection(180, 360), null);
+  assert.equal(tapDirection(30, 360, {selected:true}), null);
+  assert.equal(tapDirection(320, 360, {interactive:true}), null);
+  assert.equal(tapDirection(-1, 0), null);
+});
+
+test("Lange Szenen werden zuerst innerhalb des Textes geblättert", () => {
+  const base={scrollY:0,maxScroll:1200,viewportHeight:600,canPrevious:true,canNext:true};
+  assert.deepEqual(readingStep({...base,direction:"next"}),{type:"scroll",offset:504});
+  assert.deepEqual(readingStep({...base,direction:"next",scrollY:1150}),{type:"scroll",offset:50});
+  assert.deepEqual(readingStep({...base,direction:"next",scrollY:1190}),{type:"next"});
+  assert.deepEqual(readingStep({...base,direction:"previous",scrollY:450}),{type:"scroll",offset:-450});
+  assert.deepEqual(readingStep({...base,direction:"previous"}),{type:"previous"});
+});
+
+test("Entscheidungen können nicht durch weiter-Tap übersprungen werden", () => {
+  const atEnd={scrollY:0,maxScroll:0,viewportHeight:600,canPrevious:false,canNext:false};
+  assert.deepEqual(readingStep({...atEnd,direction:"next"}),{type:"none"});
+  assert.deepEqual(readingStep({...atEnd,direction:"previous"}),{type:"none"});
+  assert.deepEqual(readingStep({...atEnd,direction:"next",canNext:true}),{type:"next"});
 });

@@ -132,3 +132,35 @@ progress::-moz-progress-bar { background: var(--accent); }
 .about-page h2 { font: 600 18px/1.5 system-ui,sans-serif; margin-top: 2rem; }
 .about-page p { margin: 0 0 1.35em; }
 .about-page footer { margin-top: 4rem; font: 13px/1.7 system-ui,sans-serif; }
+
+/* Focus reading mode: keep the novel visible, expose settings on demand. */
+.reading-mode-toggle {
+  position: fixed; z-index: 20;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 9px 16px; min-height: 44px; min-width: 44px;
+  font: 600 13px/1.3 system-ui, sans-serif;
+  background: var(--panel); color: var(--ink);
+  box-shadow: 0 2px 12px #00000012;
+}
+:root[data-reading-mode="on"] .reading-mode-toggle {
+  top: max(10px, env(safe-area-inset-top));
+  bottom: auto;
+  opacity: .94;
+}
+:root[data-reading-mode="on"] .site-header,
+:root[data-reading-mode="on"] .reading-bar,
+:root[data-reading-mode="on"] .speech-tools,
+:root[data-reading-mode="on"] .location,
+:root[data-reading-mode="on"] .navigation,
+:root[data-reading-mode="on"] .foot { display: none; }
+:root[data-reading-mode="on"] #reader {
+  max-width: 710px; margin: 0 auto; min-height: 100svh;
+  padding: clamp(72px, 11vh, 108px) clamp(24px, 7vw, 55px) clamp(52px, 11vh, 90px);
+}
+:root[data-reading-mode="on"] .prose { line-height: 1.76; }
+:root[data-reading-mode="on"] .decision { padding-top: clamp(10px, 3vh, 28px); }
+@media (max-width: 480px) {
+  :root[data-reading-mode="on"] #reader { padding-inline: 24px; }
+}
