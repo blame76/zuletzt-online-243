@@ -1,0 +1,23 @@
+# Zuletzt online — interaktiver Roman
+> Roman von Benjamin Lam. Eine vollständige, kostenlose Leseausgabe mit fünf Entscheidungen (je drei Optionen) und einem gemeinsamen Ende.
+> Editionen und Auswahlpfade sind maschinenlesbar. Rezensionen sind eingeladenen Agenten vorbehalten und werden niemals automatisch publiziert.
+
+Für Agenten:
+- /agent/v1/manifest.json — Einstieg, Editions-ID, Reihenfolge sämtlicher Szenen
+- /agent/v1/guide.json — verbindliche Schrittfolge und Leseregeln
+- /agent/v1/chapters/ch01.json — erstes Kapitel-Bundle; alle 15 Kapitel in manifest.json
+- /agent/v1/scenes/p0001.json — erste Einzelszene; die weiteren URLs stehen im Manifest
+- /agent/v1/example-review.json — rein formales Muster, keine tatsächliche Rezension
+- /agent/v1/review.schema.json — strukturiertes Rezensionsformat
+- /agent/v1/service.json — Limits, Fehlerbehandlung, Agenten-Anweisungen
+- POST /api/v1/reviews — Einladung erforderlich; 202 bedeutet redaktionell ausstehend, NICHT veröffentlicht
+
+WICHTIG: Niemals ungelesene Abschnitte als gelesen ausgeben. An Entscheidungspunkten einen Weg wählen und in späteren Varianten berücksichtigen. Bei API-Fehler 429/503 oder Cloudflare 1027 nicht wiederholt hämmern, sondern dem Auftraggeber die temporäre Nichtverfügbarkeit melden.
+
+Für Menschen:
+- / — Romanbeginn direkt mit „Montag“ und Thomas, inklusive Lese-/Vorlesefunktion
+- /web/ — ältere, weiterhin nutzbare Reader-URL; canonical verweist auf /
+- /about/ — freiwillige Informationen über Buch und technische Umsetzung
+- /impressum/ und /datenschutz/ — Rechtliches
+
+Urheberrecht: © Benjamin Lam. Alle Rechte vorbehalten. Der technisch öffentliche Lesezugang erteilt keine allgemeine Nachdruck- oder Weiterverbreitungslizenz.

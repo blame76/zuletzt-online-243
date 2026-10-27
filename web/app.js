@@ -1,0 +1,236 @@
+import { buildPages, resourcePaths } from "./engine.mjs";
+import { SpeechReader } from "./speech.mjs";
+import { markdownToHtml } from "./markdown.mjs";
+
+const STORAGE = "zuletzt-online-interaktiv-v1";
+const $ = selector => document.querySelector(selector);
+const reader = $("#reader");
+const status = $("#status");
+const progress = $("#progress");
+const backBtn = $("#back");
+const nextBtn = $("#next");
+const chapterSelect = $("#chapter");
+
+let manifest;
+let resources;
+let pages = [];
+let index = 0;
+let choices = {};
+let fontSize = 19;
+let theme = "light";
+let savedBlock = 0;
+let restoredAnchor = null;
+let speechPosition = 0;
+let speechSpeed = 1;
+let speech;
+const speechButton = $("#speech-toggle");
+const speechStatus = $("#speech-status");
+const speedSelect = $("#speech-speed");
+
+function restore() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE) || "{}");
+    index = Number.isInteger(data.index) ? data.index : 0;
+    choices = typeof data.choices === "object" && data.choices !== null ? data.choices : {};
+    fontSize = Number.isFinite(data.fontSize) ? Math.min(26, Math.max(16, data.fontSize)) : 19;
+    theme = ["dark","light"].includes(data.theme) ? data.theme : (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    restoredAnchor = data.anchor || null;
+    savedBlock = Number.isInteger(data.savedBlock) ? data.savedBlock : 0;
+    speechPosition = Number.isInteger(data.speechPosition) ? data.speechPosition : 0;
+    speechSpeed = [0.8,1,1.25].includes(data.speechSpeed) ? data.speechSpeed : 1;
+  } catch { /* Funktioniert auch ohne Browser-Speicher. */ }
+}
+function save() {
+  try { const page=pages[index]; const anchor=page?{source:page.source,heading:page.heading,ordinal:pages.slice(0,index).filter(p=>p.source===page.source&&p.heading===page.heading).length,block:savedBlock}:restoredAnchor; localStorage.setItem(STORAGE, JSON.stringify({ index, choices, fontSize, theme, savedBlock, speechPosition, speechSpeed, anchor })); } catch {}
+}
+function updateTheme() {
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.style.setProperty("--reader-size", fontSize + "px");
+  $("#theme").textContent = theme === "dark" ? "Hell" : "Dunkel";
+  $("#font-value").textContent = fontSize + " px";
+}
+function makeChapterSelect() {
+  chapterSelect.replaceChildren();
+  manifest.manuskript.forEach((chapter, i) => {
+    const el = document.createElement("option");
+    el.value = chapter.path;
+    el.textContent = String(i + 1).padStart(2, "0") + " · " + chapter.label;
+    chapterSelect.append(el);
+  });
+}
+function setConnectivity() {
+  $("#connectivity").textContent = navigator.onLine ? "" : "Offline – gespeicherte Fassung";
+}
+function setIndex(value) {
+  speech?.stop(); if(speech)speech.parts=[]; speechPosition = 0; savedBlock = 0;
+  index = Math.max(0, Math.min(value, pages.length - 1));
+  save();
+  render();
+  reader.focus({preventScroll:true});
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
+function renderChoice(page) {
+  const node = manifest.nodes.find(n => n.id === page.nodeId);
+  const section = document.createElement("section");
+  section.className = "decision";
+  const title = document.createElement("h2");
+  title.textContent = node.title;
+  section.append(title);
+  const prompt = document.createElement("p");
+  prompt.textContent = node.question;
+  section.append(prompt);
+  const list = document.createElement("div");
+  list.className = "options";
+  node.options.forEach(option => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "choice-option";
+    const isCurrent = choices[node.id] === option.id;
+    button.setAttribute("aria-pressed", String(isCurrent));
+    if (isCurrent) button.classList.add("chosen");
+    const label = document.createElement("strong");
+    label.textContent = option.label;
+    const description = document.createElement("span");
+    description.textContent = option.description;
+    button.append(label, description);
+    button.addEventListener("click", () => {
+      choices[node.id] = option.id;
+      pages = buildPages(manifest, resources, choices);
+      const decisionIndex = pages.findIndex(p => p.type === "choice" && p.nodeId === node.id);
+      setIndex(decisionIndex + 1);
+      speechStatus.textContent = "Entscheidung gespeichert. Zum Weiterhören ▶ Vorlesen wählen.";
+    });
+    list.append(button);
+  });
+  section.append(list);
+  return section;
+}
+function render() {
+  if (!pages.length) return;
+  const page = pages[index];
+  reader.setAttribute("aria-label", "Lesetext: Abschnitt "+(index+1)+" von "+pages.length);
+  if (speechButton) { speechButton.disabled = page.type !== "scene" || !speech.supported(); speechButton.textContent = "▶ Vorlesen"; }
+  reader.replaceChildren();
+  if (page.type === "choice") {
+    reader.append(renderChoice(page));
+  } else {
+    const article = document.createElement("article");
+    article.className = "prose";
+    article.innerHTML = markdownToHtml(page.markdown);
+    reader.append(article);
+  }
+  const chapter = manifest.manuskript.find(m => m.path === page.source);
+  chapterSelect.value = chapter.path;
+  const sceneNumber = index + 1;
+  status.textContent = "Abschnitt " + sceneNumber + " von " + pages.length +
+    (page.heading ? " · " + page.heading : "");
+  progress.max = pages.length;
+  progress.value = sceneNumber;
+  progress.setAttribute("aria-valuetext", "Abschnitt " + sceneNumber + " von " + pages.length);
+  backBtn.disabled = index === 0;
+  nextBtn.disabled = index === pages.length - 1 ||
+    (page.type === "choice" && !choices[page.nodeId]);
+  nextBtn.textContent = index === pages.length - 1 ? "Ende" : "Weiter";
+  save();
+}
+function goToChapter(path) {
+  const target = pages.findIndex(p => p.source === path);
+  if (target >= 0) setIndex(target);
+}
+async function load() {
+  restore();
+  updateTheme();
+  try {
+    const response = await fetch("../interaktiv/entscheidungen.json");
+    if (!response.ok) throw new Error("Entscheidungen: HTTP " + response.status);
+    manifest = await response.json();
+    const paths = resourcePaths(manifest);
+    const loaded = await Promise.all(paths.map(async path => {
+      const res = await fetch(path);
+      if (!res.ok) throw new Error(path + ": HTTP " + res.status);
+      return [path, await res.text()];
+    }));
+    resources = Object.fromEntries(loaded);
+    pages = buildPages(manifest, resources, choices);
+    if(restoredAnchor?.source){
+      const matches=pages.map((p,i)=>({p,i})).filter(({p})=>p.source===restoredAnchor.source&&p.heading===restoredAnchor.heading);
+      if(matches.length){const at=Math.max(0,Math.min(Number(restoredAnchor.ordinal)||0,matches.length-1));index=matches[at].i;savedBlock=Number(restoredAnchor.block)||0;}
+    }
+    index = Math.max(0, Math.min(index, pages.length - 1));
+    makeChapterSelect();
+    $("#initial").hidden = true;
+    $("#reading").hidden = false;
+    render();
+    speedSelect.value = String(speechSpeed);
+    requestAnimationFrame(() => {
+      const blocks = [...reader.querySelectorAll(".prose p,.prose h1,.prose h2")];
+      if (blocks[savedBlock]) blocks[savedBlock].scrollIntoView({block:"start",behavior:"instant"});
+    });
+  } catch (err) {
+    $("#reading").hidden = true;
+    $("#initial").hidden = false;
+    $("#initial").textContent = "Der Roman konnte nicht geladen werden: " + err.message +
+      ". Bitte Webseite über einen HTTP-Server öffnen. Für Offline-Lektüre muss sie zuvor einmal vollständig geladen worden sein.";
+  }
+}
+backBtn.addEventListener("click", () => setIndex(index - 1));
+nextBtn.addEventListener("click", () => {
+  const page = pages[index];
+  if (page?.type === "choice" && !choices[page.nodeId]) return;
+  setIndex(index + 1);
+});
+chapterSelect.addEventListener("change", () => goToChapter(chapterSelect.value));
+$("#font-plus").addEventListener("click", () => { fontSize = Math.min(26, fontSize + 1); updateTheme(); save(); });
+$("#font-minus").addEventListener("click", () => { fontSize = Math.max(16, fontSize - 1); updateTheme(); save(); });
+$("#theme").addEventListener("click", () => { theme = theme === "dark" ? "light" : "dark"; updateTheme(); save(); });
+$("#restart").addEventListener("click", () => {
+  if (!window.confirm("Leseposition und alle fünf Entscheidungen zurücksetzen?")) return;
+  choices = {};
+  pages = buildPages(manifest, resources, choices);
+  setIndex(0);
+  speechStatus.textContent = "";
+});
+window.addEventListener("online", setConnectivity);
+window.addEventListener("offline", setConnectivity);
+document.addEventListener("keydown", e => {
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  const tag = document.activeElement?.tagName;
+  if (["BUTTON", "INPUT", "SELECT", "TEXTAREA"].includes(tag)) return;
+  if (e.key === "ArrowLeft") { e.preventDefault(); if (index > 0) setIndex(index - 1); }
+  if (e.key === "ArrowRight") { e.preventDefault(); if (!nextBtn.disabled) setIndex(index + 1); }
+});
+setConnectivity();
+load();
+if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
+  window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js",{scope:"/"}).catch(() => {}));
+}
+
+speech = new SpeechReader(state=>{
+ if(state.state==="playing"){speechButton.textContent="Ⅱ Pause";speechStatus.textContent="Satz "+(state.position+1)+" von "+state.total;speechPosition=state.position;save();}
+ else if(state.state==="paused"){speechButton.textContent="▶ Fortsetzen";speechStatus.textContent="Pausiert";save();}
+ else if(state.state==="error"){speechButton.textContent="▶ Vorlesen";speechStatus.textContent=state.message;}
+ else{speechButton.textContent="▶ Vorlesen";if(state.state==="completed")speechStatus.textContent="Abschnitt vorgelesen.";}
+});
+function speakCurrent(){
+ const current=pages[index];if(current?.type!=="scene")return;
+ if(speech.parts.length&&!speech.active){speech.resume();return}
+ speech.begin(reader.querySelector(".prose"),()=>{
+  if(index>=pages.length-1){speechStatus.textContent="Ende des Romans.";return;}
+  setIndex(index+1);
+  if(pages[index]?.type==="choice"){speechStatus.textContent="Entscheidung erreicht. Bitte einen Weg auswählen.";reader.focus();return;}
+  speakCurrent();
+ },speechPosition,speechSpeed);
+}
+speechButton.addEventListener("click",()=>{if(speech.active)speech.pause();else speakCurrent();});
+speedSelect.addEventListener("change",()=>{const wasPlaying=speech?.active; speechPosition=speech?.parts.length?speech.position:speechPosition; speech?.stop();if(speech)speech.parts=[];speechSpeed=Number(speedSelect.value);speechButton.textContent="▶ Vorlesen";save();if(wasPlaying)speakCurrent();});
+let scrollTimer=0;
+window.addEventListener("scroll",()=>{
+ if(!pages.length||pages[index]?.type!=="scene" )return;
+ clearTimeout(scrollTimer);
+ scrollTimer=setTimeout(()=>{
+  const blocks=[...reader.querySelectorAll(".prose p,.prose h1,.prose h2")];let nearest=0;
+  for(let i=0;i<blocks.length;i++){if(blocks[i].getBoundingClientRect().top<innerHeight*.28)nearest=i;else break;}
+  savedBlock=nearest;save();
+ },300);
+},{passive:true});
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&speech?.active){speechStatus.textContent="Hintergrundwiedergabe hängt vom Browser ab.";save();}});
