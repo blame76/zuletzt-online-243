@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve, dirname } from "node:path";
 import { buildPages, resourcePaths, storyEnding, replaceSection } from "./engine.mjs";
-import { tapDirection, readingStep } from "./reading-mode.mjs";
+import { swipeDirection, readingStep } from "./reading-mode.mjs";
 
 const basedir = dirname(fileURLToPath(import.meta.url));
 const read = location => readFileSync(resolve(basedir, location), "utf8");
@@ -81,13 +81,27 @@ test("Roman beginnt sofort mit Montag und Thomas, nicht mit einer Titelseite", (
 });
 
 
-test("Fokusmodus reagiert nur auf sichere Rand-Taps", () => {
-  assert.equal(tapDirection(42, 360), "previous");
-  assert.equal(tapDirection(320, 360), "next");
-  assert.equal(tapDirection(180, 360), null);
-  assert.equal(tapDirection(30, 360, {selected:true}), null);
-  assert.equal(tapDirection(320, 360, {interactive:true}), null);
-  assert.equal(tapDirection(-1, 0), null);
+test("Swipe links blättert vorwärts und Swipe rechts zurück", () => {
+  const gesture={startX:180,startY:310,width:390,duration:320};
+  assert.equal(swipeDirection({...gesture,endX:105,endY:315}), "next");
+  assert.equal(swipeDirection({...gesture,endX:260,endY:315}), "previous");
+});
+
+test("Vertikales Scrollen, leichte Diagonalen und kurze Taps blättern nicht", () => {
+  const gesture={startX:180,startY:300,width:390,duration:300};
+  assert.equal(swipeDirection({...gesture,endX:184,endY:160}), null);
+  assert.equal(swipeDirection({...gesture,endX:100,endY:200}), null);
+  assert.equal(swipeDirection({...gesture,endX:155,endY:305}), null);
+  assert.equal(swipeDirection({...gesture,endX:90,endY:302,duration:1600}), null);
+});
+
+test("Browser-Randgesten, Textauswahl und interaktive Elemente bleiben unberührt", () => {
+  const gesture={startX:180,startY:310,endX:95,endY:310,width:390,duration:300};
+  assert.equal(swipeDirection({...gesture,startX:12}), null);
+  assert.equal(swipeDirection({...gesture,startX:376,endX:280}), null);
+  assert.equal(swipeDirection({...gesture,interactive:true}), null);
+  assert.equal(swipeDirection({...gesture,selected:true}), null);
+  assert.equal(swipeDirection({...gesture,width:0}), null);
 });
 
 test("Fokusmodus blättert zu Seitenanfängen statt relativ zum alten Scrollstand", () => {
