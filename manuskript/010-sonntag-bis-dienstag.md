@@ -4,7 +4,7 @@ Thomas stellte die Milch in den Kühlschrank.
 
 Es waren zwei Packungen.
 
-Er hatte ursprünglich nur eine kaufen wollen, aber im Supermarkt war ihm eingefallen, dass sie ständig keine Milch hatten. Zwei Packungen erschienen ihm deshalb vernünftig.
+Er hatte ursprünglich nur eine kaufen wollen, aber an der Tankstelle war ihm eingefallen, dass sie ständig keine Milch hatten. Zwei Packungen erschienen ihm deshalb vernünftig.
 
 Außerdem hatte er Brötchen gekauft.
 
@@ -254,7 +254,7 @@ Thomas überlegte.
 
 Er hatte tatsächlich nicht mehr gewusst, warum er die Zeitung gekauft hatte.
 
-Vielleicht, weil er im Supermarkt am Regal vorbeigekommen war.
+Vielleicht, weil er an der Tankstelle am Zeitungsständer vorbeigekommen war.
 
 Vielleicht, weil er einmal wieder eine richtige Zeitung lesen wollte.
 
@@ -614,7 +614,7 @@ Laura kannte die Geschichte.
 
 Sie hatte sie in unterschiedlichen Varianten bereits mehrmals gehört.
 
-Heute hatte Tina Florian zufällig in einem Supermarkt getroffen.
+Heute hatte Tina Florian zufällig in einem Bahnhofsladen getroffen.
 
 Er hatte gerade Bananen gekauft.
 
