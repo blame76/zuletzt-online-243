@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve, dirname } from "node:path";
 import { buildPages, resourcePaths, storyEnding, replaceSection } from "./engine.mjs";
-import { swipeDirection, readingStep } from "./reading-mode.mjs";
+import { swipeDirection, sceneTurn } from "./reading-mode.mjs";
 
 const basedir = dirname(fileURLToPath(import.meta.url));
 const read = location => readFileSync(resolve(basedir, location), "utf8");
@@ -104,25 +104,20 @@ test("Browser-Randgesten, Textauswahl und interaktive Elemente bleiben unberühr
   assert.equal(swipeDirection({...gesture,width:0}), null);
 });
 
-test("Fokusmodus blättert zu Seitenanfängen statt relativ zum alten Scrollstand", () => {
-  const base={scrollY:0,startScroll:0,maxScroll:1200,viewportHeight:600,canPrevious:true,canNext:true};
-  assert.deepEqual(readingStep({...base,direction:"next"}),{type:"scroll",target:504});
-  assert.deepEqual(readingStep({...base,direction:"next",scrollY:450}),{type:"scroll",target:504});
-  assert.deepEqual(readingStep({...base,direction:"next",scrollY:504}),{type:"scroll",target:1008});
-  assert.deepEqual(readingStep({...base,direction:"next",scrollY:1150}),{type:"scroll",target:1200});
-  assert.deepEqual(readingStep({...base,direction:"next",scrollY:1190}),{type:"next"});
-  assert.deepEqual(readingStep({...base,direction:"previous",scrollY:700}),{type:"scroll",target:0});
-  assert.deepEqual(readingStep({...base,direction:"previous",scrollY:1100}),{type:"scroll",target:504});
-  assert.deepEqual(readingStep({...base,direction:"previous",scrollY:450}),{type:"scroll",target:0});
-  assert.deepEqual(readingStep({...base,direction:"previous"}),{type:"previous"});
-  const displaced={...base,startScroll:240,maxScroll:1440};
-  assert.deepEqual(readingStep({...displaced,direction:"next",scrollY:240}),{type:"scroll",target:744});
-  assert.deepEqual(readingStep({...displaced,direction:"previous",scrollY:744}),{type:"scroll",target:240});
+test("Swipe wechselt den ganzen Erzählabschnitt unabhängig von seiner Scrolllänge", () => {
+  const baseline={index:17,count:219,canNext:true};
+  assert.equal(sceneTurn({...baseline,direction:"next"}),18);
+  assert.equal(sceneTurn({...baseline,direction:"previous"}),16);
+  // No viewport height, pixel position or scroll offset influences the turn.
+  assert.equal(sceneTurn({...baseline,direction:"next",scrollY:0}),18);
+  assert.equal(sceneTurn({...baseline,direction:"next",scrollY:25000}),18);
 });
 
-test("Entscheidungen können nicht durch weiter-Tap übersprungen werden", () => {
-  const atEnd={scrollY:0,maxScroll:0,viewportHeight:600,canPrevious:false,canNext:false};
-  assert.deepEqual(readingStep({...atEnd,direction:"next"}),{type:"none"});
-  assert.deepEqual(readingStep({...atEnd,direction:"previous"}),{type:"none"});
-  assert.deepEqual(readingStep({...atEnd,direction:"next",canNext:true}),{type:"next"});
+test("Swipe überspringt weder offene Entscheidungen noch Buchgrenzen", () => {
+  assert.equal(sceneTurn({direction:"next",index:28,count:219,canNext:false}),28);
+  assert.equal(sceneTurn({direction:"previous",index:28,count:219,canNext:false}),27);
+  assert.equal(sceneTurn({direction:"previous",index:0,count:219,canNext:true}),0);
+  assert.equal(sceneTurn({direction:"next",index:218,count:219,canNext:true}),218);
+  assert.equal(sceneTurn({direction:"invalid",index:28,count:219,canNext:true}),28);
+  assert.equal(sceneTurn({direction:"next",index:-1,count:219,canNext:true}),-1);
 });
