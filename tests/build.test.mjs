@@ -228,7 +228,8 @@ test("reader version is embedded, served uncached and can activate only with con
  assert.match(read("web/updates.mjs"),/registration\.update\(\)/);
  assert.match(read("web/updates.mjs"),/controllerchange/);
  assert.match(worker,/SKIP_WAITING/);
- assert.doesNotMatch(worker,/await self\.skipWaiting\(\)/);
+ assert.match(worker,/if\(!\(await old\.match\("\/web\/updates\.mjs"\)\)\)await self\.skipWaiting\(\)/);
+ assert.match(worker,/if\(event\.data\?\.type==="SKIP_WAITING"\)/);
  assert.match(worker,/url\.pathname==="\/version\.json"/);
  assert.match(read("_headers"),/\/version\.json\s+Cache-Control: no-store/);
 });
