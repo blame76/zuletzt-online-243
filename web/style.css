@@ -170,3 +170,20 @@ progress::-moz-progress-bar { background: var(--accent); }
 @media (max-width: 480px) {
   :root[data-reading-mode="on"] #reader { padding-inline: 24px; }
 }
+
+/* Keep native up/down scrolling and pinch zoom; horizontal reader swipes are
+   handled by passive touch listeners. No edge-only invisible tap hotspots. */
+:root[data-reading-mode="on"] #reader { touch-action: pan-y pinch-zoom; }
+.swipe-hint { display: none; }
+@media (pointer: coarse) {
+  :root[data-reading-mode="on"] .swipe-hint {
+    display: block;
+    margin: clamp(62px, 10vh, 84px) auto 0;
+    max-width: 710px;
+    padding: 0 20px;
+    color: var(--muted);
+    text-align: center;
+    font: 12px/1.5 system-ui, sans-serif;
+  }
+  :root[data-reading-mode="on"] #reader { padding-top: 22px; }
+}

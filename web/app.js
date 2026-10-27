@@ -1,7 +1,7 @@
 import { buildPages, resourcePaths } from "./engine.mjs";
 import { SpeechReader } from "./speech.mjs";
 import { markdownToHtml } from "./markdown.mjs";
-import { tapDirection, readingStep } from "./reading-mode.mjs";
+import { swipeDirection, readingStep } from "./reading-mode.mjs";
 
 const STORAGE = "zuletzt-online-interaktiv-v1";
 const $ = selector => document.querySelector(selector);
@@ -231,26 +231,38 @@ readingModeToggle.addEventListener("click", () => {
   save();
   if (block) block.scrollIntoView({block:"start",behavior:"instant"});
 });
-// Taps on the outer 30% of the reading surface turn pages; the centre stays
-// available for selecting text. Links and decision buttons keep their actions.
-let pointerStart = null;
-reader.addEventListener("pointerdown", event => {
-  pointerStart = {x:event.clientX, y:event.clientY, time:event.timeStamp};
-});
-reader.addEventListener("click", event => {
-  if (!readingMode || !pages.length || event.detail === 0) return;
-  if (pointerStart && (
-    Math.abs(event.clientX-pointerStart.x) > 12 ||
-    Math.abs(event.clientY-pointerStart.y) > 12 ||
-    event.timeStamp-pointerStart.time > 500
-  )) return;
-  const target = event.target;
-  const direction = tapDirection(event.clientX,window.innerWidth,{
-    interactive:!!target.closest("a,button,input,select,textarea,summary,[contenteditable]"),
+// Horizontal touch swipe: left means next, right means previous.
+// Normal vertical scroll, selection, decision buttons and browser-edge back
+// gestures keep their native behaviour. Mouse clicks no longer turn pages.
+let swipeStart = null;
+reader.addEventListener("touchstart", event => {
+  swipeStart = null;
+  if (!readingMode || !pages.length || event.touches.length !== 1) return;
+  const touch = event.touches[0];
+  swipeStart = {
+    identifier: touch.identifier,
+    x: touch.clientX, y: touch.clientY, time: performance.now(),
+    interactive: !!event.target.closest?.("a,button,input,select,textarea,summary,[contenteditable]")
+  };
+}, {passive:true});
+reader.addEventListener("touchmove", event => {
+  if (event.touches.length !== 1) swipeStart = null;
+}, {passive:true});
+reader.addEventListener("touchend", event => {
+  const start = swipeStart;
+  swipeStart = null;
+  if (!start || !readingMode || event.touches.length !== 0) return;
+  const touch = [...event.changedTouches].find(t => t.identifier === start.identifier);
+  if (!touch) return;
+  const direction = swipeDirection({
+    startX:start.x, startY:start.y,
+    endX:touch.clientX, endY:touch.clientY, width:window.innerWidth,
+    duration:performance.now()-start.time, interactive:start.interactive,
     selected:!!window.getSelection()?.toString().trim()
   });
   if (direction) turnReadingPage(direction);
-});
+}, {passive:true});
+reader.addEventListener("touchcancel", () => { swipeStart = null; }, {passive:true});
 
 $("#font-plus").addEventListener("click", () => { fontSize = Math.min(26, fontSize + 1); updateTheme(); save(); });
 $("#font-minus").addEventListener("click", () => { fontSize = Math.max(16, fontSize - 1); updateTheme(); save(); });

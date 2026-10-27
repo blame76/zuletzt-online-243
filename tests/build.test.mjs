@@ -144,3 +144,19 @@ test("focus mode keeps visible end buttons and resets focus on section changes",
  assert.match(app, /requestAnimationFrame\(goToStart\)/);
  assert.doesNotMatch(app, /A back-turn shows the end of the preceding section/);
 });
+
+test("touch reading mode has swipe guidance and no edge-tap listener",()=>{
+ const html=read("index.html");
+ const app=read("web/app.js");
+ const css=read("web/style.css");
+ assert.match(html,/Nach links wischen: weiter/);
+ assert.match(app,/touchstart/);
+ assert.match(app,/touchend/);
+ assert.match(app,/touchcancel/);
+ assert.match(app,/swipeDirection/);
+ assert.doesNotMatch(app,/tapDirection|reader\.addEventListener\("click"/);
+ assert.match(css,/touch-action: pan-y pinch-zoom/);
+ assert.match(css,/\.swipe-hint/);
+ assert.match(html,/id="back"/);
+ assert.match(html,/id="next"/);
+});
