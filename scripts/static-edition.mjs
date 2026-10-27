@@ -42,7 +42,7 @@ export function generateStaticEdition({manifest,pages,write,markdownToHtml}) {
     const links = `<nav class="chapter-nav" aria-label="Kapitel wechseln">${previous?`<a href="${previous}" rel="prev">← Vorheriges Kapitel</a>`:`<span>Beginn des Romans</span>`}<a href="${indexPath}">Inhaltsverzeichnis</a>${next?`<a href="${next}" rel="next">Nächstes Kapitel →</a>`:`<span>Ende des Romans</span>`}</nav>`;
     const text = chapter.scenes.map(p=>markdownToHtml(p.markdown)).join("\n");
     const intro = first
-      ? `<p class="edition-note">Diese lineare Fassung verwendet an allen fünf Entscheidungspunkten jeweils die erste Option. Für eigene Entscheidungen die <a href="/">interaktive Fassung</a> öffnen.</p>`
+      ? `<p class="edition-note">Diese lineare Fassung verwendet an allen fünf Entscheidungspunkten jeweils die erste Option. Für eigene Entscheidungen die <a href="/">interaktive Fassung</a> öffnen. <a href="/lesen/gesamt/">Das gesamte Buch auf einer Seite lesen</a>.</p>`
       : "";
     const output=`${head(chapter.label)}
 <header><a href="/">← Interaktive Fassung</a><p class="edition">Zuletzt online · Lineare Lesefassung</p><h1>Zuletzt online</h1></header>
@@ -51,5 +51,17 @@ ${links}
 ${links}${footer}`;
     write(path.slice(1)+"index.html",output);
   }
+  // A single uninterrupted HTML article for Android Reading Mode and native TTS.
+  // Chapter-by-chapter pages remain the lightweight alternative.
+  const continuous = chapters.map(ch =>
+    '<section aria-labelledby="full-ch'+(ch.index+1)+'">'+
+    '<h2 id="full-ch'+(ch.index+1)+'">'+escapeHtml(ch.label)+'</h2>'+
+    '<div class="prose">'+ch.scenes.map(s=>markdownToHtml(s.markdown)).join("\n")+'</div></section>'
+  ).join("\n");
+  write("lesen/gesamt/index.html",head("Gesamter Roman")+
+    '<header><a href="/lesen/inhaltsverzeichnis/">← Kapitelübersicht</a><p class="edition">Statische Lesefassung · erster Erzählweg</p></header>'+
+    '<main id="text"><article aria-label="Zuletzt online, vollständige lineare Fassung"><h1>Zuletzt online</h1>'+
+    '<p class="edition-note">Diese Fassung verwendet jeweils die erste Option an allen fünf Entscheidungspunkten. Die <a href="/">interaktive Fassung</a> bietet alle Wahlmöglichkeiten.</p>'+
+    continuous+'</article></main>'+footer);
   return chapters.length;
 }
