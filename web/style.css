@@ -153,8 +153,14 @@ progress::-moz-progress-bar { background: var(--accent); }
 :root[data-reading-mode="on"] .reading-bar,
 :root[data-reading-mode="on"] .speech-tools,
 :root[data-reading-mode="on"] .location,
-:root[data-reading-mode="on"] .navigation,
 :root[data-reading-mode="on"] .foot { display: none; }
+/* The visible buttons at the end make tap navigation discoverable. */
+:root[data-reading-mode="on"] .navigation {
+  display: flex;
+  max-width: 710px;
+  padding: 12px clamp(24px, 7vw, 55px) 52px;
+}
+:root[data-reading-mode="on"] #reader { overflow-anchor: none; }
 :root[data-reading-mode="on"] #reader {
   max-width: 710px; margin: 0 auto; min-height: 100svh;
   padding: clamp(72px, 11vh, 108px) clamp(24px, 7vw, 55px) clamp(52px, 11vh, 90px);
