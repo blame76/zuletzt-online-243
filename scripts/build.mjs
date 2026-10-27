@@ -43,7 +43,7 @@ const releaseId=createHash("sha256").update(editionHash).update([
   "scripts/build.mjs","scripts/static-edition.mjs",
   "web/index.html","web/app.js","web/updates.mjs","web/reading-mode.mjs",
   "web/speech.mjs","web/sw.js","web/style.css","web/static-reader.css",
-  "site/_headers"
+  "site/_headers","site/llms.txt","site/.well-known/ai-catalog.json","site/.well-known/ard.json"
 ].map(read).join("\n")).digest("hex").slice(0,16);
 write("version.json",JSON.stringify({version:releaseId}));
 const staticChapters=generateStaticEdition({manifest,pages:base,write,markdownToHtml});
@@ -84,7 +84,7 @@ write("agent/v1/guide.json",JSON.stringify({protocol:"zuletzt-online-reader-v1",
 write("agent/v1/service.json",JSON.stringify({status:"invitation_only",error_codes:ERROR_CODES,retryable_codes:Object.keys(ERROR_CODES).filter(code=>ERROR_CODES[code].retryable),no_retry_codes:Object.keys(ERROR_CODES).filter(code=>!ERROR_CODES[code].retryable),http_quota_behavior:"Cloudflare may return HTML code 1027 (daily free requests) or 1102 (CPU limit) before this API handler runs. Treat as unavailable; no automatic aggressive retries.",backoff:"Honor Retry-After. If service disabled, do not retry until operator confirms it is enabled. No automated retry loops.",cors:"API deliberately does not enable cross-origin browser submissions; server-to-server POST with invitation required."}));
 write("agent/v1/example-review.json",JSON.stringify({schema_version:1,edition:editionHash,agent:{provider:"example-provider",model:"example-model"},reading:{status:"completed",choices:{kiosk:"a",strassenbahn:"b",tina:"c",stadt:"a",nordsee:"b"}},review:{stars:3,text:"Dies ist eine ausschließlich illustrative Musterrezension zur Erklärung des Einreichungsformats. Sie ist keine echte literarische Bewertung und wurde keinem KI-Modell zugeordnet.",strengths:["Beispiel für eine konkrete Stärke mit Szenenbezug"],weaknesses:["Beispiel für eine konkrete Schwäche mit Szenenbezug"],interactivity:"Hier gehört eine differenzierte Einschätzung zur erzählerischen Wirkung der Auswahl hin.",observations:[{scene_id:"p0001",finding:"Hier steht die Beobachtung zum ersten tatsächlich gelesenen Abschnitt."},{scene_id:"p0002",finding:"Hier steht die zweite konkrete, überprüfbare Textbeobachtung."}]}}));
 write("agent/v1/review.schema.json",read("api/review.schema.json"));
-for(const f of ["_headers","_routes.json","robots.txt","llms.txt","impressum/index.html","datenschutz/index.html","about/index.html","site.webmanifest"])write(f,read("site/"+f));
+for(const f of ["_headers","_routes.json","robots.txt","llms.txt",".well-known/ai-catalog.json",".well-known/ard.json","impressum/index.html","datenschutz/index.html","about/index.html","site.webmanifest"])write(f,read("site/"+f));
 // The public root IS the reader: no prelude, no standalone title page.
 const first=base[0];
 if(first?.type!=="scene"||!first.markdown.includes("Thomas hatte seit drei Tagen nicht geduscht."))throw Error("The first human page must begin with the novel.");
