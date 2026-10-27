@@ -141,7 +141,8 @@ test("focus mode keeps visible end buttons and resets focus on section changes",
  assert.match(html, /id="next"/);
  assert.match(css, /:root\[data-reading-mode="on"\] \.navigation\s*\{[\s\S]*?display:\s*flex/);
  assert.doesNotMatch(css, /:root\[data-reading-mode="on"\] \.navigation,\s*\n:root\[data-reading-mode="on"\] \.foot \{ display: none/);
- assert.match(app, /requestAnimationFrame\(goToStart\)/);
+ assert.match(app, /requestAnimationFrame\(\(\) => \{/);
+ assert.match(app, /goToStart\(\);/);
  assert.doesNotMatch(app, /A back-turn shows the end of the preceding section/);
 });
 
