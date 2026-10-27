@@ -25,7 +25,15 @@ self.addEventListener("install", event => {
       }
       await cache.addAll([...paths]);
     } catch (error) { throw new Error("Offline-Buchpaket unvollständig"); }
-    // Keep the new cache staged until the reader explicitly chooses to reload.
+    // Migrate automatically only from the old cache-first reader, which had
+    // no update button and otherwise could strand the new worker indefinitely.
+    // Later releases contain updates.mjs and remain staged until consent.
+    const previous=(await caches.keys()).filter(name=>
+      name.startsWith("zuletzt-online-experiment-") && name!==CACHE);
+    if(previous.length){
+      const old=await caches.open(previous.at(-1));
+      if(!(await old.match("/web/updates.mjs")))await self.skipWaiting();
+    }
   })());
 });
 self.addEventListener("message",event=>{
