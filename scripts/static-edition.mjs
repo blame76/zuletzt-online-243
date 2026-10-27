@@ -31,7 +31,7 @@ export function generateStaticEdition({manifest,pages,write,markdownToHtml}) {
   const index = `${head("Inhaltsverzeichnis")}
 <header><a href="/">← Interaktive Fassung</a><p class="edition">Statische Lesefassung · ein festgelegter Erzählweg</p><h1>Zuletzt online</h1><p>Inhaltsverzeichnis</p></header>
 <main id="text"><nav aria-label="Alle Kapitel"><ol class="toc">${toc}</ol></nav>
-<p><a href="/lesen/">Mit Kapitel 1 beginnen</a></p></main>${footer}`;
+<p><a href="/lesen/">Mit Kapitel 1 beginnen</a> · <a href="/lesen/gesamt/">Gesamten Roman am Stück lesen</a></p></main>${footer}`;
   write("lesen/inhaltsverzeichnis/index.html",index);
 
   for(const chapter of chapters){
