@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de" data-theme="light">
+<html lang="de" data-theme="light" data-reading-mode="on" data-reading-menu="visible">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +14,7 @@
 </head>
 <body>
   <a class="skip-link" href="#reader">Zum Text springen</a>
-  <button type="button" id="reading-mode-toggle" class="reading-mode-toggle" aria-pressed="false" aria-label="Lesemodus einschalten" title="Lesemodus einschalten">Lesemodus</button>
+  <button type="button" id="reading-mode-toggle" class="reading-mode-toggle" aria-pressed="true" aria-label="Menü und Leseeinstellungen anzeigen" title="Menü und Leseeinstellungen anzeigen">Menü</button>
   <header class="site-header">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">z.</span>
@@ -53,6 +53,7 @@
       <progress id="progress" aria-label="Lesefortschritt" value="0" max="1"></progress>
     </div>
 
+    <noscript><p class="nojs-static">Die interaktive Ausgabe benötigt JavaScript. <a href="/lesen/">Den vollständigen Roman ohne JavaScript lesen.</a></p></noscript>
     <main id="reader" tabindex="-1"></main>
 
     <div class="navigation" aria-label="Durch den Text blättern">
