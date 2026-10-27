@@ -202,3 +202,11 @@ progress::-moz-progress-bar { background: var(--accent); }
   border-radius: 8px; color: var(--ink); background: var(--paper);
 }
 .update-banner button:disabled { opacity: .7; }
+
+/* Keep a viable no-JavaScript route when the pre-rendered interactive scene is visible. */
+.nojs-static {
+  max-width: 710px; margin: 22px auto;
+  padding: 14px 24px; border-left: 3px solid var(--accent);
+  color: var(--ink); background: var(--panel);
+  font: 15px/1.6 system-ui, sans-serif;
+}
