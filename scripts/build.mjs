@@ -141,7 +141,7 @@ if(process.env.SITE_URL){
   const canonical=origin+"/";
   writeFileSync(file,html.replace("</head>",'<link rel="canonical" href="'+canonical+'"><meta property="og:url" content="'+canonical+'"></head>'));
  }
- const urls=["/","/lesen/","/lesen/inhaltsverzeichnis/",...Array.from({length:14},(_,i)=>"/lesen/kapitel-"+String(i+2).padStart(2,"0")+"/"),"/about/","/impressum/","/datenschutz/"];
+ const urls=["/","/lesen/","/lesen/inhaltsverzeichnis/","/lesen/gesamt/",...Array.from({length:14},(_,i)=>"/lesen/kapitel-"+String(i+2).padStart(2,"0")+"/"),"/about/","/impressum/","/datenschutz/"];
  write("sitemap.xml",'<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls.map(path=>"<url><loc>"+origin+path+"</loc></url>").join("")+"</urlset>");
  write("robots.txt",read("site/robots.txt")+"Sitemap: "+origin+"/sitemap.xml\n");
 }
