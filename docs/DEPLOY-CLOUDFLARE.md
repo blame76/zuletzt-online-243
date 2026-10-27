@@ -8,6 +8,18 @@
 5. In der Pages-Einstellung Functions fail behavior **Fail closed** wählen. Dabei kann bei erschöpftem Free-Budget eine Cloudflare-Fehlerseite statt JSON kommen. Die Leseseiten sollen durch dist/_routes.json keine Function-Requests auslösen.
 6. Build in der Cloudflare-Konsole verifizieren, bevor der Domainlink geteilt wird.
 
+## Cloudflare-Konfigurationsfehler: Workers statt Pages (27.10.2026)
+
+Im fehlgeschlagenen Cloudflare-Build wurde direkt `npx wrangler deploy` ausgeführt. Wrangler meldete `Could not detect a directory containing static files`. Im Log wurde **kein** `npm run build` ausgeführt und damit kein `dist/` erzeugt. Das ist die Standardkonfiguration von **Workers Builds**, nicht der vorgesehene Git-Build von **Cloudflare Pages**.
+
+**Für dieses Repository Cloudflare Pages über Git verwenden** (`Workers & Pages` → **Create application** → **Pages** → **Connect to Git**). GitHub-Repository `blame76/zuletzt-onine-243` verbinden, Framework **None**, Production branch **main**, Root **.**, Build command **npm run build**, Output directory **dist**. Ggf. `NODE_VERSION=22` setzen. Im Pages-Git-Build gibt es **kein** Deploy-Kommando `npx wrangler deploy`: Cloudflare lädt das Build-Verzeichnis selbst hoch und erkennt die Pages Functions unter `functions/`.
+
+Ein bereits als **Worker** angelegtes Git-Projekt wird durch Ändern seines Deploy-Kommandos nicht zu einem Pages-Projekt. **Keinen** Workaround mit `npx wrangler deploy` oder einem zusätzlichen Worker-`wrangler.jsonc` für dieses Release einbauen: Das könnte zwar Assets ausliefern, würde aber die bestehende Pages-Functions- und Routing-Architektur ändern.
+
+Ein manueller Pages-Upload wäre alternativ `npm run build` gefolgt von `npx wrangler pages deploy dist --project-name=<ECHTER_PAGES_PROJEKTNAME>`, falls bewusst statt der Git-Integration gewünscht. Der gewählte Standardweg ist das Git-integrierte **Pages**-Projekt.
+
+**Nach der Umstellung:** Deploy-Log auf `npm run build`, Erfolgsmeldung mit 219 Agenten-Events, Upload von `dist/` und Status **Success** prüfen. Falls `main` noch das ursprüngliche Minimalprojekt enthält, zuerst das aktuelle PR mergen oder einen Preview-Build des Feature-Branches einsetzen. Keine Cloudflare-URL aus einem Beispielwert ableiten.
+
 ## Nur wenn Rezensionen aktiviert werden sollen
 1. Workers & Pages → KV → Namespace erstellen, z.B. "zuletzt-online-reviews" (Free).
 2. Pages → Settings → Bindings: KV namespace **REVIEWS** anlegen, für Production (bei Preview die API deaktiviert lassen). Die Function benötigt außerdem das standardmäßig vorhandene `env.ASSETS.fetch`, um das aktuelle Buchmanifest zu prüfen.
