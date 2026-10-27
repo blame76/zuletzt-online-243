@@ -1,6 +1,7 @@
 import { buildPages, resourcePaths } from "./engine.mjs";
 import { SpeechReader } from "./speech.mjs";
 import { markdownToHtml } from "./markdown.mjs";
+import { tapDirection, readingStep } from "./reading-mode.mjs";
 
 const STORAGE = "zuletzt-online-interaktiv-v1";
 const $ = selector => document.querySelector(selector);
@@ -10,6 +11,7 @@ const progress = $("#progress");
 const backBtn = $("#back");
 const nextBtn = $("#next");
 const chapterSelect = $("#chapter");
+const readingModeToggle = $("#reading-mode-toggle");
 
 let manifest;
 let resources;
@@ -18,6 +20,7 @@ let index = 0;
 let choices = {};
 let fontSize = 19;
 let theme = "light";
+let readingMode = true;
 let savedBlock = 0;
 let restoredAnchor = null;
 let speechPosition = 0;
@@ -38,16 +41,49 @@ function restore() {
     savedBlock = Number.isInteger(data.savedBlock) ? data.savedBlock : 0;
     speechPosition = Number.isInteger(data.speechPosition) ? data.speechPosition : 0;
     speechSpeed = [0.8,1,1.25].includes(data.speechSpeed) ? data.speechSpeed : 1;
+    readingMode = data.readingMode !== false;
   } catch { /* Funktioniert auch ohne Browser-Speicher. */ }
 }
 function save() {
-  try { const page=pages[index]; const anchor=page?{source:page.source,heading:page.heading,ordinal:pages.slice(0,index).filter(p=>p.source===page.source&&p.heading===page.heading).length,block:savedBlock}:restoredAnchor; localStorage.setItem(STORAGE, JSON.stringify({ index, choices, fontSize, theme, savedBlock, speechPosition, speechSpeed, anchor })); } catch {}
+  try { const page=pages[index]; const anchor=page?{source:page.source,heading:page.heading,ordinal:pages.slice(0,index).filter(p=>p.source===page.source&&p.heading===page.heading).length,block:savedBlock}:restoredAnchor; localStorage.setItem(STORAGE, JSON.stringify({ index, choices, fontSize, theme, readingMode, savedBlock, speechPosition, speechSpeed, anchor })); } catch {}
 }
 function updateTheme() {
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.setProperty("--reader-size", fontSize + "px");
   $("#theme").textContent = theme === "dark" ? "Hell" : "Dunkel";
   $("#font-value").textContent = fontSize + " px";
+}
+function updateReadingMode() {
+  document.documentElement.dataset.readingMode = readingMode ? "on" : "off";
+  readingModeToggle.textContent = readingMode ? "Menü" : "Lesemodus";
+  readingModeToggle.setAttribute("aria-pressed", String(readingMode));
+  const label = readingMode ? "Menü und Leseeinstellungen anzeigen" : "Lesemodus einschalten";
+  readingModeToggle.setAttribute("aria-label", label);
+  readingModeToggle.title = label;
+}
+function visibleReadingBlock() {
+  return [...reader.querySelectorAll(".prose p, .prose h1, .prose h2, .decision")].find(
+    el => el.getBoundingClientRect().bottom > 65
+  );
+}
+function turnReadingPage(direction) {
+  if (!pages.length || !readingMode) return;
+  const scrollY = window.scrollY;
+  const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+  const action = readingStep({
+    direction, scrollY, maxScroll, viewportHeight:window.innerHeight,
+    canPrevious:index > 0, canNext:!nextBtn.disabled
+  });
+  if (action.type === "scroll") window.scrollBy({top:action.offset, behavior:"instant"});
+  if (action.type === "next") setIndex(index + 1);
+  if (action.type === "previous") {
+    setIndex(index - 1);
+    // A back-turn shows the end of the preceding section, not its beginning.
+    requestAnimationFrame(() => window.scrollTo({
+      top:Math.max(0,document.documentElement.scrollHeight - window.innerHeight),
+      behavior:"instant"
+    }));
+  }
 }
 function makeChapterSelect() {
   chapterSelect.replaceChildren();
@@ -140,6 +176,7 @@ function goToChapter(path) {
 async function load() {
   restore();
   updateTheme();
+  updateReadingMode();
   try {
     const response = await fetch("../interaktiv/entscheidungen.json");
     if (!response.ok) throw new Error("Entscheidungen: HTTP " + response.status);
@@ -180,6 +217,34 @@ nextBtn.addEventListener("click", () => {
   setIndex(index + 1);
 });
 chapterSelect.addEventListener("change", () => goToChapter(chapterSelect.value));
+readingModeToggle.addEventListener("click", () => {
+  const block = visibleReadingBlock();
+  readingMode = !readingMode;
+  updateReadingMode();
+  save();
+  if (block) block.scrollIntoView({block:"start",behavior:"instant"});
+});
+// Taps on the outer 30% of the reading surface turn pages; the centre stays
+// available for selecting text. Links and decision buttons keep their actions.
+let pointerStart = null;
+reader.addEventListener("pointerdown", event => {
+  pointerStart = {x:event.clientX, y:event.clientY, time:event.timeStamp};
+});
+reader.addEventListener("click", event => {
+  if (!readingMode || !pages.length || event.detail === 0) return;
+  if (pointerStart && (
+    Math.abs(event.clientX-pointerStart.x) > 12 ||
+    Math.abs(event.clientY-pointerStart.y) > 12 ||
+    event.timeStamp-pointerStart.time > 500
+  )) return;
+  const target = event.target;
+  const direction = tapDirection(event.clientX,window.innerWidth,{
+    interactive:!!target.closest("a,button,input,select,textarea,summary,[contenteditable]"),
+    selected:!!window.getSelection()?.toString().trim()
+  });
+  if (direction) turnReadingPage(direction);
+});
+
 $("#font-plus").addEventListener("click", () => { fontSize = Math.min(26, fontSize + 1); updateTheme(); save(); });
 $("#font-minus").addEventListener("click", () => { fontSize = Math.max(16, fontSize - 1); updateTheme(); save(); });
 $("#theme").addEventListener("click", () => { theme = theme === "dark" ? "light" : "dark"; updateTheme(); save(); });
@@ -196,8 +261,12 @@ document.addEventListener("keydown", e => {
   if (e.altKey || e.ctrlKey || e.metaKey) return;
   const tag = document.activeElement?.tagName;
   if (["BUTTON", "INPUT", "SELECT", "TEXTAREA"].includes(tag)) return;
-  if (e.key === "ArrowLeft") { e.preventDefault(); if (index > 0) setIndex(index - 1); }
-  if (e.key === "ArrowRight") { e.preventDefault(); if (!nextBtn.disabled) setIndex(index + 1); }
+  if (e.key === "Escape" && readingMode) {
+    e.preventDefault(); readingMode = false; updateReadingMode(); save();
+    readingModeToggle.focus(); return;
+  }
+  if (e.key === "ArrowLeft") { e.preventDefault(); if (readingMode) turnReadingPage("previous"); else if (index > 0) setIndex(index - 1); }
+  if (e.key === "ArrowRight") { e.preventDefault(); if (readingMode) turnReadingPage("next"); else if (!nextBtn.disabled) setIndex(index + 1); }
 });
 setConnectivity();
 load();
