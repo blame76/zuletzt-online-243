@@ -119,3 +119,15 @@ test("root serves the first scene, not the landing page or a detached title",()=
  assert.ok(read("sw.js").includes('"/"'));
  assert.ok(!read("sw.js").includes("__CACHE_ID__"));
 });
+
+
+test("public legal pages contain no internal pre-release notes",()=>{
+ const imprint=read("impressum/index.html");
+ const privacy=read("datenschutz/index.html");
+ for(const html of [imprint,privacy]){
+  assert.doesNotMatch(html,/Entwurf.{0,40}vor Veröffentlichung|Vor Veröffentlichung prüfen|Vor der Veröffentlichung klären/i);
+ }
+ assert.match(imprint,/Redaktionell verantwortlich/);
+ assert.match(privacy,/Cloudflare Pages/);
+ assert.match(privacy,/Rezensionseingang ist zum Start deaktiviert/);
+});
