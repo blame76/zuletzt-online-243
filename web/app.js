@@ -1,7 +1,7 @@
 import { buildPages, resourcePaths } from "./engine.mjs";
 import { SpeechReader } from "./speech.mjs";
 import { markdownToHtml } from "./markdown.mjs";
-import { swipeDirection, readingStep } from "./reading-mode.mjs";
+import { swipeDirection, sceneTurn } from "./reading-mode.mjs";
 
 const STORAGE = "zuletzt-online-interaktiv-v1";
 const $ = selector => document.querySelector(selector);
@@ -68,22 +68,15 @@ function visibleReadingBlock() {
 }
 function turnReadingPage(direction) {
   if (!pages.length || !readingMode) return;
-  const scrollY = window.scrollY;
-  const startScroll = Math.max(0, scrollY + reader.getBoundingClientRect().top);
-  const content = reader.querySelector(".prose, .decision");
-  // Ignore the visible navigation buttons below the story when computing
-  // the last reading page. Otherwise a tap can land in empty page padding.
-  const documentEnd = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-  const contentEnd = content ? scrollY + content.getBoundingClientRect().bottom : scrollY;
-  const maxScroll = Math.max(startScroll,
-    Math.min(documentEnd, contentEnd - window.innerHeight + 64));
-  const action = readingStep({
-    direction, scrollY, startScroll, maxScroll, viewportHeight:window.innerHeight,
-    canPrevious:index > 0, canNext:!nextBtn.disabled
+  // A horizontal swipe changes the complete story section, regardless of
+  // how far the reader has scrolled inside its text.
+  const target = sceneTurn({
+    direction,
+    index,
+    count:pages.length,
+    canNext:!nextBtn.disabled
   });
-  if (action.type === "scroll") window.scrollTo({top:action.target, behavior:"instant"});
-  if (action.type === "next") setIndex(index + 1);
-  if (action.type === "previous") setIndex(index - 1);
+  if (target !== index) setIndex(target);
 }
 function makeChapterSelect() {
   chapterSelect.replaceChildren();
