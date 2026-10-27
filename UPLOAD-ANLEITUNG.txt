@@ -1,0 +1,10 @@
+Manueller HTML-Upload zu blame76.com
+================================
+
+Kopiere den Ordner "zuletzt-online" komplett nach htdocs/ auf deinem Webspace.
+Die anderen Dateien auf dem Server unverändert lassen. Nicht spiegeln/löschen.
+
+Danach: https://blame76.com/zuletzt-online/
+
+Enthalten: Startseite, 15 Kapitel, CSS und 1200×630 JPG als Share-Preview.
+Keine PHP-Ausführung und kein Build notwendig.
