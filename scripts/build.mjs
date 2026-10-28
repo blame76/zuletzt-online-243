@@ -131,7 +131,7 @@ const mainManifest=JSON.parse(read("site/site.webmanifest"));
 mainManifest.id="/";mainManifest.start_url="/";mainManifest.scope="/";
 mainManifest.icons=[{src:"/web/icon-192.png",sizes:"192x192",type:"image/png"},{src:"/web/icon-512.png",sizes:"512x512",type:"image/png"}];
 write("site.webmanifest",JSON.stringify(mainManifest));
-const cacheShell=["index.html","app.js","updates.mjs","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","style.css","static-reader.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+const cacheShell=["index.html","app.js","updates.mjs","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","spinoff-branch.mjs","style.css","static-reader.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
 const cacheId=createHash("sha256").update(editionHash).update(Buffer.concat(cacheShell.map(f=>readFileSync(resolve(out,"web",f))))).update(readFileSync(resolve(out,"index.html"))).digest("hex").slice(0,16);
 const worker=read("web/sw.js").replace("__CACHE_ID__",cacheId);
 write("web/sw.js",worker);

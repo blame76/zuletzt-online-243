@@ -214,7 +214,7 @@ test("Herr Behrens is an optional side route without changing the 243 decisions"
   assert.match(page,/<article/);
   assert.match(page,/Zurück zur Begegnung mit Thomas/);
  }
- const original=readFileSync(resolve(baseDir,"manuskript/009-nachwehen.md"),"utf8");
+ const original=readFileSync(new URL("../manuskript/009-nachwehen.md",import.meta.url),"utf8");
  assert.doesNotMatch(original,/nebenweg|Herr Behrens – Ein Tag, ein Leben/);
  const feed=JSON.parse(read("agent/v1/manifest.json"));
  assert.equal(feed.totals.choices,5);
