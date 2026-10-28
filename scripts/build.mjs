@@ -6,6 +6,7 @@ import { deflateSync } from "node:zlib";
 import { buildPages, resourcePaths } from "../web/engine.mjs";
 import { markdownToHtml } from "../web/markdown.mjs";
 import { generateStaticEdition } from "./static-edition.mjs";
+import { generateBehrensEdition } from "./behrens-edition.mjs";
 import { ERROR_CODES } from "../functions/api/v1/reviews.js";
 const root=resolve(import.meta.dirname,".."), out=resolve(root,"dist");
 const read=p=>readFileSync(resolve(root,p),"utf8");
@@ -40,13 +41,21 @@ for(const node of manifest.nodes) for(const option of node.options.slice(1)){
 }
 const editionHash=createHash("sha256").update("reading-layout-v2\n").update(JSON.stringify(manifest)).update(resourcePaths(manifest).map(p=>resources[p].replace(/\r\n/g,"\n")).join("")).digest("hex").slice(0,16);
 const releaseId=createHash("sha256").update(editionHash).update([
-  "scripts/build.mjs","scripts/static-edition.mjs",
+  "scripts/build.mjs","scripts/static-edition.mjs","scripts/behrens-edition.mjs",
+  "web/spinoff-branch.mjs",
+  ...["01-ein-morgen.md","02-die-erste-tasse.md","03-das-kind-auf-der-strasse.md","04-die-schublade.md","05-die-fernbedienung.md","06-nichts-weiter.md","07-der-schaum.md"].map(name=>"spin-offs/herr-behrens/"+name),
   "web/index.html","web/app.js","web/updates.mjs","web/reading-mode.mjs",
   "web/speech.mjs","web/sw.js","web/style.css","web/static-reader.css",
+  "site/herr-behrens/index.html","site/herr-behrens/style.css",
   "site/_headers","site/llms.txt","site/.well-known/ai-catalog.json","site/.well-known/ard.json"
-].map(read).join("\n")).digest("hex").slice(0,16);
+].map(read).join("\n")).update(readFileSync(resolve(root,"site/herr-behrens/preview.jpg"))).digest("hex").slice(0,16);
+// Independent landing page, with a share-preview JPEG committed as a binary asset.
+write("herr-behrens/index.html",read("site/herr-behrens/index.html"));
+write("herr-behrens.css",read("site/herr-behrens/style.css"));
+cpSync(resolve(root,"site/herr-behrens/preview.jpg"),resolve(out,"herr-behrens-preview.jpg"));
 write("version.json",JSON.stringify({version:releaseId}));
 const staticChapters=generateStaticEdition({manifest,pages:base,write,markdownToHtml});
+const behrensChapters=generateBehrensEdition({read,write,markdownToHtml});
 const catalog=[];
 const chapterMap=Object.fromEntries(manifest.manuskript.map((m,i)=>[m.path,{id:"ch"+String(i+1).padStart(2,"0"),label:m.label,url:"/agent/v1/chapters/ch"+String(i+1).padStart(2,"0")+".json",source:m.path}]));
 const chapterContents=new Map(Object.values(chapterMap).map(c=>[c.id,[]]));
@@ -127,8 +136,8 @@ const mainManifest=JSON.parse(read("site/site.webmanifest"));
 mainManifest.id="/";mainManifest.start_url="/";mainManifest.scope="/";
 mainManifest.icons=[{src:"/web/icon-192.png",sizes:"192x192",type:"image/png"},{src:"/web/icon-512.png",sizes:"512x512",type:"image/png"}];
 write("site.webmanifest",JSON.stringify(mainManifest));
-const cacheShell=["index.html","app.js","updates.mjs","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","style.css","static-reader.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
-const cacheId=createHash("sha256").update(editionHash).update(Buffer.concat(cacheShell.map(f=>readFileSync(resolve(out,"web",f))))).update(readFileSync(resolve(out,"index.html"))).digest("hex").slice(0,16);
+const cacheShell=["index.html","app.js","updates.mjs","reading-mode.mjs","engine.mjs","speech.mjs","markdown.mjs","spinoff-branch.mjs","style.css","static-reader.css","manifest.webmanifest","icon.svg","icon-192.png","icon-512.png"];
+const cacheId=createHash("sha256").update(editionHash).update(Buffer.concat(cacheShell.map(f=>readFileSync(resolve(out,"web",f))))).update(readFileSync(resolve(out,"index.html"))).update(readFileSync(resolve(out,"herr-behrens-preview.jpg"))).digest("hex").slice(0,16);
 const worker=read("web/sw.js").replace("__CACHE_ID__",cacheId);
 write("web/sw.js",worker);
 write("sw.js",worker);
@@ -145,9 +154,9 @@ if(process.env.SITE_URL){
   const canonical=origin+"/";
   writeFileSync(file,html.replace("</head>",'<link rel="canonical" href="'+canonical+'"><meta property="og:url" content="'+canonical+'"></head>'));
  }
- const urls=["/","/lesen/","/lesen/inhaltsverzeichnis/","/lesen/gesamt/",...Array.from({length:14},(_,i)=>"/lesen/kapitel-"+String(i+2).padStart(2,"0")+"/"),"/about/","/impressum/","/datenschutz/"];
+ const urls=["/","/herr-behrens/","/lesen/","/lesen/inhaltsverzeichnis/","/lesen/gesamt/",...Array.from({length:14},(_,i)=>"/lesen/kapitel-"+String(i+2).padStart(2,"0")+"/"),"/lesen/herr-behrens/","/lesen/herr-behrens/gesamt/",...Array.from({length:7},(_,i)=>"/lesen/herr-behrens/kapitel-"+String(i+1).padStart(2,"0")+"/"),"/about/","/impressum/","/datenschutz/"];
  write("sitemap.xml",'<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls.map(path=>"<url><loc>"+origin+path+"</loc></url>").join("")+"</urlset>");
  write("robots.txt",read("site/robots.txt")+"Sitemap: "+origin+"/sitemap.xml\n");
 }
 
-console.log("Built "+base.length+" agent events, "+staticChapters+" static chapters, release "+releaseId+"; no dependencies, public output only in dist/");
+console.log("Built "+base.length+" agent events, "+staticChapters+" static chapters, "+behrensChapters+" spin-off chapters, release "+releaseId+"; no dependencies, public output only in dist/");

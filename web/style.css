@@ -210,3 +210,8 @@ progress::-moz-progress-bar { background: var(--accent); }
   color: var(--ink); background: var(--panel);
   font: 15px/1.6 system-ui, sans-serif;
 }
+
+/* An editorial optional side path, not another choice in the story graph. */
+.nebenweg{margin:1.7em 0;padding:1em 1.15em;border-inline-start:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 5%,var(--paper));font:14px/1.65 system-ui,sans-serif;}
+.nebenweg p{margin:0 0 .65em}.nebenweg p:last-child{margin-bottom:0}
+.nebenweg-label{font-weight:700;letter-spacing:.015em}

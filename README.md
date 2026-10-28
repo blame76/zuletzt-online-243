@@ -55,3 +55,14 @@ Niemand publiziert eingehende Rezensionen automatisch. Moderation nur via Cloudf
 
 ## Review des Release-Kandidaten
 Die externen Review-Befunde und ihre Bearbeitung sind in [docs/REVIEW-RESPONSE.md](docs/REVIEW-RESPONSE.md) dokumentiert. Es gibt **keine** automatische Produktionsfreigabe. 20 automatische Tests (13 Unit/Graph/Review/Markdown und 7 Build/Agent/Cache) sind im Run 40304898906 nachgewiesen. Live-Cloudflare-/WCAG-/Performance-Tests stehen aus.
+
+## Optionaler Nebenweg: Herr Behrens
+
+In der Sonntagszene von `manuskript/009-nachwehen.md`, unmittelbar vor dem Aufeinandertreffen um 9:26 Uhr, erscheint im Reader ein zurückhaltender Link auf `/lesen/herr-behrens/`. Der Quelltext des Ursprungsromans und die fünf 3-Wege-Entscheidungen bleiben unverändert. Der Nebenweg enthält derzeit sieben Kapitel, getrennte Kapitelansichten sowie eine statische Gesamtfassung; danach führt ein Rücklink direkt zur Begegnung mit Thomas. Inhaltliche Quelle und eingefrorener Stand stehen in `spin-offs/herr-behrens/README.md`. Aktualisierung erfolgt nur nach manueller Prüfung.
+
+## Eigene Einstiegsseite und Teilen
+
+- `/herr-behrens/` ist der eigenständige Einstieg. Der Link steht im Footer der interaktiven und statischen Originalfassung.
+- Das JPEG `/herr-behrens-preview.jpg` (600 × 315 px) zeigt ausschließlich den Titel **Herr Behrens** und den Rasierer. Die OG- und Twitter-Metadaten dieser URL verweisen darauf, nicht auf das Hauptbuch-Cover.
+- Die Bilddatei gehört zum PWA-Offline-Paket und zum Versionsfingerabdruck, damit geänderte Vorschaubilder nicht unbemerkt aus dem alten Cache geladen werden.
+- Quellgrafik und Seitenimplementierung sind getrennt vom literarischen Manuskript.

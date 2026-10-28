@@ -1,0 +1,16 @@
+.behrens-landing{background:var(--paper);color:var(--ink);min-width:280px}
+.behrens-top{max-width:950px;margin:auto;padding:24px clamp(20px,5vw,48px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font:13px/1.55 system-ui,sans-serif;color:var(--muted)}
+.behrens-top a{color:var(--ink)}
+.behrens-landing main{max-width:950px;margin:auto;padding:8px clamp(20px,5vw,48px) 64px}
+.behrens-hero{border-radius:2px;overflow:hidden;background:#29343b;box-shadow:0 12px 38px rgba(0,0,0,.14)}
+.behrens-hero img{display:block;width:100%;height:auto;aspect-ratio:40/21;object-fit:cover}
+.behrens-copy{margin:40px auto 0;max-width:690px}
+.behrens-overline{margin:0 0 8px!important;text-transform:uppercase;letter-spacing:.21em;color:var(--muted);font:600 11px/1.5 system-ui,sans-serif}
+.behrens-copy h1{margin:0 0 20px;font:400 clamp(38px,7vw,64px)/1.1 Georgia,serif;letter-spacing:-.035em}
+.behrens-copy p{font:19px/1.8 Georgia,serif;margin:0 0 20px}
+.behrens-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;margin-top:30px;font:14px/1.6 system-ui,sans-serif}
+.behrens-actions a{padding:10px 0}
+.behrens-actions .behrens-primary{display:inline-block;padding:13px 20px;background:var(--accent);color:var(--paper);text-decoration:none;font-weight:600;border-radius:4px}
+.behrens-bottom{max-width:950px;margin:0 auto;padding:24px clamp(20px,5vw,48px) 48px;border-top:1px solid var(--line);font:13px/1.8 system-ui,sans-serif;color:var(--muted)}
+.behrens-bottom p{margin:12px 0}
+@media(max-width:600px){.behrens-top span{display:none}.behrens-copy{margin-top:26px}.behrens-copy p{font-size:17px}}

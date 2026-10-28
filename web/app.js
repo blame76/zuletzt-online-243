@@ -1,6 +1,7 @@
 import { buildPages, resourcePaths } from "./engine.mjs";
 import { SpeechReader } from "./speech.mjs";
 import { markdownToHtml } from "./markdown.mjs";
+import { withBehrensBranch } from "./spinoff-branch.mjs";
 import { swipeDirection, sceneTurn, scrollMenuState } from "./reading-mode.mjs";
 import { initUpdates } from "./updates.mjs";
 
@@ -185,7 +186,7 @@ function render() {
   } else {
     const article = document.createElement("article");
     article.className = "prose";
-    article.innerHTML = markdownToHtml(page.markdown);
+    article.innerHTML = withBehrensBranch(page, markdownToHtml(page.markdown));
     reader.append(article);
   }
   const chapter = manifest.manuskript.find(m => m.path === page.source);
