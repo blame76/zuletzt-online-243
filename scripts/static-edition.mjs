@@ -1,3 +1,4 @@
+import { withBehrensBranch } from "../web/spinoff-branch.mjs";
 // Build a fully static, sequential version of the default story path.
 // No JavaScript, local storage, cookies, client-side rendering or external fonts.
 const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({
@@ -40,7 +41,7 @@ export function generateStaticEdition({manifest,pages,write,markdownToHtml}) {
     const previous = chapter.index>0 ? chapterPath(chapter.index-1) : null;
     const next = chapter.index+1<chapters.length ? chapterPath(chapter.index+1) : null;
     const links = `<nav class="chapter-nav" aria-label="Kapitel wechseln">${previous?`<a href="${previous}" rel="prev">← Vorheriges Kapitel</a>`:`<span>Beginn des Romans</span>`}<a href="${indexPath}">Inhaltsverzeichnis</a>${next?`<a href="${next}" rel="next">Nächstes Kapitel →</a>`:`<span>Ende des Romans</span>`}</nav>`;
-    const text = chapter.scenes.map(p=>markdownToHtml(p.markdown)).join("\n");
+    const text = chapter.scenes.map(p=>withBehrensBranch(p,markdownToHtml(p.markdown))).join("\n");
     const intro = first
       ? `<p class="edition-note">Diese lineare Fassung verwendet an allen fünf Entscheidungspunkten jeweils die erste Option. Für eigene Entscheidungen die <a href="/">interaktive Fassung</a> öffnen. <a href="/lesen/gesamt/">Das gesamte Buch auf einer Seite lesen</a>.</p>`
       : "";
@@ -56,7 +57,7 @@ ${links}${footer}`;
   const continuous = chapters.map(ch =>
     '<section aria-labelledby="full-ch'+(ch.index+1)+'">'+
     '<h2 id="full-ch'+(ch.index+1)+'">'+escapeHtml(ch.label)+'</h2>'+
-    '<div class="prose">'+ch.scenes.map(s=>markdownToHtml(s.markdown)).join("\n")+'</div></section>'
+    '<div class="prose">'+ch.scenes.map(s=>withBehrensBranch(s,markdownToHtml(s.markdown))).join("\n")+'</div></section>'
   ).join("\n");
   write("lesen/gesamt/index.html",head("Gesamter Roman")+
     '<header><a href="/lesen/inhaltsverzeichnis/">← Kapitelübersicht</a><p class="edition">Statische Lesefassung · erster Erzählweg</p></header>'+

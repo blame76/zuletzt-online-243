@@ -6,7 +6,9 @@ const SHELL = [
   "/", "/web/", "/web/index.html", "/web/app.js", "/web/reading-mode.mjs", "/web/updates.mjs", "/web/speech.mjs", "/web/engine.mjs",
   "/web/style.css", "/web/static-reader.css", "/web/markdown.mjs", "/site.webmanifest",
   "/web/manifest.webmanifest", "/web/icon.svg", "/web/icon-192.png", "/web/icon-512.png",
-  "/interaktiv/entscheidungen.json", "/lesen/", "/lesen/inhaltsverzeichnis/", "/lesen/gesamt/"
+  "/interaktiv/entscheidungen.json", "/lesen/", "/lesen/inhaltsverzeichnis/", "/lesen/gesamt/",
+  "/lesen/herr-behrens/", "/lesen/herr-behrens/gesamt/",
+  ...Array.from({length:7},(_,i)=>"/lesen/herr-behrens/kapitel-"+String(i+1).padStart(2,"0")+"/")
 ];
 self.addEventListener("install", event => {
   event.waitUntil((async () => {

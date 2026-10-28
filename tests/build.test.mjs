@@ -191,6 +191,35 @@ test("focussed reader auto-hides menu only on downward scroll and reveals upward
  assert.match(html, /id="next"/);
 });
 
+test("Herr Behrens is an optional side route without changing the 243 decisions",()=>{
+ const manifest=JSON.parse(read("interaktiv/entscheidungen.json"));
+ assert.equal(manifest.nodes.length,5);
+ assert.equal(manifest.nodes.reduce((n,node)=>n*node.options.length,1),243);
+ const full=read("lesen/gesamt/index.html");
+ const ch09=read("lesen/kapitel-09/index.html");
+ const branch=read("lesen/herr-behrens/index.html");
+ const behrens=read("lesen/herr-behrens/gesamt/index.html");
+ for(const text of [full,ch09]){
+   assert.equal((text.match(/class="nebenweg"/g)||[]).length,1);
+   assert.match(text,/href="\/lesen\/herr-behrens\/"/);
+   assert.match(text,/id="behrens-begegnung"/);
+   assert.ok(text.indexOf('class="nebenweg"')<text.indexOf('id="behrens-begegnung"'));
+ }
+ assert.match(branch,/Ein Tag, ein Leben/);
+ assert.match(behrens,/Sonntag, 7:14 Uhr/);
+ assert.match(behrens,/Sonntag, 9:11 Uhr/);
+ assert.match(behrens,/href="\/lesen\/gesamt\/#behrens-begegnung"/);
+ for(let i=1;i<=7;i++){
+  const page=read("lesen/herr-behrens/kapitel-"+String(i).padStart(2,"0")+"/index.html");
+  assert.match(page,/<article/);
+  assert.match(page,/Zurück zur Begegnung mit Thomas/);
+ }
+ const original=readFileSync(resolve(baseDir,"manuskript/009-nachwehen.md"),"utf8");
+ assert.doesNotMatch(original,/nebenweg|Herr Behrens – Ein Tag, ein Leben/);
+ const feed=JSON.parse(read("agent/v1/manifest.json"));
+ assert.equal(feed.totals.choices,5);
+});
+
 test("static reading edition is complete, semantic and navigable without JS",()=>{
  const html=[];
  for(let i=1;i<=15;i++){
