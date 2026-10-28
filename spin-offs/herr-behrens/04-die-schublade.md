@@ -648,7 +648,7 @@ Der Mann blieb ebenfalls stehen.
 
 Beide beugten sich vor.
 
-Was sie betrachteten, konnte Behrens von hier aus nicht sehen.
+Was sie betrachteten, konnte er von hier aus nicht sehen.
 
 Vielleicht einen Stein.
 
@@ -744,7 +744,7 @@ Draußen war der Junge verschwunden.
 
 Der Ball auch.
 
-Behrens stellte die Tasse auf den Tisch.
+Er stellte die Tasse auf den Tisch.
 
 Er nahm den Löffel und rührte einmal um, obwohl er weder Zucker noch Milch hineingegeben hatte.
 

@@ -26,13 +26,13 @@ Beim vierten Mal versuchte der Mann, den Ball mit dem Fuß aufzufangen. Er traf 
 
 Der Junge lachte.
 
-Der Mann sagte etwas, das Behrens durch das geschlossene Fenster nicht verstand.
+Der Mann sagte etwas, das er durch das geschlossene Fenster nicht verstand.
 
 Dann ging er in die Hocke, streckte den Arm unter das Auto und zog den Ball hervor.
 
 Der Junge lachte noch immer.
 
-Behrens nahm seine Tasse und trat näher ans Fenster.
+Er nahm seine Tasse und trat näher ans Fenster.
 
 Der Mann klopfte sich die Hand am Hosenbein ab.
 
@@ -42,7 +42,7 @@ Der Junge war damit nicht einverstanden.
 
 Man konnte es ihm ansehen.
 
-Behrens musste lächeln.
+Herr Behrens musste lächeln.
 
 Er hatte ein Foto von seinem älteren Enkel, auf dem der ähnlich stand. Beide Hände nach vorn, den Mund offen, empört über irgendetwas, das inzwischen niemand mehr wusste.
 
@@ -388,7 +388,7 @@ Und erstaunlich vollständig.
 
 Die Finger, die Ohren, die Augenbrauen. Sogar Fingernägel hatte er.
 
-Behrens beugte sich ein Stück näher.
+Er beugte sich ein Stück näher.
 
 „Na du.“
 
@@ -498,7 +498,7 @@ Er betrachtete die Stirn, die geschlossenen Augen und einen winzigen hellen Punk
 
 Dann öffnete der Junge den Mund und verzog das Gesicht.
 
-Behrens erschrak ein wenig.
+Er erschrak ein wenig.
 
 „Was hat er?“
 
@@ -510,7 +510,7 @@ Nach einer Weile begann er zu schlafen.
 
 Vielleicht hatte er auch die ganze Zeit geschlafen.
 
-Behrens wusste es nicht.
+Er wusste es nicht.
 
 Er saß auf dem Stuhl und bewegte sich möglichst wenig.
 
@@ -556,7 +556,7 @@ Er trank ihn trotzdem.
 
 Sie saßen am Fenster. Auf dem Parkplatz rangierte ein Lastwagen. Der Fahrer musste mehrmals vor- und zurücksetzen, weil ein anderer Wagen ungünstig stand.
 
-Behrens beobachtete ihn.
+Er beobachtete ihn.
 
 Seine Frau sah auf ihr Telefon.
 
@@ -626,7 +626,7 @@ Der Mann fing ihn auf.
 
 Das Kind lachte.
 
-Behrens trank den letzten lauwarmen Schluck aus seiner Tasse.
+Er trank den letzten lauwarmen Schluck aus seiner Tasse.
 
 Er hätte das Fenster öffnen können, um zu hören, was die beiden sagten.
 
@@ -638,7 +638,7 @@ Der Mann versuchte, sie wieder hochzuziehen.
 
 Der Junge duckte sich.
 
-Behrens lachte leise.
+Herr Behrens lachte leise.
 
 Seine Frau war noch einmal schwanger gewesen.
 
