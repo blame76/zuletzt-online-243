@@ -28,7 +28,7 @@ export function generateStaticEdition({manifest,pages,write,markdownToHtml}) {
 <body>
 <a class="skip-link" href="#text">Zum Lesetext springen</a>`;
 
-  const footer = `<footer class="legal"><a href="/">Interaktive Fassung</a> · <a href="/about/">Über das Buch</a> · <a href="/impressum/">Impressum</a> · <a href="/datenschutz/">Datenschutz</a><p>© Benjamin Lam. Alle Rechte vorbehalten.</p></footer></body></html>`;
+  const footer = `<footer class="legal"><a href="/">Interaktive Fassung</a> · <a href="/herr-behrens/">Herr Behrens – Ein Tag, ein Leben</a> · <a href="/about/">Über das Buch</a> · <a href="/impressum/">Impressum</a> · <a href="/datenschutz/">Datenschutz</a><p>© Benjamin Lam. Alle Rechte vorbehalten.</p></footer></body></html>`;
   const index = `${head("Inhaltsverzeichnis")}
 <header><a href="/">← Interaktive Fassung</a><p class="edition">Statische Lesefassung · ein festgelegter Erzählweg</p><h1>Zuletzt online</h1><p>Inhaltsverzeichnis</p></header>
 <main id="text"><nav aria-label="Alle Kapitel"><ol class="toc">${toc}</ol></nav>

@@ -191,6 +191,19 @@ test("focussed reader auto-hides menu only on downward scroll and reveals upward
  assert.match(html, /id="next"/);
 });
 
+test("Herr Behrens has a standalone entry page and social JPEG preview",()=>{
+ const html=read("herr-behrens/index.html");
+ const photo=readFileSync(new URL("herr-behrens-preview.jpg",root));
+ assert.match(html,/<title>Herr Behrens – Ein Tag, ein Leben<\/title>/);
+ assert.match(html,/property="og:image"/);
+ assert.match(html,/name="twitter:card" content="summary_large_image"/);
+ assert.ok(photo.length>1000);
+ assert.deepEqual([...photo.slice(0,3)],[255,216,255]);
+ assert.match(html,/href="\/lesen\/herr-behrens\/kapitel-01\/"/);
+ assert.match(read("index.html"),/href="\/herr-behrens\/"/);
+ assert.match(read("lesen/gesamt/index.html"),/href="\/herr-behrens\/"/);
+});
+
 test("Herr Behrens is an optional side route without changing the 243 decisions",()=>{
  const manifest=JSON.parse(read("interaktiv/entscheidungen.json"));
  assert.equal(manifest.nodes.length,5);
@@ -201,7 +214,7 @@ test("Herr Behrens is an optional side route without changing the 243 decisions"
  const behrens=read("lesen/herr-behrens/gesamt/index.html");
  for(const text of [full,ch09]){
    assert.equal((text.match(/class="nebenweg"/g)||[]).length,1);
-   assert.match(text,/href="\/lesen\/herr-behrens\/"/);
+   assert.match(text,/href="\/herr-behrens\/"/);
    assert.match(text,/id="behrens-begegnung"/);
    assert.ok(text.indexOf('class="nebenweg"')<text.indexOf('id="behrens-begegnung"'));
  }

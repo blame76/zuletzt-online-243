@@ -46,8 +46,13 @@ const releaseId=createHash("sha256").update(editionHash).update([
   ...["01-ein-morgen.md","02-die-erste-tasse.md","03-das-kind-auf-der-strasse.md","04-die-schublade.md","05-die-fernbedienung.md","06-nichts-weiter.md","07-der-schaum.md"].map(name=>"spin-offs/herr-behrens/"+name),
   "web/index.html","web/app.js","web/updates.mjs","web/reading-mode.mjs",
   "web/speech.mjs","web/sw.js","web/style.css","web/static-reader.css",
+  "site/herr-behrens/index.html","site/herr-behrens/style.css",
   "site/_headers","site/llms.txt","site/.well-known/ai-catalog.json","site/.well-known/ard.json"
 ].map(read).join("\n")).digest("hex").slice(0,16);
+// Independent landing page, with a share-preview JPEG committed as a binary asset.
+write("herr-behrens/index.html",read("site/herr-behrens/index.html"));
+write("herr-behrens.css",read("site/herr-behrens/style.css"));
+cpSync(resolve(root,"site/herr-behrens/preview.jpg"),resolve(out,"herr-behrens-preview.jpg"));
 write("version.json",JSON.stringify({version:releaseId}));
 const staticChapters=generateStaticEdition({manifest,pages:base,write,markdownToHtml});
 const behrensChapters=generateBehrensEdition({read,write,markdownToHtml});
@@ -149,7 +154,7 @@ if(process.env.SITE_URL){
   const canonical=origin+"/";
   writeFileSync(file,html.replace("</head>",'<link rel="canonical" href="'+canonical+'"><meta property="og:url" content="'+canonical+'"></head>'));
  }
- const urls=["/","/lesen/","/lesen/inhaltsverzeichnis/","/lesen/gesamt/",...Array.from({length:14},(_,i)=>"/lesen/kapitel-"+String(i+2).padStart(2,"0")+"/"),"/lesen/herr-behrens/","/lesen/herr-behrens/gesamt/",...Array.from({length:7},(_,i)=>"/lesen/herr-behrens/kapitel-"+String(i+1).padStart(2,"0")+"/"),"/about/","/impressum/","/datenschutz/"];
+ const urls=["/","/herr-behrens/","/lesen/","/lesen/inhaltsverzeichnis/","/lesen/gesamt/",...Array.from({length:14},(_,i)=>"/lesen/kapitel-"+String(i+2).padStart(2,"0")+"/"),"/lesen/herr-behrens/","/lesen/herr-behrens/gesamt/",...Array.from({length:7},(_,i)=>"/lesen/herr-behrens/kapitel-"+String(i+1).padStart(2,"0")+"/"),"/about/","/impressum/","/datenschutz/"];
  write("sitemap.xml",'<?xml version="1.0" encoding="utf-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls.map(path=>"<url><loc>"+origin+path+"</loc></url>").join("")+"</urlset>");
  write("robots.txt",read("site/robots.txt")+"Sitemap: "+origin+"/sitemap.xml\n");
 }
