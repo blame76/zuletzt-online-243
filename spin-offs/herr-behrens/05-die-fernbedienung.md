@@ -154,7 +154,7 @@ Anschließend wurden die Stäbe gebogen.
 
 Eine andere Maschine verschweißte sie zu Körben.
 
-Behrens beugte sich ein wenig vor.
+Er beugte sich ein wenig vor.
 
 Nicht, weil er schlecht sehen konnte.
 
@@ -168,7 +168,7 @@ Vielleicht war der Greifer beweglich.
 
 Der Mann im Fernsehen erklärte etwas über Produktionszahlen.
 
-Behrens hörte nicht richtig zu.
+Er hörte nicht richtig zu.
 
 Die Kamera zeigte die Maschine nur von vorn.
 
@@ -184,7 +184,7 @@ Sie schob einen Wagen ein Stück vor und zurück.
 
 Dann hob sie ihn an.
 
-Behrens fand, dass man einen Wagen nicht anheben musste, um zu sehen, ob die Räder ordentlich liefen.
+Er fand, dass man einen Wagen nicht anheben musste, um zu sehen, ob die Räder ordentlich liefen.
 
 Aber vielleicht hatte sie noch etwas anderes geprüft.
 
@@ -212,7 +212,7 @@ Darauf hätte er gern eine Antwort gehabt.
 
 Der Sprecher erklärte stattdessen, wie viele Kilometer ein Einkaufswagen während seiner Lebensdauer ungefähr zurücklegte.
 
-Behrens versuchte, die Zahl nachzurechnen.
+Er versuchte, die Zahl nachzurechnen.
 
 Dabei fiel ihm ein, dass ein Einkaufswagen die meiste Zeit vermutlich stillstand.
 
@@ -622,7 +622,7 @@ Dabei wusste er gar nicht, was der Mann genau gemeint hatte.
 
 Vielleicht wusste der Mann es selbst nicht.
 
-Bei seinem letzten Arztbesuch hatte Behrens erwähnt, dass er nachts häufiger aufstehen müsse und es manchmal ziemlich eilig werde.
+Bei seinem letzten Arztbesuch hatte er erwähnt, dass er nachts häufiger aufstehen müsse und es manchmal ziemlich eilig werde.
 
 Der Arzt hatte gefragt, ob das neu sei.
 
@@ -630,7 +630,7 @@ Er hatte gesagt, nicht ganz.
 
 Dann hatte der Arzt noch einige Fragen gestellt.
 
-Behrens hatte sie beantwortet.
+Er hatte sie beantwortet.
 
 Nicht immer besonders genau.
 
@@ -1034,7 +1034,7 @@ Google.
 
 Man konnte dort alles nachsehen.
 
-Behrens hatte das selbst schon gemacht.
+Er hatte das selbst schon gemacht.
 
 Einmal hatte er nach einem Geräusch gesucht, das seine Waschmaschine machte.
 
@@ -1146,7 +1146,7 @@ Diesmal vielleicht wirklich.
 
 Im Wohnzimmer lief noch immer der Film.
 
-Behrens konnte die Stimme des Sprechers hören.
+Er konnte die Stimme des Sprechers hören.
 
 Als er zurückkam, stand ein Mann mit einem Einkaufswagen in einer großen Halle.
 
@@ -1158,7 +1158,7 @@ Dann drehte der Mann ihn nach links.
 
 Auch das funktionierte.
 
-Behrens blieb stehen.
+Er blieb stehen.
 
 Offenbar ging es um die Endkontrolle.
 

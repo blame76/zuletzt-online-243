@@ -130,7 +130,7 @@ Er war vielleicht fünfzehn gewesen. Oder sechzehn.
 
 Sein Vater hatte einen Rasierapparat aus Metall, der sich aufschrauben ließ. Man legte eine Klinge hinein, spannte den Kopf fest und sollte anschließend mit einiger Vorsicht damit über das Gesicht fahren.
 
-Behrens hatte zugesehen.
+Er hatte zugesehen.
 
 Er hatte vor allem wissen wollen, woher sein Vater wusste, wann es Zeit war, die Klinge zu wechseln.
 
@@ -152,7 +152,7 @@ Weil sie endlich da waren.
 
 In der Schule gab es Jungen, die sich schon rasieren mussten. Einer hatte eine so deutliche dunkle Linie über der Oberlippe, dass die anderen ihn Schnauzer nannten.
 
-Behrens beneidete ihn.
+Er beneidete ihn.
 
 Er fragte seinen Vater nicht, ob er den Rasierer benutzen dürfe.
 
@@ -186,7 +186,7 @@ Sein Vater hatte genickt.
 
 Das war alles gewesen.
 
-Am nächsten Tag hatte Behrens gehofft, man würde ihm ansehen, dass er sich rasiert hatte.
+Am nächsten Tag hatte er gehofft, man würde ihm ansehen, dass er sich rasiert hatte.
 
 Niemand bemerkte es.
 
@@ -244,7 +244,7 @@ Er nahm ihn heraus.
 
 Die Klinge war noch in Ordnung.
 
-Behrens legte beides ans Waschbecken und drehte das Wasser wärmer.
+Er legte beides ans Waschbecken und drehte das Wasser wärmer.
 
 Dann sah er im Spiegel, wie weit sich sein Gesicht in den letzten Jahren verändert hatte.
 
@@ -254,7 +254,7 @@ Dafür wuchsen ihm Haare in den Ohren.
 
 Er fand das ungerecht.
 
-Früher hatte er das Problem gehabt, dass ein Frisör an der falschen Stelle zu viel abschnitt. Jetzt konnte ein Frisör sich kaum noch vergreifen, und trotzdem musste Behrens sich regelmäßig die Ohren ansehen.
+Früher hatte er das Problem gehabt, dass ein Frisör an der falschen Stelle zu viel abschnitt. Jetzt konnte ein Frisör sich kaum noch vergreifen, und trotzdem musste er sich regelmäßig die Ohren ansehen.
 
 An den Augenbrauen wuchsen einzelne Haare, die offensichtlich nichts mehr mit dem Rest zu tun haben wollten.
 
@@ -408,7 +408,7 @@ In der Schule hatten sie über Mädchen geredet, als seien die gar nicht im Raum
 
 Sie standen zu dritt oder zu viert auf dem Flur, hielten sich für unglaublich witzig und machten Bemerkungen über Körper, die ihnen nicht gehörten.
 
-Behrens hatte mitgemacht.
+Er hatte mitgemacht.
 
 Er erinnerte sich nicht an jedes Wort.
 
@@ -416,7 +416,7 @@ An einen Vorfall aus der Berufsschulzeit erinnerte er sich.
 
 Er war neunzehn, hatte gerade seine Ausbildung abgeschlossen und fühlte sich beträchtlich erwachsener, als er war.
 
-Ein Mädchen aus dem Kurs ging an der Gruppe vorbei. Einer sagte etwas. Behrens machte einen dummen Schritt auf sie zu. Er überschritt eine körperliche Grenze, die ihm nicht zustand.
+Ein Mädchen aus dem Kurs ging an der Gruppe vorbei. Einer sagte etwas. Herr Behrens machte einen dummen Schritt auf sie zu. Er überschritt eine körperliche Grenze, die ihm nicht zustand.
 
 Damals hatten die anderen gelacht.
 
@@ -474,7 +474,7 @@ Aber ob sie einen Verwandten zur Begrüßung küssen wollte, schon.
 
 Seine Mutter hatte einmal gesagt, das gehöre sich.
 
-Behrens hatte geantwortet, man könne auch einfach guten Tag sagen.
+Er hatte geantwortet, man könne auch einfach guten Tag sagen.
 
 Das war ihm damals sehr vernünftig vorgekommen.
 
@@ -486,7 +486,7 @@ Er trug Turnschuhe, die im Flur aussahen, als gehörten sie einem Erwachsenen, d
 
 Er hatte einen etwas schiefen Haarschnitt.
 
-Und er sagte beim Kennenlernen „Moin“, ohne Behrens die Hand zu geben.
+Und er sagte beim Kennenlernen „Moin“, ohne Herrn Behrens die Hand zu geben.
 
 Das störte ihn sofort.
 
@@ -500,7 +500,7 @@ Seine Frau fragte später, was er gegen den Jungen habe.
 
 „Als müsste er gleich irgendeine Prüfung bestehen.“
 
-Behrens hatte gesagt, er dürfe doch wohl wissen wollen, mit wem seine Tochter unterwegs sei.
+Er hatte gesagt, er dürfe doch wohl wissen wollen, mit wem seine Tochter unterwegs sei.
 
 „Natürlich“, sagte sie.
 
@@ -536,7 +536,7 @@ Sie zogen ihre Jacken an.
 
 Er legte eine Hand an ihren Rücken.
 
-Behrens sah das.
+Er sah das.
 
 Er sah vor allem diese Hand.
 
@@ -556,7 +556,7 @@ Seine Frau sah vom Tisch auf.
 
 „Ich hab gesehen, dass sie zusammen sind.“
 
-Behrens sagte nichts.
+Er sagte nichts.
 
 „Und sie hat auch Arme“, fügte seine Frau hinzu.
 
@@ -600,7 +600,7 @@ Er dachte später oft darüber nach, weshalb ihm diese Hand auf dem Rücken so m
 
 Vielleicht war der Junge tatsächlich ein unangenehmer Kerl gewesen.
 
-Das konnte Behrens nicht mehr entscheiden.
+Das konnte er nicht mehr entscheiden.
 
 Die beiden waren ohnehin irgendwann auseinandergegangen.
 
@@ -712,7 +712,7 @@ Nicht alle auf einmal.
 
 Eine nach der anderen.
 
-Behrens hatte daneben gesessen.
+Er hatte daneben gesessen.
 
 Er hatte bemerkt, dass er den Blick manchmal senkte, wenn die Ärztin etwas erklärte.
 
@@ -940,11 +940,11 @@ Vielleicht musste nur eine Verbindung neu gelötet werden.
 
 Er hätte den Nachmittag damit verbringen können.
 
-Aber Thomas aus dem Haus hatte neulich irgendetwas von Elektronik erzählt. Der Junge kannte sich mit neuen Geräten besser aus als Behrens, jedenfalls mit manchen.
+Aber Thomas aus dem Haus hatte neulich irgendetwas von Elektronik erzählt. Der Junge kannte sich mit neuen Geräten besser aus als Herr Behrens, jedenfalls mit manchen.
 
 Vielleicht hatte er einen Rat.
 
-Und wenn nicht, konnte Behrens noch immer selbst nachsehen.
+Und wenn nicht, konnte er noch immer selbst nachsehen.
 
 Er nahm den Karton.
 

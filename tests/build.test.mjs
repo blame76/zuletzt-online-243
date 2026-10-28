@@ -204,6 +204,14 @@ test("Herr Behrens has a standalone entry page and social JPEG preview",()=>{
  assert.match(read("lesen/gesamt/index.html"),/href="\/herr-behrens\/"/);
 });
 
+test("Herr Behrens is consistently named in the seven published manuscripts",()=>{
+ const files=["01-ein-morgen.md","02-die-erste-tasse.md","03-das-kind-auf-der-strasse.md","04-die-schublade.md","05-die-fernbedienung.md","06-nichts-weiter.md","07-der-schaum.md"];
+ for(const file of files){
+  const text=readFileSync(new URL("../spin-offs/herr-behrens/"+file,import.meta.url),"utf8");
+  assert.doesNotMatch(text,/(?<!Herrn? )\bBehrens\b/,file);
+ }
+});
+
 test("Herr Behrens is an optional side route without changing the 243 decisions",()=>{
  const manifest=JSON.parse(read("interaktiv/entscheidungen.json"));
  assert.equal(manifest.nodes.length,5);

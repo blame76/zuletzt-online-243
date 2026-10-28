@@ -576,7 +576,7 @@ Der Hund schüttelte sich neben dem kleinen Hafen.
 
 Ein Teil der Steine fiel um.
 
-Behrens wartete darauf, dass sie wütend wurde.
+Er wartete darauf, dass sie wütend wurde.
 
 Stattdessen kniete sie sich hin und fing an, die Steine wieder aufzustellen.
 
@@ -602,7 +602,7 @@ Der Hund blieb nicht stehen.
 
 Aber diesmal lief er ein Stück weiter rechts ins Wasser.
 
-Später hatte Behrens oft erzählt, der Hund habe auf sie gehört.
+Später hatte er oft erzählt, der Hund habe auf sie gehört.
 
 Seine Frau widersprach ihm dann.
 
