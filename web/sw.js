@@ -7,6 +7,7 @@ const SHELL = [
   "/web/style.css", "/web/static-reader.css", "/web/markdown.mjs", "/web/spinoff-branch.mjs", "/site.webmanifest",
   "/web/manifest.webmanifest", "/web/icon.svg", "/web/icon-192.png", "/web/icon-512.png",
   "/interaktiv/entscheidungen.json", "/lesen/", "/lesen/inhaltsverzeichnis/", "/lesen/gesamt/",
+  "/herr-behrens/", "/herr-behrens.css", "/herr-behrens-preview.jpg",
   "/lesen/herr-behrens/", "/lesen/herr-behrens/gesamt/",
   ...Array.from({length:7},(_,i)=>"/lesen/herr-behrens/kapitel-"+String(i+1).padStart(2,"0")+"/")
 ];
