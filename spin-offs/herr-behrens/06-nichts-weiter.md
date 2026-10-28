@@ -10,7 +10,7 @@ Stattdessen zeigte der Film eine Reihe fertiger Wagen, die ineinandergeschoben v
 
 Dann wurde der Bildschirm dunkel.
 
-Für einen Augenblick sah Behrens darin das Fenster hinter seinem Sofa.
+Für einen Augenblick sah er darin das Fenster hinter seinem Sofa.
 
 Es erschien ein neues Bild.
 
@@ -20,7 +20,7 @@ Diesmal ging es um eine Fischfabrik.
 
 Er las den Text darunter. Ein Mann mit Gummistiefeln hielt einen Fisch hoch und sah dabei ernst in die Kamera.
 
-Behrens hatte gegen Fisch nichts einzuwenden.
+Er hatte gegen Fisch nichts einzuwenden.
 
 Aber er wollte jetzt nicht wissen, wie man ihn verpackte.
 
@@ -236,7 +236,7 @@ Sein Vater hatte nach der Rente auch viel gesessen.
 
 Dachte er jedenfalls.
 
-Wenn Behrens an ihn dachte, sah er ihn meistens in einem Sessel. Die Zeitung aufgeschlagen, die Lesebrille ein Stück auf die Nase gerutscht.
+Wenn Herr Behrens an seinen Vater dachte, sah er ihn meistens in einem Sessel. Die Zeitung aufgeschlagen, die Lesebrille ein Stück auf die Nase gerutscht.
 
 Das Bild war vermutlich ungerecht.
 
@@ -244,7 +244,7 @@ Sein Vater hatte einen Garten gehabt, er hatte Reparaturen gemacht, war mit dem 
 
 Er hatte durchaus etwas getan.
 
-Aber Behrens sah ihn im Sessel.
+Aber er sah ihn im Sessel.
 
 Vielleicht weil er ihn dort meistens angetroffen hatte.
 
@@ -340,11 +340,11 @@ Sie wollte sofort wissen, wie viele Rippen Menschen überhaupt hätten.
 
 Sein Vater sagte, das sei eine gute Frage.
 
-Dann schaute er zu Behrens herüber.
+Dann schaute er zu Herrn Behrens herüber.
 
 „Na?“
 
-Behrens wusste es nicht genau.
+Er wusste es nicht genau.
 
 Er wusste zwar einiges über elektrische Leitungen, aber nicht mehr, wie viele Rippen ein Mensch hatte.
 
@@ -366,7 +366,7 @@ Sie hatte einen braunen Fuß und einen Schirm aus Stoff, dessen Farbe man schwer
 
 Sein Vater erklärte, dass sie nur noch funktioniere, wenn man am Kabel wackelte.
 
-Behrens nahm den Stecker in die Hand.
+Er nahm den Stecker in die Hand.
 
 „Dann benutzt du die aber nicht mehr.“
 
@@ -386,7 +386,7 @@ Seine Mutter stellte Teller auf den Tisch.
 
 „Müsst ihr das jetzt machen?“
 
-„Dauert nicht lang“, sagte Behrens.
+„Dauert nicht lang“, sagte er.
 
 „Das sagt ihr immer.“
 
@@ -404,7 +404,7 @@ Sehr schief.
 
 Sein Vater hatte eine genaue Meinung dazu, wie es hätte gemacht werden müssen.
 
-Behrens hörte zu, klemmte die Leitung an und prüfte, ob alles festsaß.
+Herr Behrens hörte zu, klemmte die Leitung an und prüfte, ob alles festsaß.
 
 Seine Mutter kam aus der Küche.
 
@@ -426,7 +426,7 @@ Sie schüttelte den Kopf.
 
 „Das hätte ihm bestimmt gefallen.“
 
-Behrens schraubte die Lampe wieder zusammen.
+Er schraubte die Lampe wieder zusammen.
 
 Später musste er oft an das Tor denken.
 
@@ -478,7 +478,7 @@ Alle hatten es gesehen.
 
 Niemand sagte etwas.
 
-Nach dem Kaffee wollte Behrens aufbrechen.
+Nach dem Kaffee wollte er aufbrechen.
 
 Er musste noch etwas erledigen.
 
@@ -520,7 +520,7 @@ Die Kleine sah ihn an.
 
 Sie überlegte ernsthaft.
 
-Behrens wartete.
+Herr Behrens wartete.
 
 Dann kam sie doch und schlüpfte in die Jacke.
 
@@ -556,7 +556,7 @@ Vielleicht hätte der Vater ihm etwas erzählt.
 
 Vielleicht hätte er auch nur gesagt, er mache dies und das.
 
-Das sagte Behrens heute selbst oft.
+Das sagte er heute selbst oft.
 
 *Dies und das.*
 
@@ -590,7 +590,7 @@ Einmal hatte jemand gesagt, früher sei das alles anders gewesen.
 
 Die alten Leute hätten bei der Familie gewohnt, dann sei immer jemand dagewesen.
 
-Behrens wusste nicht, wann dieses Früher gewesen sein sollte.
+Er wusste nicht, wann dieses Früher gewesen sein sollte.
 
 Seine Großmutter hatte eine Zeit lang mit Verwandten unter einem Dach gelebt.
 
@@ -632,7 +632,7 @@ Im Fernsehen erschien ein kleines Fenster.
 
 *Die nächste Sendung beginnt in 8 Sekunden.*
 
-Behrens hatte gar nicht gewusst, dass die vorige Sendung noch lief.
+Er hatte gar nicht gewusst, dass die vorige Sendung noch lief.
 
 Ein Kreis drehte sich.
 
@@ -670,7 +670,7 @@ Manche Namen kannte er.
 
 Bei anderen erkannte er erst auf dem Foto jemanden, den er früher regelmäßig gesehen hatte.
 
-Neulich war ein Mann gestorben, der im selben Betrieb gearbeitet hatte wie Behrens, allerdings in einer anderen Abteilung.
+Neulich war ein Mann gestorben, der im selben Betrieb gearbeitet hatte wie Herr Behrens, allerdings in einer anderen Abteilung.
 
 Jünger als er.
 
@@ -680,7 +680,7 @@ Ein Bekannter hatte am Telefon gesagt:
 
 „Na ja. War ja auch schon alt.“
 
-Behrens hatte die Zahl noch vor Augen.
+Er hatte die Zahl noch vor Augen.
 
 Drei Jahre jünger als er selbst.
 
@@ -822,7 +822,7 @@ Es war nur selten etwas, das ihn wirklich betraf.
 
 Die Kinder hatten Prüfungen, Freunde, Streit, neue Schuhe. Seine Tochter hatte Termine bei der Arbeit. Ihr Mann musste gelegentlich verreisen.
 
-Behrens hörte zu.
+Er hörte zu.
 
 Er stellte Fragen.
 
@@ -948,7 +948,7 @@ Der Zug hatte die Brücke verlassen.
 
 Ein Sprecher erzählte etwas über die Spannweite.
 
-Behrens hörte nur die Hälfte.
+Er hörte nur die Hälfte.
 
 Seine Augen waren nicht müde.
 
@@ -972,7 +972,7 @@ Ein neuer Vorgesetzter?
 
 Eine Versetzung?
 
-Behrens konnte sich nicht mehr erinnern.
+Er konnte sich nicht mehr erinnern.
 
 Was arbeitete sein Schwiegersohn eigentlich genau?
 
@@ -990,17 +990,17 @@ Er hatte es ihm bestimmt schon erklärt.
 
 Mehr als einmal vermutlich.
 
-Behrens wusste, dass er gern Dinge mit den Händen machte. Einmal hatten sie gemeinsam einen Schrank aufgebaut und sich darüber gestritten, ob man die Rückwand zuerst befestigen müsse.
+Er wusste, dass sein Schwiegersohn gern Dinge mit den Händen machte. Einmal hatten sie gemeinsam einen Schrank aufgebaut und sich darüber gestritten, ob man die Rückwand zuerst befestigen müsse.
 
 Der Schwiegersohn hatte recht gehabt.
 
-Das wusste Behrens noch.
+Das wusste er noch.
 
 Er wusste, wie der Mann seine Brötchen aufschnitt. Immer ganz vorsichtig, damit die obere Hälfte nicht auseinanderbrach.
 
 Er wusste, dass er keine Oliven mochte.
 
-Aber womit er sein Geld verdiente, das hätte Behrens gerade niemandem vernünftig erklären können.
+Aber womit er sein Geld verdiente, das hätte Herr Behrens gerade niemandem vernünftig erklären können.
 
 Er würde beim nächsten Mal fragen.
 
@@ -1060,7 +1060,7 @@ Der Bildschirm zeigte nun das Innere des silbernen Gebäudes.
 
 Darin standen große Maschinen.
 
-Behrens hätte vermutlich etwas Interessantes darüber erfahren können.
+Er hätte vermutlich etwas Interessantes darüber erfahren können.
 
 Aber er wollte jetzt doch lieber ins Badezimmer.
 
