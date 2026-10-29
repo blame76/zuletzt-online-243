@@ -372,35 +372,21 @@ Er selbst war ja auch nicht derselbe geblieben.
 
 Aber bei ihrem Körper hatte er die Veränderungen manchmal schneller bemerkt als bei seinem eigenen.
 
-Das war ihm später unangenehm gewesen.
+Das war ihm schon früher gelegentlich unangenehm gewesen. Er hatte es nur selten gesagt.
 
-Nicht, weil er sie angesehen hatte.
+Als sie jung gewesen waren, hatte ihn das Aussehen ihrer Brüste sehr beschäftigt. Eine Zeit lang hatte er darüber geredet, als gehe es vor allem darum, wie schön er sie fand.
 
-Sondern weil er dabei oft so getan hatte, als müsse alles mit dem verglichen werden, was er von früher kannte.
+Später hatte er das anders gesehen.
 
-Ihre Brüste hatten sich verändert.
+Nicht von einem Tag auf den anderen. Er hatte sich auch Jahre danach noch mit Sätzen herausgeredet, die mit „Damals waren wir eben so“ anfingen.
 
-Als sie jung gewesen waren, hatte ihn das Aussehen ihrer Brüste sehr beschäftigt.
+Seine Frau hatte manchmal darüber gelacht, wie wichtig ihm früher die Meinung anderer Männer gewesen war.
 
-Er hätte damals nicht gewusst, wie er darüber reden sollte, ohne entweder albern oder großspurig zu klingen.
+Er hatte mitgelacht.
 
-Es waren ihre Brüste gewesen.
+Manchmal erst ein bisschen später.
 
-Das hatte er natürlich gewusst.
-
-Trotzdem hatte er eine Zeit lang so gedacht, als hätte ihr Körper vor allem etwas mit ihm zu tun.
-
-Damit, wie schön er ihn fand.
-
-Damit, was andere Männer über ihn denken würden, wenn sie ihn mit ihr sahen.
-
-Er sagte sich, dass man in seiner Jugend eben so gewesen sei.
-
-Dann fragte er sich, wer dieses *man* eigentlich gewesen war.
-
-Nicht alle Männer waren so gewesen.
-
-Und dass etwas üblich gewesen war, machte es nicht besser.
+Nicht alle Männer waren damals so gewesen. Das wusste er inzwischen auch. Aber es fiel ihm gelegentlich leichter, an die Zeit zu denken als an das, was er selbst getan hatte.
 
 ***
 
@@ -416,13 +402,13 @@ An einen Vorfall aus der Berufsschulzeit erinnerte er sich.
 
 Er war neunzehn, hatte gerade seine Ausbildung abgeschlossen und fühlte sich beträchtlich erwachsener, als er war.
 
-Ein Mädchen aus dem Kurs ging an der Gruppe vorbei. Einer sagte etwas. Herr Behrens machte einen dummen Schritt auf sie zu. Er überschritt eine körperliche Grenze, die ihm nicht zustand.
+Eine junge Frau aus dem Kurs ging an der Gruppe vorbei. Einer sagte etwas. Herr Behrens trat auf sie zu und griff ihr an die Brust.
 
-Damals hatten die anderen gelacht.
+Die anderen lachten.
 
 Er auch.
 
-Die junge Frau hatte sich umgedreht.
+Die junge Frau drehte sich um.
 
 Sie sagte etwas.
 
@@ -430,13 +416,13 @@ Er wusste nicht mehr, was.
 
 Er wusste nur, dass sie nicht gelacht hatte.
 
-Und dass er sich damals im Schutz des Gelächters der anderen für einen besonders mutigen Kerl hielt.
+Damals hatte er sich im Schutz des Gelächters der anderen für einen besonders mutigen Kerl gehalten.
 
-Er war kein mutiger Kerl gewesen.
+Jahrelang hatte er die Sache in Gedanken kleiner gemacht. Ein dummer Scherz. Eine Dummheit mit neunzehn.
 
-Er hatte sich etwas herausgenommen.
+Irgendwann hatten ihm diese Worte nicht mehr gereicht. Er hatte einer Frau ungefragt an die Brust gefasst. Ein sexueller Übergriff.
 
-Es gab nichts daran, das im Rückblick freundlicher wurde.
+Das nannte er seit Langem so. Es machte nichts rückgängig.
 
 Er konnte sich an ihren Nachnamen erinnern.
 
@@ -596,41 +582,25 @@ Er hörte wieder auf.
 
 ***
 
-Er dachte später oft darüber nach, weshalb ihm diese Hand auf dem Rücken so missfallen hatte.
+An die Hand auf dem Rücken seiner Tochter hatte er später oft gedacht.
 
-Vielleicht war der Junge tatsächlich ein unangenehmer Kerl gewesen.
+Zunächst war er dabei geblieben, dass der Junge ein unangenehmer Kerl gewesen sei. Er habe schließlich nur auf seine Tochter aufpassen wollen.
 
-Das konnte er nicht mehr entscheiden.
+Wenn ihm die Szene einige Jahre später wieder einfiel, fand er manchmal vor allem sich selbst unangenehm. Wie er im Flur gestanden und auf die Hand gestarrt hatte. Als dürfte seine Tochter nicht selbst entscheiden, wer sie berührte.
 
-Die beiden waren ohnehin irgendwann auseinandergegangen.
+Dann verging wieder Zeit, und er fragte sich, ob er vielleicht doch etwas an dem Jungen bemerkt hatte.
 
-Vielleicht hatte seine Tochter ihn verlassen.
+Die beiden waren irgendwann auseinandergegangen. Er wusste nicht mehr, wer sich von wem getrennt hatte. Er konnte aus dem Ende der Beziehung keinen Beweis dafür machen, dass sein Misstrauen richtig gewesen war.
 
-Vielleicht war es umgekehrt gewesen.
+Manchmal dachte er, er habe in dem Jungen den Neunzehnjährigen gesehen, der er selbst gewesen war.
 
-Er wusste nur noch, dass sie damals eine Zeit lang schlecht gelaunt gewesen war.
+Manchmal fand er diese Erklärung auch ziemlich bequem.
 
-Manchmal fragte er sich, ob er im Flur nicht etwas anderes gesehen hatte als das, was dort wirklich passierte.
+Seiner Tochter hatte er nie von der jungen Frau aus der Berufsschule erzählt. Sie hätte womöglich verstanden, weshalb ihn die Erinnerung beschäftigte. Aber eine Entschuldigung bei der Tochter wäre keine Entschuldigung bei jener Frau gewesen.
 
-Vielleicht hatte er einfach den Jungen gesehen, der er selbst einmal gewesen war.
+Das wusste er seit Langem.
 
-Und wollte ihn lieber vor die Tür setzen.
-
-Das war auch bequem.
-
-Wenn der andere der Arsch war, brauchte man sich um seine eigene Geschichte nicht mehr zu kümmern.
-
-Er hatte seiner Tochter nichts von dem Vorfall aus der Berufsschule erzählt.
-
-Es wäre auch eine merkwürdige Beichte gewesen, ausgerechnet bei ihr.
-
-Sie hätte vielleicht fragen können, ob er denn verstanden habe, was daran falsch gewesen sei.
-
-Das hätte er bejahen können.
-
-Es hätte trotzdem nichts geändert.
-
-Er hatte es damals getan.
+Was er getan hatte, blieb trotzdem geschehen.
 
 ***
 
@@ -824,15 +794,11 @@ Ihre Brüste hatten ihr gehört. Sie hatte mit diesem Körper gelebt, Kinder bek
 
 Er hatte sie geliebt.
 
-Nicht immer gut genug verstanden.
+Er hatte sie nicht immer verstanden. Das hatte er schon gewusst, als sie noch lebte, und sie hatte es ihm gelegentlich deutlich gesagt.
 
-Nicht immer aufmerksam genug angesehen.
+Die Krankheit hatte ihnen beiden Zeit genommen, ihr mehr als ihm.
 
-Aber er hatte sie geliebt.
-
-Und die Krankheit war etwas gewesen, das ihnen beiden Zeit genommen hatte, ihr mehr als ihm.
-
-Er hatte lange gebraucht, um aufzuhören, darüber nachzudenken, ob sie irgendwo hätten früher sein müssen.
+Über die Frage, ob sie irgendwo früher hätten sein müssen, war er über Jahre immer wieder gestolpert.
 
 Bei welchem Termin.
 
@@ -840,9 +806,11 @@ Bei welchem Zeichen.
 
 Bei welcher Frage.
 
-Vielleicht ließ man solche Überlegungen nie ganz sein.
+Es gab Zeiten, in denen er diese Fragen tagelang nicht stellte. Dann war plötzlich eine wieder da.
 
-Er jedenfalls nicht.
+Dass er keine Antwort fand, hatte er längst akzeptiert.
+
+Er stellte die Fragen trotzdem manchmal noch.
 
 Aber er wusste, dass er aus dem Badezimmer mit dem einzelnen Brusthaar keinen Anfang einer Geschichte machen durfte, die dort noch gar nicht begonnen hatte.
 
@@ -911,6 +879,14 @@ Er stellte die Schachtel auf den kleinen Hocker neben der Tür.
 Dann zog er sich an.
 
 Das Hemd hatte er gestern schon herausgelegt. Er mochte es, wenn morgens alles bereitlag.
+
+Als er die Socken anzog, sah er auf den Nagel seiner großen Zehe.
+
+Der war dick geworden. So dick, dass die gewöhnliche Nagelschere daran abrutschte. Er hatte sich dafür einen Knipser besorgt, der aussah, als könnte man damit dünnes Blech schneiden.
+
+Neulich war ein Stück Nagel beim Schneiden durch das Badezimmer geflogen. Er hatte es nicht wiedergefunden.
+
+Spätestens beim nächsten Staubsaugen würde es wohl auftauchen. Hoffentlich im Staubsauger und nicht in seinem Fuß.
 
 Beim Zuknöpfen musste er die Brille wieder aufsetzen.
 

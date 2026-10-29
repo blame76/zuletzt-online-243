@@ -58,7 +58,7 @@ Die externen Review-Befunde und ihre Bearbeitung sind in [docs/REVIEW-RESPONSE.m
 
 ## Optionaler Nebenweg: Herr Behrens
 
-In der Sonntagszene von `manuskript/009-nachwehen.md`, unmittelbar vor dem Aufeinandertreffen um 9:26 Uhr, erscheint im Reader ein zurückhaltender Link auf `/lesen/herr-behrens/`. Der Quelltext des Ursprungsromans und die fünf 3-Wege-Entscheidungen bleiben unverändert. Der Nebenweg enthält derzeit sieben Kapitel, getrennte Kapitelansichten sowie eine statische Gesamtfassung; danach führt ein Rücklink direkt zur Begegnung mit Thomas. Inhaltliche Quelle und eingefrorener Stand stehen in `spin-offs/herr-behrens/README.md`. Aktualisierung erfolgt nur nach manueller Prüfung.
+In der Sonntagszene von `manuskript/009-nachwehen.md`, unmittelbar vor dem Aufeinandertreffen um 9:26 Uhr, erscheint im Reader ein zurückhaltender Link auf `/lesen/herr-behrens/`. Der Quelltext des Ursprungsromans und die fünf 3-Wege-Entscheidungen bleiben unverändert. Der Nebenweg enthält derzeit zehn Kapitel, getrennte Kapitelansichten sowie eine statische Gesamtfassung; der Rücklink führt zur ursprünglichen Begegnung mit Thomas. Inhaltliche Quelle und eingefrorener Stand stehen in `spin-offs/herr-behrens/README.md`. Aktualisierung erfolgt nur nach manueller Prüfung.
 
 ## Eigene Einstiegsseite und Teilen
 

@@ -16,7 +16,13 @@ Ganz weg war der Zug nicht.
 
 Vielleicht kam er inzwischen woanders her.
 
-Er legte die Hände auf die Knie und stand auf.
+Er schob die Füße ein Stück zurück, bis sie unter den Knien standen. Dann stützte er sich mit den Händen ab und beugte sich vor.
+
+So ging es leichter.
+
+Er stand auf. Nicht in einem Zug. Erst nach vorn, dann hoch, dann noch einen Moment stehen bleiben. Diese kleine Reihenfolge hatte er sich nicht bewusst angewöhnt. Sie war irgendwann da gewesen.
+
+Heute machten die Beine gut mit.
 
 Im Flur ging er an der Garderobe vorbei. An einem Haken hing ihre alte Stofftasche. Eine große, dunkelgrüne, mit breiten Henkeln. Sie hatte sie zum Einkaufen benutzt, obwohl sie noch drei andere besessen hatte. Die grüne sei bequemer, hatte sie gesagt.
 

@@ -43,7 +43,7 @@ const editionHash=createHash("sha256").update("reading-layout-v2\n").update(JSON
 const releaseId=createHash("sha256").update(editionHash).update([
   "scripts/build.mjs","scripts/static-edition.mjs","scripts/behrens-edition.mjs",
   "web/spinoff-branch.mjs",
-  ...["01-ein-morgen.md","02-die-erste-tasse.md","03-das-kind-auf-der-strasse.md","04-die-schublade.md","05-die-fernbedienung.md","06-nichts-weiter.md","07-der-schaum.md"].map(name=>"spin-offs/herr-behrens/"+name),
+  ...["01-ein-morgen.md","02-die-erste-tasse.md","03-das-kind-auf-der-strasse.md","04-die-schublade.md","05-die-fernbedienung.md","06-nichts-weiter.md","07-der-schaum.md","08-die-brotdose.md","09-was-tun.md","10-lost-in-translation.md"].map(name=>"spin-offs/herr-behrens/"+name),
   "web/index.html","web/app.js","web/updates.mjs","web/reading-mode.mjs",
   "web/speech.mjs","web/sw.js","web/style.css","web/static-reader.css",
   "site/herr-behrens/index.html","site/herr-behrens/style.css",

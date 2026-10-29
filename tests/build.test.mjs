@@ -204,11 +204,11 @@ test("Herr Behrens has a standalone entry page and social JPEG preview",()=>{
  assert.match(read("lesen/gesamt/index.html"),/href="\/herr-behrens\/"/);
 });
 
-test("Herr Behrens is consistently named in the seven published manuscripts",()=>{
- const files=["01-ein-morgen.md","02-die-erste-tasse.md","03-das-kind-auf-der-strasse.md","04-die-schublade.md","05-die-fernbedienung.md","06-nichts-weiter.md","07-der-schaum.md"];
+test("Herr Behrens is consistently named in the ten published manuscripts",()=>{
+ const files=["01-ein-morgen.md","02-die-erste-tasse.md","03-das-kind-auf-der-strasse.md","04-die-schublade.md","05-die-fernbedienung.md","06-nichts-weiter.md","07-der-schaum.md","08-die-brotdose.md","09-was-tun.md","10-lost-in-translation.md"];
  for(const file of files){
   const text=readFileSync(new URL("../spin-offs/herr-behrens/"+file,import.meta.url),"utf8");
-  assert.doesNotMatch(text,/(?<!Herrn? )\bBehrens\b/,file);
+  assert.doesNotMatch(text.replace(/„[^“]*“/gs,""),/(?<!Herrn? )\bBehrens\b/,file);
  }
 });
 
@@ -229,12 +229,18 @@ test("Herr Behrens is an optional side route without changing the 243 decisions"
  assert.match(branch,/Ein Tag, ein Leben/);
  assert.match(behrens,/Sonntag, 7:14 Uhr/);
  assert.match(behrens,/Sonntag, 9:11 Uhr/);
+ assert.match(behrens,/Sonntag, 11:32 Uhr/);
+ assert.match(behrens,/Lost in Translation/);
+ assert.doesNotMatch(behrens,/Unter der Packung Ersatzklingen lag ein altes Heft/);
+ assert.match(read("lesen/herr-behrens/index.html"),/Alle zehn Kapitel/);
  assert.match(behrens,/href="\/lesen\/gesamt\/#behrens-begegnung"/);
- for(let i=1;i<=7;i++){
+ for(let i=1;i<=10;i++){
   const page=read("lesen/herr-behrens/kapitel-"+String(i).padStart(2,"0")+"/index.html");
   assert.match(page,/<article/);
   assert.match(page,/Zurück zur Begegnung mit Thomas/);
  }
+ assert.match(read("lesen/herr-behrens/kapitel-10/index.html"),/Ich hab das Ding mitgebracht/);
+ assert.match(read("lesen/herr-behrens/kapitel-10/index.html"),/Zurück zur Begegnung mit Thomas/);
  const original=readFileSync(new URL("../manuskript/009-nachwehen.md",import.meta.url),"utf8");
  assert.doesNotMatch(original,/nebenweg|Herr Behrens – Ein Tag, ein Leben/);
  const feed=JSON.parse(read("agent/v1/manifest.json"));

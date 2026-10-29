@@ -140,15 +140,41 @@ Sie lagen auf den Oberschenkeln.
 
 Die Haut war dünner als früher. Wenn er sie an einer Stelle zusammendrückte, blieb für einen Moment eine Falte stehen. Das war ihm neulich aufgefallen, als er einen Splitter herausgezogen hatte.
 
+Seine Tochter hatte sich bei ihrem letzten Besuch seine Hände angesehen.
+
+„Papa, trinkst du genug?“
+
+„Ich trinke doch Kaffee.“
+
+„Wasser, Papa.“
+
+Er hatte gesagt, er werde daran denken.
+
+Auf dem Tisch stand ein Glas. Er hatte es am Abend zuvor nicht ganz voll gemacht. Jetzt war es leer.
+
+Er hatte keinen Durst.
+
+Das machte die Sache nicht leichter. Wenn er darauf wartete, dass er Durst bekam, verging manchmal der halbe Tag.
+
+Um das Glas zu füllen, müsste er aufstehen, in die Küche gehen, den Hahn aufdrehen, zurückkommen und sich wieder setzen. Keine große Unternehmung. Nur eine, die aus mehreren kleinen bestand.
+
+Er schob das Glas zur Seite. Damit er es nicht vergaß.
+
 Manche Dinge dauerten länger.
 
 Nach dem Aufstehen brauchte er eine Weile, bis die Knie mitmachten. Auf einer Leiter fühlte er sich nicht mehr wohl. Und seit einiger Zeit war es keine gute Idee, die Toilette erst aufzusuchen, wenn es wirklich dringend wurde.
+
+Ausgerechnet mehr trinken sollte er.
 
 Sonst funktionierte er noch ganz ordentlich.
 
 Er konnte einkaufen. Er konnte sich eine Mahlzeit kochen, sogar eine gute. Er konnte eine Glühbirne auswechseln, ohne den Nachbarn zu rufen, und die meisten Rechnungen verstand er auch noch.
 
 Es gab keinen Grund, aus ihm einen Pflegefall zu machen.
+
+Mit dreißig hatte er nach einem Umzug gesagt, jetzt werde er alt. Mit fünfzig sagte er es, als er zum ersten Mal eine Lesebrille brauchte. Mit sechzig hatte er schon wieder etwas gefunden, was nicht mehr so ging wie früher.
+
+Heute hätte er gern noch einmal den Rücken des Dreißigjährigen gehabt. Oder die Augen des Fünfzigjährigen. Dabei war er damals keineswegs zufrieden gewesen.
 
 Der Arzt sagte, Bewegung sei wichtig.
 
@@ -160,9 +186,7 @@ Nur wenn andere Leute davon sprachen, dass man auch mit achtzig noch einen Marat
 
 Man musste doch nicht jede noch vorhandene Fähigkeit ausnutzen.
 
-Wenn er schnell laufen wollte, konnte er schnell laufen.
-
-Er wollte bloß selten.
+Er konnte noch zügig gehen. Hinterher brauchte er eben etwas Zeit, bis der Atem wieder ruhig war.
 
 Mit dem Spazierengehen war es etwas anderes.
 
@@ -862,7 +886,7 @@ Herr Behrens zog die Füße ein Stück unter das Sofa.
 
 Dann stellte er sie wieder anders hin.
 
-Die Beine waren angenehm schwer.
+Die Beine waren angenehm schwer. Solange er sitzen blieb, war das sogar gemütlich. Er wusste nur, dass das Aufstehen umso mehr Überlegung verlangte, je länger er sitzen blieb.
 
 Er hatte heute Morgen schon einiges getan.
 

@@ -376,6 +376,14 @@ Eher ein Ärger, der sich irgendwo im Bauch festsetzte und darauf wartete, dass 
 
 Er blieb einen Moment vor der Toilette stehen.
 
+Auf der Brille waren zwei Tropfen gelandet. Er hatte sie beim Hereinkommen nicht hochgeklappt.
+
+„Na wunderbar.“
+
+Er nahm etwas Papier und wischte darüber. Beim letzten Blatt riss das Papier an der falschen Stelle. Er betrachtete seinen Finger und nahm noch mehr Papier.
+
+Es war nicht das erste Mal, dass etwas beim Toilettengang danebenging. Was ihn daran ärgerte, war weniger die Arbeit als die Vorstellung, jemand könnte es sehen. Als wäre es weniger geschehen, solange niemand davon wusste.
+
 Dann zog er die Hose wieder hoch.
 
 Er wusch sich die Hände.
@@ -558,33 +566,21 @@ Ihre lag daneben.
 
 Er hatte sie nie weggeräumt.
 
-Es war nicht so, dass er sie jeden Morgen ansah und dabei an seine Frau dachte.
-
-Meistens war sie einfach da.
+Es war nicht so, dass er sie jeden Morgen ansah und dabei an seine Frau dachte. Meistens war sie einfach da.
 
 Heute sah er sie an.
 
-Dann dachte er wieder an die Küche.
+An den Nachmittag mit der nassen Hose hatte er später mehr als einmal gedacht.
 
-An die frisch geborene Tochter auf seinem Arm.
+Anfangs war ihm vor allem unangenehm gewesen, wie wenig er begriffen hatte. Dann hatte er sich eine Weile verteidigt, wenn ihm die Szene einfiel. Er hatte doch nur gefragt. Er hatte helfen wollen.
 
-An seine Frau, die mit einer anderen Hose zurückgekommen war.
+Das stimmte sogar.
 
-Er konnte sich noch erinnern, dass er damals nicht gewusst hatte, was er sagen sollte.
+Nur hatte seine Frau in diesem Augenblick gar keine Lösung von ihm verlangt.
 
-Das kam häufiger vor.
+Er wusste nicht mehr, wann er angefangen hatte, sich auch daran zu erinnern. Vielleicht hatte er es schon damals bemerkt, als sie ihm die Tochter zurückgab. Vielleicht erst viel später.
 
-Vielleicht hätte er einfach fragen sollen, ob es ihr gutging.
-
-Stattdessen hatte er wissen wollen, ob man es verhindern konnte.
-
-Das war durchaus eine vernünftige Frage gewesen.
-
-Nur war es wahrscheinlich nicht die Frage, die sie in diesem Augenblick gebraucht hatte.
-
-Er wusste es nicht.
-
-Er hatte sie später nicht mehr danach gefragt.
+Wenn er an sie dachte, musste er nicht jedes Mal darüber nachdenken. Manchmal sah er nur die beiden Zahnbürsten.
 
 ***
 
@@ -984,139 +980,39 @@ Jedenfalls nicht, soweit er sich erinnerte.
 
 ***
 
-Er hatte gewusst, dass Mädchen irgendwann ihre Tage bekamen.
+Er hatte natürlich gewusst, dass Mädchen ihre Tage bekamen. So ahnungslos war er nicht gewesen.
 
-Natürlich hatte er das gewusst.
+Aber über das, was seine Frau oder seine Tochter dabei erlebten, hatte er wenig gewusst. An manchen Tagen war es ihm nicht einmal eingefallen, dass er etwas nicht wusste.
 
-Er war nicht völlig ahnungslos gewesen.
+Später, als sein eigener Körper ihm Schwierigkeiten machte, kamen ihm solche Gespräche wieder in den Sinn. Nicht bei jedem Arztbesuch und nicht immer mit demselben Gefühl.
 
-Aber er hatte wenig darüber gewusst, wie es sich tatsächlich anfühlte.
+Manchmal dachte er, er hätte besser zuhören sollen.
 
-Oder wie verschieden es sich anfühlen konnte.
+Manchmal erinnerte er sich auch daran, dass er zugehört hatte. Nur eben nicht immer gut.
 
-Und er hatte vermutlich auch nicht besonders viel wissen wollen.
-
-Nicht aus böser Absicht.
-
-Es hatte ihn einfach nicht betroffen.
-
-Das war eine bequeme Art gewesen, mit Unwissen umzugehen.
-
-Wenn man selbst keine Antwort brauchte, musste man die Frage nicht stellen.
-
-Jetzt stand er mit zweiundachtzig Jahren in seinem Badezimmer und fragte sich, ob seine Frau manchmal genauso dagestanden hatte.
-
-Ob sie versucht hatte, noch rechtzeitig anzukommen.
-
-Ob sie sich über ihren Körper geärgert hatte.
-
-Ob sie manchmal zu Hause geblieben war, weil sie nicht wusste, wo unterwegs eine Toilette war.
-
-Das wusste er alles nicht.
-
-Er hatte nie gefragt.
-
-Vielleicht hatte sie es ihm erzählt, und er hatte es vergessen.
-
-Das war durchaus möglich.
-
-Er hatte schließlich auch andere Dinge vergessen, die ihr wichtig gewesen waren.
+Er konnte nicht mehr feststellen, wie oft seine Frau ihm etwas erklärt hatte. Vielleicht öfter, als er heute noch wusste.
 
 ***
 
-Seine Tochter konnte heute vermutlich sehr viel besser über solche Sachen reden.
+Seine Tochter konnte heute vermutlich freier über solche Dinge sprechen. Jedenfalls stellte er sich das so vor.
 
-Jedenfalls stellte er sich das so vor.
+Sie hatte schließlich das Internet. Man konnte fast alles nachsehen.
 
-Die jungen Leute hatten das Internet.
+Er hatte das selbst einmal mit seiner Waschmaschine versucht. Acht Antworten, die Hälfte davon widersprach einander. Am Ende hatte er sie geöffnet und einen kleinen Gegenstand herausgeholt, der zwischen Trommel und Gehäuse steckte.
 
-Google.
+Bei einem Menschen ging das nicht.
 
-Man konnte dort alles nachsehen.
+Er wollte inzwischen weniger wissen, welches Teil wo lag, als wie es sich für jemanden anfühlte, der mit seinem Körper nicht mehr immer rechnen konnte.
 
-Er hatte das selbst schon gemacht.
-
-Einmal hatte er nach einem Geräusch gesucht, das seine Waschmaschine machte.
-
-Es gab acht verschiedene Antworten.
-
-Vier davon widersprachen einander.
-
-Eine empfahl, sofort einen Fachmann zu rufen.
-
-Eine andere erklärte, man könne das Problem mit einem Schraubenzieher lösen.
-
-Er hatte schließlich die Maschine geöffnet und einen kleinen Gegenstand zwischen Trommel und Gehäuse gefunden.
-
-Danach war das Geräusch weg gewesen.
-
-Bei einem Körper ging das nicht.
-
-Man konnte ihn nicht einfach aufschrauben und nachsehen, welches Teil locker war.
-
-Er wusste, dass es Ärzte gab.
-
-Darum ging es nicht.
-
-Er hätte gern einmal mit jemandem gesprochen, der wusste, wie sich das anfühlte.
-
-Nicht mit jemandem, der ihm erklärte, welche Organe wo lagen.
-
-Das konnte er nachlesen.
-
-Er wollte wissen, ob andere Männer manchmal genauso dastanden und sich ärgerten.
-
-Ob sie nachts auch schon einmal vorsichtshalber aufgestanden waren, obwohl sie noch gar nicht mussten.
-
-Ob sie beim Einkaufen darüber nachdachten, wie weit die nächste Toilette entfernt war.
-
-Und ob sie ihren Frauen früher ebenso wenig zugehört hatten wie er.
-
-Vielleicht nicht alle.
-
-Das hoffte er jedenfalls.
+Das war eine Frage, die ihm über die Jahre näher gekommen war.
 
 ***
 
-Er fragte sich, mit wem junge Menschen heute über solche Dinge sprachen.
+Er überlegte, ob seine Tochter mit ihm darüber reden würde.
 
-Mit ihren Eltern?
+Bestimmt. Vermutlich würde sie sogar vernünftiger antworten als er damals.
 
-Mit Freunden?
-
-Mit Fremden im Internet?
-
-Vielleicht stellte man die Fragen einfach in ein Suchfeld und bekam eine Antwort.
-
-Dann brauchte man niemandem erzählen, was einen beschäftigte.
-
-Das hatte Vorteile.
-
-Man musste sich nicht schämen.
-
-Niemand lachte.
-
-Niemand schaute einen merkwürdig an.
-
-Aber man war mit der Antwort auch allein.
-
-Er wusste nicht, ob das besser war.
-
-Vielleicht war es besser.
-
-Vielleicht kam es auf die Frage an.
-
-Er dachte an seine Tochter.
-
-Er könnte sie anrufen.
-
-Natürlich konnte er das.
-
-Sie würde sich freuen.
-
-Zumindest meistens.
-
-Er stellte sich vor, wie er sagte:
+Er stellte sich vor, wie er am Telefon sagte:
 
 „Du, ich wollte dich mal was fragen.“
 
@@ -1124,23 +1020,15 @@ Und sie antwortete:
 
 „Ja, Papa?“
 
-Dann müsste er erklären, worum es ging.
+Dann müsste er erst erklären, was er meinte.
 
-Er betrachtete sich im Spiegel.
+Herr Behrens betrachtete sich im Spiegel.
 
-Nein.
+Nein. Nicht deshalb würde er sie anrufen.
 
-Das musste nun wirklich nicht sein.
+Er hatte auch einen Arzt. Beim nächsten Termin wollte er genauer fragen.
 
-Nicht heute.
-
-Er würde beim nächsten Arztbesuch genauer fragen.
-
-Das nahm er sich vor.
-
-Er hatte es sich schon ein paarmal vorgenommen.
-
-Diesmal vielleicht wirklich.
+Das hatte er sich früher schon vorgenommen und dann doch nicht getan. Manchmal fand er das ärgerlich. Manchmal war die Sache bis zum nächsten Termin einfach nicht mehr so dringend.
 
 ***
 

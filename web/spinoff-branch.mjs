@@ -10,7 +10,7 @@ export function withBehrensBranch(scene, html) {
   const branch = '<aside class="nebenweg" aria-label="Optionaler Nebenweg">' +
     '<p class="nebenweg-label">Ein anderer Blick auf denselben Sonntag</p>' +
     '<p>Thomas geht die Treppe hinunter. Für seinen Nachbarn hat dieser Morgen schon einige Stunden gedauert.</p>' +
-    '<p><a href="/herr-behrens/">Herr Behrens – Ein Tag, ein Leben</a> · Sieben Kapitel. Danach geht es hier weiter.</p>' +
+    '<p><a href="/herr-behrens/">Herr Behrens – Ein Tag, ein Leben</a> · Zehn Kapitel. Danach geht es im Hauptroman weiter.</p>' +
     '</aside>';
   return html.replace(TARGET, branch + '\n' +
     '<p id="behrens-begegnung">Unten im Treppenhaus begegnete er Herrn Behrens.</p>');
