@@ -614,7 +614,6 @@ Nur stellte er sich dabei vor, dass sie irgendwann ein Kind bekämen und dann eb
 
 Wie genau, darüber dachte er nicht nach.
 
-Es war ein sehr bequemes *eben*.
 
 ***
 
@@ -688,7 +687,7 @@ Dann fragte sie, warum eigentlich ihres.
 
 Er hatte darauf keine gute Antwort.
 
-Er hatte überhaupt keine Antwort, die nicht mit der Art zu tun hatte, wie er aufgewachsen war.
+Für ihn hatte sich das immer so gehört.
 
 Er sagte etwas über die Firma, über sein festes Gehalt und darüber, dass es doch ganz selbstverständlich sei.
 
@@ -836,7 +835,7 @@ Es waren dieselben Worte gewesen wie damals.
 
 Er hatte erst dann bemerkt, dass die Frage für sie offenbar nicht erledigt war.
 
-Er selbst musste nie entscheiden, ob er sich auf eine bessere Stelle bewerben durfte, während er Vater wurde. Das hatte er über die Jahre durchaus begriffen.
+Er selbst musste nie entscheiden, ob er sich auf eine bessere Stelle bewerben durfte, während er Vater wurde. 
 
 Wie viel es ihr damals bedeutet hatte, konnte er trotzdem nicht wissen.
 
@@ -900,7 +899,6 @@ Er sagte das damals so.
 
 *Sie bleibt zu Hause.*
 
-Es klang nach einem Ort, an dem man war, nicht nach einer Tätigkeit.
 
 Eines Abends kam er nach Hause und fand sie auf dem Boden im Wohnzimmer.
 
@@ -1196,7 +1194,7 @@ Nicht weil er zum ersten Mal eine Bettdecke bezog oder eine Toilette putzte. Im 
 
 Aber sie hatten sich gegenseitig erinnert. Der eine an Waschmittel, die andere an einen Arzttermin. Sie hatte öfter daran gedacht, wie viel Papier noch im Bad lag. Er hatte dafür im Kopf, welche Sicherung in den Keller gehörte.
 
-Sie hatten darüber gestritten, wie ungleich das verteilt war. Mehr als einmal. Es war nicht so, dass er erst nach ihrem Tod etwas davon erfuhr.
+Sie hatte oft genug mit ihm darüber gestritten, wie ungleich das verteilt war.
 
 Was ihm danach fehlte, war auch jemand, der die Hälfte der Kleinigkeiten bemerkte, bevor sie liegen blieben.
 
@@ -1226,7 +1224,6 @@ Für ihn war es ein Gedankenspiel geblieben.
 
 Für sie nicht.
 
-Das war ihm schon damals klar gewesen. Nur hatte er selten gewusst, was er daraus machen sollte.
 
 ***
 
